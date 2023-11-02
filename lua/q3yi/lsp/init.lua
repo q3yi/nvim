@@ -61,11 +61,13 @@ end
 local servers = {
     -- clangd = {},
     gopls = {},
-    -- pyright = {},
-    rust_analyzer = {},
+    hls = {},
+    html = { filetypes = { "html", "twig", "hbs"} },
+    jsonls = {},
     pylsp = {},
-    -- tsserver = {},
-    -- html = { filetypes = { "html", "twig", "hbs"} },
+    rust_analyzer = {},
+    tsserver = {},
+    marksman = {},
 
     lua_ls = {
         Lua = {

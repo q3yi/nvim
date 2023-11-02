@@ -16,8 +16,10 @@ local options = {
     expandtab = true,
     shiftwidth = 4,
     tabstop = 4,
+    softtabstop = 4,
     number = true,
     signcolumn = "yes",
+    colorcolumn = { 80, 120 },
     wrap = false,
     scrolloff = 8,
     mouse = "a",
@@ -38,17 +40,26 @@ vim.g.maplocalleader = " "
 local set_keymap = vim.keymap.set
 local opts = { noremap = true, silent = true}
 
-set_keymap({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+set_keymap({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 -- Remap for dealing with word wrap
-set_keymap('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-set_keymap('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 set_keymap("", "<C-c>", "<ESC>")
-set_keymap("", "<leader>q", ":q<cr>")
+set_keymap("", "<leader>q", ":wq<cr>", { desc = "Save and exit" })
 -- set_keymap("", "<LEADER>w", ":w<cr>")
 
-set_keymap("n", "<leader>p", '"+p', { silent = true, desc = "Paste from system clipboard" })
+-- Move selected lines up and down
+set_keymap("v", "<up>", ":m '<-2<cr>gv=gv", opts)
+set_keymap("v", "<down>", ":m '>+1<cr>gv=gv", opts)
+
+-- Access system clipboard
+set_keymap("n", "<leader>p", '"+p', opts)
+set_keymap("n", "<leader>y", '"+y', opts)
+
+-- Quick switch to alternative file
+set_keymap("n", "<leader>o", "<c-^>", { noremap = true, desc = "Switch to alternative"})
 
 -- Emacs style editing in insert mode
 -- set_keymap("i", "<c-e>", "<c-o>A", opts) -- jump to the line end
@@ -59,17 +70,17 @@ set_keymap("n", "<leader>p", '"+p', { silent = true, desc = "Paste from system c
 -- set_keymap("i", "<c-d>", "<del>", opts)  -- delete one char
 
 -- Quikier window navigation
-set_keymap("n", "<m-t>", "<C-w>j", opts)
-set_keymap("n", "<m-c>", "<C-w>k", opts)
-set_keymap("n", "<m-h>", "<C-w>h", opts)
-set_keymap("n", "<m-n>", "<C-w>l", opts)
+set_keymap("n", "<m-o>", "<C-w>j", opts)
+set_keymap("n", "<m-,>", "<C-w>k", opts)
+set_keymap("n", "<m-a>", "<C-w>h", opts)
+set_keymap("n", "<m-e>", "<C-w>l", opts)
 
 -- Emacs keybinding for command line mode editing
-set_keymap("c", "<c-a>", "<home>", opts)
-set_keymap("c", "<c-b>", "<left>", opts)
-set_keymap("c", "<c-d>", "<del>", opts)
-set_keymap("c", "<c-e>", "<end>", opts)
-set_keymap("c", "<c-f>", "<right>", opts)
+-- set_keymap("c", "<c-a>", "<home>", opts)
+-- set_keymap("c", "<c-b>", "<left>", opts)
+-- set_keymap("c", "<c-d>", "<del>", opts)
+-- set_keymap("c", "<c-e>", "<end>", opts)
+-- set_keymap("c", "<c-f>", "<right>", opts)
 
 -- Highlight text copied when yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })

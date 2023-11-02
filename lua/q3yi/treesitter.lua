@@ -1,21 +1,50 @@
 -- Configurate treesitter
+-- Highlight, edit, and navigate code
 
 local M = {
-    -- Highlight, edit, and navigate code
     "nvim-treesitter/nvim-treesitter",
     dependencies = {
-      "nvim-treesitter/nvim-treesitter-textobjects",
+        "nvim-treesitter/nvim-treesitter-textobjects",
     },
-    -- event = "VeryLazy",
     build = ":TSUpdate",
 }
 
 function M.config()
     require("nvim-treesitter.configs").setup {
         -- Add languages to be installed here that you want installed for treesitter
-        ensure_installed = { "c", "cpp", "go", "lua", "python", "rust", "tsx", "javascript", "typescript", "vimdoc",
+        ensure_installed = {
+            "bash",
+            "c",
+            "cpp",
+            "css",
+            "dart",
+            "dockerfile",
+            "elm",
+            "dart",
+            "fish",
+            "gitignore",
+            "go",
+            "gomod",
+            "gosum",
+            "graphql",
+            "haskell",
+            "haskell_persistent",
+            "html",
+            "java",
+            "javascript",
+            "json",
+            "lua",
+            "markdown",
+            "make",
+            "python",
+            "rust",
+            "sql",
+            "tsx",
+            "typescript",
+            "vimdoc",
             "vim",
-            "bash" },
+            "yaml"
+        },
 
         -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
         auto_install = false,
@@ -80,6 +109,5 @@ function M.config()
         },
     }
 end
-
 
 return M

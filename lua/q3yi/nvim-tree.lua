@@ -2,6 +2,7 @@
 
 local M = {
     "nvim-tree/nvim-tree.lua",
+    cmd = { "NvimTreeToggle" },
     dependencies = {
         "nvim-tree/nvim-web-devicons",
     },
