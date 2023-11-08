@@ -5,85 +5,70 @@ vim.o.updatetime = 250
 vim.o.timeoutlen = 300
 
 -- Options
-local options = {
-    backup = false,
-    fileencoding = "utf-8",
-    showmode = false,
-    ignorecase = true,
-    smartcase = true,
-    smartindent = true,
-    swapfile = false,
-    expandtab = true,
-    shiftwidth = 4,
-    tabstop = 4,
-    softtabstop = 4,
-    number = true,
-    signcolumn = "yes",
-    colorcolumn = { 80, 120 },
-    wrap = false,
-    scrolloff = 8,
-    mouse = "a",
-    breakindent = true,
-    undofile = true,
-    completeopt = "menuone,noselect",
-    termguicolors = true,
-}
-
-for k, v in pairs(options) do
-    vim.opt[k] = v
-end
+vim.opt.backup = false
+vim.opt.fileencoding = "utf-8"
+vim.opt.showmode = false
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.smartindent = true
+vim.opt.swapfile = false
+vim.opt.expandtab = true
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.softtabstop = 4
+vim.opt.number = true
+vim.opt.signcolumn = "yes"
+vim.opt.colorcolumn = { 80, 120 }
+vim.opt.wrap = false
+vim.opt.scrolloff = 8
+vim.opt.mouse = "a"
+vim.opt.breakindent = true
+vim.opt.undofile = true
+vim.opt.completeopt = "menuone,noselect"
+vim.opt.termguicolors = true
 
 -- Mappings
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-local set_keymap = vim.keymap.set
-local opts = { noremap = true, silent = true}
+vim.g.netrw_banner = 0
+vim.g.netrw_browse_split = 4
+vim.g.netrw_altv = 1
+vim.g.netrw_liststyle = 3
 
-set_keymap({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+local kmap = vim.keymap.set
+local opts = { noremap = true, silent = true }
+
+kmap({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 
 -- Remap for dealing with word wrap
-set_keymap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-set_keymap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+kmap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+kmap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-set_keymap("", "<C-c>", "<ESC>")
-set_keymap("", "<leader>q", ":wq<cr>", { desc = "Save and exit" })
+kmap("", "<C-c>", "<ESC>")
+kmap("", "<leader>q", ":wq<cr>", { desc = "Save and exit" })
 -- set_keymap("", "<LEADER>w", ":w<cr>")
 
 -- Move selected lines up and down
-set_keymap("v", "<up>", ":m '<-2<cr>gv=gv", opts)
-set_keymap("v", "<down>", ":m '>+1<cr>gv=gv", opts)
+kmap("v", "<up>", ":m '<-2<cr>gv=gv", opts)
+kmap("v", "<down>", ":m '>+1<cr>gv=gv", opts)
 
 -- Access system clipboard
-set_keymap("n", "<leader>p", '"+p', opts)
-set_keymap("n", "<leader>y", '"+y', opts)
+kmap("n", "<leader>p", '"+p', opts)
+kmap({ "n", "v" }, "<leader>y", '"+y', opts)
 
 -- Quick switch to alternative file
-set_keymap("n", "<leader>o", "<c-^>", { noremap = true, desc = "Switch to alternative"})
-
--- Emacs style editing in insert mode
--- set_keymap("i", "<c-e>", "<c-o>A", opts) -- jump to the line end
--- set_keymap("i", "<c-f>", "<right>", opts) -- forward one char
--- set_keymap("i", "<c-b>", "<left>", opts) -- backward one char
--- set_keymap("i", "<c-p>", "<up>", opts) -- previous line
--- set_keymap("i", "<c-n>", "<down>", opts) -- next line
--- set_keymap("i", "<c-d>", "<del>", opts)  -- delete one char
+kmap("n", "<leader>o", "<c-^>", { noremap = true, desc = "Switch to alternative" })
 
 -- Quikier window navigation
-set_keymap("n", "<m-o>", "<C-w>j", opts)
-set_keymap("n", "<m-,>", "<C-w>k", opts)
-set_keymap("n", "<m-a>", "<C-w>h", opts)
-set_keymap("n", "<m-e>", "<C-w>l", opts)
-
--- Emacs keybinding for command line mode editing
--- set_keymap("c", "<c-a>", "<home>", opts)
--- set_keymap("c", "<c-b>", "<left>", opts)
--- set_keymap("c", "<c-d>", "<del>", opts)
--- set_keymap("c", "<c-e>", "<end>", opts)
--- set_keymap("c", "<c-f>", "<right>", opts)
+kmap("n", "<down>", "<C-w>j", opts)
+kmap("n", "<up>", "<C-w>k", opts)
+kmap("n", "<left>", "<C-w>h", opts)
+kmap("n", "<right>", "<C-w>l", opts)
 
 -- Highlight text copied when yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
+
 vim.api.nvim_create_autocmd("TextYankPost", {
     callback = function()
         vim.highlight.on_yank()
