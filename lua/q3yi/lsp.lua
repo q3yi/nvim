@@ -60,10 +60,22 @@ local servers = {
     hls = {},
     html = { filetypes = { "html", "twig", "hbs" } },
     jsonls = {},
-    pylsp = {},
+    pylsp = {
+        -- TODO nvim-lsp not supported yet?
+        -- pylsp = {
+        --     plugins = {
+        --         rope_autoimport = { enabled = true },
+        --     },
+        -- },
+    },
     rust_analyzer = {},
     tsserver = {},
-    marksman = {},
+    yamlls = {
+        -- TODO not working, why?
+        yaml = {
+            format = { enable = true },
+        },
+    },
 
     lua_ls = {
         Lua = {
@@ -89,7 +101,6 @@ function M.config()
             settings = opt,
         }
     end
-    -- require("q3yi.lsp.mason")
 end
 
 return M

@@ -22,6 +22,7 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     require("q3yi.git"),
     require("q3yi.lsp"),
+    require("q3yi.none-lsp"),
     require("q3yi.completion"),
     require("q3yi.which-key"),
     require("q3yi.theme"),

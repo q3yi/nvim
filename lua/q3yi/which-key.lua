@@ -73,7 +73,7 @@ local settings = {
 
 WhichKey.opts = settings
 
-function WhichKey.configs()
+function WhichKey.config()
     require("which-key").register {
         ["<leader>w"] = { name = "Workspace", _ = "which_key_ignore" },
         ["<leader>l"] = { name = "LSP", _ = "which_key_ignore" },
