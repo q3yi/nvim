@@ -26,15 +26,15 @@ vim.opt.breakindent = true
 vim.opt.undofile = true
 vim.opt.completeopt = "menuone,noselect"
 vim.opt.termguicolors = true
+vim.opt.guifont = "M_PLUS_Code_Latin:14"
 
 -- Mappings
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-vim.g.netrw_banner = 0
-vim.g.netrw_browse_split = 4
-vim.g.netrw_altv = 1
-vim.g.netrw_liststyle = 3
+-- disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 local kmap = vim.keymap.set
 local opts = { noremap = true, silent = true }

@@ -13,7 +13,7 @@ function M.config()
 
     nvim_tree.setup {
         disable_netrw = true,
-        hijack_netrw = true,
+        hijack_netrw = false,
     }
 end
 
