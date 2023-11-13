@@ -15,35 +15,6 @@ local NvimCmp = {
     },
 }
 
---[[ local kind_icons = {
-    Text = "󰀬",
-    Method = "󰆧",
-    Function = "󰊕",
-    Constructor = "",
-    Field = "",
-    Variable = "",
-    Class = "",
-    Interface = "",
-    Module = "󰅩",
-    Property = "",
-    Unit = "",
-    Value = "󰎠",
-    Enum = "",
-    Keyword = "",
-    Snippet = "",
-    Color = "",
-    File = "",
-    Reference = "",
-    Folder = "",
-    EnumMember = "",
-    Constant = "󰏿",
-    Struct = "",
-    Event = "",
-    Operator = "󰆕",
-    TypeParameter = "",
-    Misc = "",
-} ]]
-
 local cmp_sources = {
     nvim_lsp = "[LSP]",
     luasnip = "[Snip]",
@@ -52,11 +23,16 @@ local cmp_sources = {
 }
 
 function NvimCmp.config()
-    -- See `:help cmp`
     local cmp = require("cmp")
     local luasnip = require("luasnip")
+    -- load friendly snippets
     require("luasnip.loaders.from_vscode").lazy_load()
-    luasnip.config.setup {}
+    -- load personal snippets
+    require("luasnip.loaders.from_lua").lazy_load({ paths = "./lua-snippets/" })
+
+    luasnip.config.setup {
+        update_events = { "TextChanged", "TextChangedI" }
+    }
 
     cmp.setup {
         snippet = {
@@ -107,7 +83,6 @@ function NvimCmp.config()
             expandable_indicator = true,
             fields = { "abbr", "kind", "menu" },
             format = function(entry, vim_item)
-                -- vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
                 vim_item.menu = cmp_sources[entry.source.name]
                 return vim_item
             end,
