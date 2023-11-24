@@ -18,7 +18,7 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.number = true
 vim.opt.signcolumn = "yes"
-vim.opt.colorcolumn = { 80, 120 }
+-- vim.opt.colorcolumn = { 80, 120 }
 vim.opt.wrap = false
 vim.opt.scrolloff = 8
 vim.opt.mouse = "a"
@@ -27,6 +27,7 @@ vim.opt.undofile = true
 vim.opt.completeopt = "menuone,noselect"
 vim.opt.termguicolors = true
 vim.opt.guifont = "M_PLUS_Code_Latin:14"
+vim.opt.listchars = { eol = "⏎", space = "·", lead = "·", tab = ">-", trail = "·" }
 
 -- Mappings
 vim.g.mapleader = " "
@@ -45,17 +46,17 @@ kmap({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 kmap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 kmap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
-kmap("", "<C-c>", "<ESC>")
-kmap("", "<leader>q", ":wq<cr>", { desc = "Save and exit" })
--- set_keymap("", "<LEADER>w", ":w<cr>")
+-- kmap("", "<C-c>", "<ESC>")
+kmap("n", "<leader>q", ":qa<cr>", { desc = "Close all then exits." })
+kmap("n", "<leader>s", ":w<cr>", { desc = "Save buffer." })
 
 -- Move selected lines up and down
 kmap("v", "<up>", ":m '<-2<cr>gv=gv", opts)
 kmap("v", "<down>", ":m '>+1<cr>gv=gv", opts)
 
 -- Access system clipboard
-kmap("n", "<leader>p", '"+p', opts)
-kmap({ "n", "v" }, "<leader>y", '"+y', opts)
+kmap("n", "<leader>p", '"+p', { noremap = true, silent = true, desc = "Paste from system clipboard." })
+kmap({ "n", "v" }, "<leader>y", '"+y', { noremap = true, silent = true, desc = "Yank to system clipboard." })
 
 -- Quick switch to alternative file
 kmap("n", "<leader>o", "<c-^>", { noremap = true, desc = "Switch to alternative" })
@@ -65,6 +66,19 @@ kmap("n", "<down>", "<C-w>j", opts)
 kmap("n", "<up>", "<C-w>k", opts)
 kmap("n", "<left>", "<C-w>h", opts)
 kmap("n", "<right>", "<C-w>l", opts)
+
+-- Create command to show whitespace, equal to `:set list`
+vim.api.nvim_create_user_command("ToggleWhitespace", function()
+    vim.opt.list = not (vim.opt.list:get())
+end, { desc = "Show or hidden whitespace charactors." })
+
+-- Create command to change tab width
+vim.api.nvim_create_user_command("SetTabWidth", function(param)
+    local size = tonumber(param.args) or 4
+    vim.opt.shiftwidth = size
+    vim.opt.tabstop = size
+    vim.opt.softtabstop = size
+end, { nargs = "?", desc = "Change tab width." })
 
 -- Highlight text copied when yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
