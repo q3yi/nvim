@@ -45,11 +45,11 @@ local Lualine = {
     -- See `:help lualine.txt`
     opts = {
         options = {
-            icons_enabled = true,
+            icons_enabled = false,
             -- theme = "auto",
             theme = "catppuccin",
-            -- component_separators = "|",
-            -- section_separators = "",
+            component_separators = "|",
+            section_separators = "",
             -- component_separators = { left = "\\", right = "/" },
             -- section_separators = { left = '', right = '' },
             -- disabled_filetypes = {
