@@ -22,20 +22,22 @@ local CatppuccinTheme = {
                 treesitter = true,
                 indent_blankline = { enabled = true },
                 neogit = true,
+                which_key = true,
             }
         }
         vim.cmd.colorscheme "catppuccin"
     end,
 }
 
-local Ibl = {
-    -- Add indentation guides even on blank lines
-    "lukas-reineke/indent-blankline.nvim",
-    -- Enable `lukas-reineke/indent-blankline.nvim`
-    -- See `:help ibl`
-    main = "ibl",
-    opts = {},
-}
+-- local Ibl = {
+--     -- Add indentation guides even on blank lines
+--     "lukas-reineke/indent-blankline.nvim",
+--     -- Enable `lukas-reineke/indent-blankline.nvim`
+--     -- See `:help ibl`
+--     main = "ibl",
+--     cmd = { "IBLToggle" },
+--     opts = {},
+-- }
 
 local Lualine = {
     -- Set lualine as statusline
@@ -57,4 +59,4 @@ local Lualine = {
     },
 }
 
-return { CatppuccinTheme, Lualine, Ibl, }
+return { CatppuccinTheme, Lualine, }
