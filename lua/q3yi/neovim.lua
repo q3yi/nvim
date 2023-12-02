@@ -18,7 +18,7 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.number = true
 vim.opt.signcolumn = "yes"
--- vim.opt.colorcolumn = { 80, 120 }
+vim.opt.colorcolumn = { 80 }
 vim.opt.wrap = false
 vim.opt.scrolloff = 8
 vim.opt.mouse = "a"
@@ -26,7 +26,7 @@ vim.opt.breakindent = true
 vim.opt.undofile = true
 vim.opt.completeopt = "menuone,noselect"
 vim.opt.termguicolors = true
-vim.opt.guifont = "M_PLUS_Code_Latin:14"
+vim.opt.guifont = "JetBrains_Mono:13"
 vim.opt.listchars = { eol = "⏎", space = "·", lead = "·", tab = ">-", trail = "·" }
 
 -- Mappings
@@ -40,7 +40,8 @@ vim.g.loaded_netrwPlugin = 1
 local kmap = vim.keymap.set
 local opts = { noremap = true, silent = true }
 
-kmap({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+-- kmap({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+kmap({ "i", "n", "v" }, "<f1>", "<Nop>", { silent = true })
 
 -- Remap for dealing with word wrap
 kmap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
@@ -53,6 +54,10 @@ kmap("n", "<leader>s", ":w<cr>", { desc = "Save buffer." })
 -- Move selected lines up and down
 kmap("v", "<up>", ":m '<-2<cr>gv=gv", opts)
 kmap("v", "<down>", ":m '>+1<cr>gv=gv", opts)
+
+-- Move one line up and down in normal and insert mode
+kmap({ "i", "n" }, "<M-k>", ":m .-2<cr>", opts)
+kmap({ "i", "n" }, "<M-j>", ":m .+1<cr>", opts)
 
 -- Access system clipboard
 kmap("n", "<leader>p", '"+p', { noremap = true, silent = true, desc = "Paste from system clipboard." })
