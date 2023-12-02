@@ -1,7 +1,8 @@
 -- Add linter and formattor for some language that does not have lsp
 
 local M = {
-    "nvimtools/none-ls.nvim"
+    "nvimtools/none-ls.nvim",
+    event = { "VeryLazy" },
 }
 
 function M.config()
@@ -15,8 +16,8 @@ function M.config()
             -- formattor
             none_ls.builtins.formatting.fish_indent,
             none_ls.builtins.formatting.forge_fmt,
-            none_ls.builtins.formatting.prettier,
             none_ls.builtins.formatting.yamlfmt,
+            none_ls.builtins.formatting.prettier,
         },
         on_attach = function(client, _)
             if client.supports_method("textDocument/formatting") then
