@@ -2,6 +2,7 @@
 
 require("q3yi.neovim")
 require("q3yi.diagnostic")
+require("q3yi.jump-out-surround")
 
 -- Install package manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
