@@ -1,13 +1,13 @@
 -- Configurate auto completion framework
+---@diagnostic disable: missing-fields
 
 local NvimCmp = {
     "hrsh7th/nvim-cmp",
-    event = { "InsertEnter", "CmdlineEnter" },
+    event = { "InsertEnter" },
     dependencies = {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
 
-        -- Snippet Engine & its associated nvim-cmp source
         "L3MON4D3/LuaSnip",
         "saadparwaiz1/cmp_luasnip",
 
@@ -21,6 +21,7 @@ local cmp_sources = {
     buffer = "[Buf]",
     path = "[Path]",
 }
+
 
 function NvimCmp.config()
     local cmp = require("cmp")
@@ -63,7 +64,7 @@ function NvimCmp.config()
                     end
                 elseif luasnip.expandable() then
                     luasnip.expand()
-                elseif luasnip.expand_or_jumpable() then
+                elseif luasnip.expand_or_locally_jumpable() then
                     luasnip.expand_or_jump()
                 else
                     fallback()
@@ -72,8 +73,6 @@ function NvimCmp.config()
             ["<S-Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_prev_item()
-                elseif luasnip.jumpable(-1) then
-                    luasnip.jump(-1)
                 else
                     fallback()
                 end
