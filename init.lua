@@ -33,5 +33,5 @@ require("lazy").setup({
     require("q3yi.comment"),
     require("q3yi.autopairs"),
     require("q3yi.illuminate"),
-    require("q3yi.nvim-surround"),
+    require("q3yi.mini-surround"),
 }, { ui = { border = "rounded" } })

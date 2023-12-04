@@ -1,8 +1,12 @@
--- Install comment.nvim
+-- Install mini.comment plugin. 
 
 local M = {
-    "numToStr/Comment.nvim",
-    opts = {}
+    "echasnovski/mini.comment",
+    version = false,
+    keys = {"gc"},
+    config = function()
+        require("mini.comment").setup()
+    end
 }
 
 return M
