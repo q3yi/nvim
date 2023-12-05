@@ -34,4 +34,5 @@ require("lazy").setup({
     require("q3yi.autopairs"),
     require("q3yi.illuminate"),
     require("q3yi.mini-surround"),
+    require("q3yi.trouble"),
 }, { ui = { border = "rounded" } })
