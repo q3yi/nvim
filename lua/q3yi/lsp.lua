@@ -5,7 +5,14 @@ local M = {
     event = { "VeryLazy" },
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
-        { 'j-hui/fidget.nvim', opts = {} },
+        {
+            "j-hui/fidget.nvim",
+            opts = {
+                notification = {
+                    window = { winblend = 0 },
+                }
+            }
+        },
         'folke/neodev.nvim',
 
         "williamboman/mason.nvim",
