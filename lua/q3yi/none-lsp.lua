@@ -16,7 +16,6 @@ function M.config()
             -- formattor
             none_ls.builtins.formatting.fish_indent,
             none_ls.builtins.formatting.forge_fmt,
-            none_ls.builtins.formatting.yamlfmt,
             none_ls.builtins.formatting.prettier,
         },
         on_attach = function(client, _)
