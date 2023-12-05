@@ -73,6 +73,52 @@ function M.config()
             },
         },
         modules = {},
+        textobjects = {
+            select = {
+                enable = true,
+                lookahead = true,
+                keymaps = {
+                    ["aa"] = "@parameter.outer",
+                    ["ia"] = "@parameter.inner",
+                    ["af"] = "@function.outer",
+                    ["if"] = "@function.inner",
+                    ["ac"] = "@class.outer",
+                    ["ic"] = "@class.inner",
+                },
+                include_surrounding_whitespace = true,
+            },
+            move = {
+                enable = true,
+                goto_next_start = {
+                    ["]f"] = "@function.outer",
+                    ["]c"] = "@class.outer",
+                },
+                goto_next_end = {
+                    ["]F"] = "@function.outer",
+                    ["]C"] = "@class.outer",
+                },
+                goto_previous_start = {
+                    ["[f"] = "@function.outer",
+                    ["[c"] = "@class.outer",
+                },
+                goto_previous_end = {
+                    ["[F"] = "@function.outer",
+                    ["[C"] = "@class.outer"
+                },
+                goto_next = {
+                    ["]o"] = {
+                        query = { "@loop.outer", "@conditional.outer" },
+                        desc = "Next `if` or `loop`",
+                    },
+                },
+                goto_previous = {
+                    ["[o"] = {
+                        query = { "@loop.outer", "@conditional.outer" },
+                        desc = "Previous `if` or `loop`",
+                    },
+                },
+            },
+        },
     }
 end
 

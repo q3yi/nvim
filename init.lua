@@ -32,7 +32,6 @@ require("lazy").setup({
     require("q3yi.nvim-tree"),
     require("q3yi.comment"),
     require("q3yi.illuminate"),
-    require("q3yi.mini-ai"),
     require("q3yi.mini-pairs"),
     require("q3yi.mini-surround"),
     require("q3yi.trouble"),
