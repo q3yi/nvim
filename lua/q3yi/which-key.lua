@@ -75,6 +75,7 @@ WhichKey.opts = settings
 
 function WhichKey.config()
     require("which-key").register {
+        ["<leader>b"] = { name = "Buffers", _ = "which_key_ignore" },
         ["<leader>w"] = { name = "Workspace", _ = "which_key_ignore" },
         ["<leader>l"] = { name = "LSP", _ = "which_key_ignore" },
         ["<leader>d"] = { name = "Diagnostic", _ = "which_key_ignore" },

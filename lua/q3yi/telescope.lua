@@ -19,8 +19,8 @@ local M = {
 -- register keys before telescope module loaded
 M.keys = {
     { "<leader>x", "<cmd>Telescope commands<cr>",   desc = "Execute command" },
-    { "<leader>b", "<cmd>Telescope buffers<cr>",    desc = "Switch buffer" },
-    { "<leader>B", "<cmd>Telescope builtin<cr>",    desc = "List telescope buildin pickers" },
+    { "<leader>X", "<cmd>Telescope builtin<cr>",    desc = "List telescope buildin pickers" },
+    { "<leader>bb", "<cmd>Telescope buffers<cr>",    desc = "List all buffer" },
     { "<leader>f", "<cmd>Telescope find_files<cr>", desc = "Find files" },
     { "<leader>F", "<cmd>Telescope oldfiles<cr>",   desc = "Recent opened files" },
     {
