@@ -64,14 +64,18 @@ kmap("n", "<leader>o", "<c-^>", { noremap = true, desc = "Switch to alternative"
 
 kmap("n", "<c-\\>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
 
-kmap({ "n", "v" }, "<M-j>", "<C-w>j", { noremap = true, desc = "Switch to lower window" })
-kmap({ "n", "v" }, "<M-k>", "<C-w>k", { noremap = true, desc = "Switch to upper window" })
-kmap({ "n", "v" }, "<M-h>", "<C-w>h", { noremap = true, desc = "Switch to left window" })
-kmap({ "n", "v" }, "<M-l>", "<C-w>l", { noremap = true, desc = "Switch to right window" })
+kmap({ "n", "v" }, "<c-j>", "<c-w>j", { noremap = true, desc = "Switch to lower window" })
+kmap({ "n", "v" }, "<c-k>", "<c-w>k", { noremap = true, desc = "Switch to upper window" })
+kmap({ "n", "v" }, "<c-h>", "<c-w>h", { noremap = true, desc = "Switch to left window" })
+kmap({ "n", "v" }, "<c-l>", "<c-w>l", { noremap = true, desc = "Switch to right window" })
 
 -- Create command to show whitespace, equal to `:set list`
 vim.api.nvim_create_user_command("ToggleWhitespace", function()
-    vim.opt.list = not (vim.opt.list:get())
+    if vim.opt.list:get() then
+        vim.opt.list = false
+    else
+        vim.opt.list = true
+    end
 end, { desc = "Show or hidden whitespace charactors." })
 
 -- Create command to change tab width

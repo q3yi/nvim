@@ -43,7 +43,7 @@ local function on_attach(_, buf)
 
     -- See `:help K` for why this keymap
     kmap("K", vim.lsp.buf.hover, "Hover documentation")
-    kmap("<C-k>", vim.lsp.buf.signature_help, "Signature documentation")
+    kmap("<m-k>", vim.lsp.buf.signature_help, "Signature documentation")
 
     -- Lesser used LSP functionality
     kmap("gD", vim.lsp.buf.declaration, "Goto declaration")
