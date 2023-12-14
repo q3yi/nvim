@@ -21,18 +21,27 @@ local cmp_sources = {
     path = "[Path]",
 }
 
-
 function NvimCmp.config()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     -- load friendly snippets
     require("luasnip.loaders.from_vscode").lazy_load()
     -- load personal snippets
-    require("luasnip.loaders.from_lua").lazy_load({ paths = "./lua-snippets/" })
+    require("luasnip.loaders.from_lua").lazy_load({ paths = { "./lua-snippets/" } })
 
     luasnip.config.setup {
         update_events = { "TextChanged", "TextChangedI" }
     }
+
+    vim.keymap.set({ "i", "s" }, "<M-]>", function()
+        if luasnip.expand_or_locally_jumpable() then
+            luasnip.expand_or_jump()
+        end
+    end, { noremap = true, silent = true })
+
+    vim.keymap.set({ "i", "s" }, "<M-[>", function()
+        luasnip.jump(-1)
+    end, { noremap = true, silent = true })
 
     cmp.setup {
         snippet = {
@@ -50,10 +59,7 @@ function NvimCmp.config()
             ["<C-u>"] = cmp.mapping.scroll_docs(-4),
             ["<C-d>"] = cmp.mapping.scroll_docs(4),
             ["<C-e>"] = cmp.mapping.abort(),
-            ["<CR>"] = cmp.mapping.confirm {
-                behavior = cmp.ConfirmBehavior.Replace,
-                select = true,
-            },
+            ["<CR>"] = cmp.mapping.confirm { select = true },
             ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     if #cmp.get_entries() == 1 then
@@ -63,8 +69,6 @@ function NvimCmp.config()
                     end
                 elseif luasnip.expandable() then
                     luasnip.expand()
-                elseif luasnip.expand_or_locally_jumpable() then
-                    luasnip.expand_or_jump()
                 else
                     fallback()
                 end
