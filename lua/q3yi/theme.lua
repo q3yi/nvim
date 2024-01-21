@@ -11,7 +11,7 @@ local CatppuccinTheme = {
                 light = "latte",
                 dark = "mocha",
             },
-            transparent_background = true,
+            -- transparent_background = true,
             styles = {
                 conditionals = {},
             },
@@ -22,6 +22,8 @@ local CatppuccinTheme = {
                 nvimtree = true,
                 treesitter = true,
                 neogit = true,
+                mason = true,
+                lsp_trouble = true,
                 which_key = true,
                 mini = { enabled = true },
             }
@@ -29,6 +31,23 @@ local CatppuccinTheme = {
         vim.cmd.colorscheme "catppuccin"
     end,
 }
+
+-- local TokyonightTheme = {
+--     "folke/tokyonight.nvim",
+--     priority = 1000,
+--     config = function()
+--         require("tokyonight").setup {
+--             -- transparent = true,
+--             style = "moon",
+--             styles = {
+--                 keywords = {},
+--                 -- sidebars = "transparent",
+--                 -- floats = "transparent",
+--             }
+--         }
+--         vim.cmd.colorscheme "tokyonight"
+--     end
+-- }
 
 local MiniStatus = {
     "echasnovski/mini.statusline",
@@ -38,4 +57,8 @@ local MiniStatus = {
     end
 }
 
-return { CatppuccinTheme, MiniStatus, }
+return {
+    CatppuccinTheme,
+    -- TokyonightTheme,
+    MiniStatus,
+}
