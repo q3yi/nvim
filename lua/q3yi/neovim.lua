@@ -44,6 +44,7 @@ kmap({ "i", "n", "v" }, "<f1>", "<Nop>", { silent = true })
 -- Remap for dealing with word wrap
 kmap("n", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
 kmap("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
+kmap({ "n", "v" }, "<f12>", "<cmd>set wrap!<cr>", { desc = "Toggle word wrap" })
 
 kmap("n", "<leader>q", "<cmd>qa<cr>", { desc = "Close all then exit" })
 kmap("n", "<leader>bs", "<cmd>w<cr>", { desc = "Save buffer" })
