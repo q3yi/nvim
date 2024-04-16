@@ -3,7 +3,7 @@
 -- Options
 vim.opt.backup = false
 vim.opt.fileencoding = "utf-8"
-vim.opt.showmode = false
+-- vim.opt.showmode = false
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.smartindent = true
