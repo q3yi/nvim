@@ -1,51 +1,84 @@
 -- Set diagnostic shortcuts
 
-local signs = {
-    { name = "DiagnosticSignError", text = "‼" },
-    { name = "DiagnosticSignWarn", text = "ǃ" },
-    { name = "DiagnosticSignHint", text = "!" },
-    { name = "DiagnosticSignInfo", text = "!" },
-}
+local function jump(direction, serverity)
+    local move = vim.diagnostic.goto_next
+    if direction == "prev" then
+        move = vim.diagnostic.goto_prev
+    end
 
-for _, sign in ipairs(signs) do
-    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-end
-
-local config = {
-    virtual_text = false,
-    underline = true,
-    update_in_insert = true,
-    serverity_sort = true,
-    float = {
-        focusable = true,
-        source = "always",
-    },
-}
-
-vim.diagnostic.config(config)
-
--- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "solid" })
--- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "solid" })
-
----Go to previous or next diagnostic
----@param serverity string
----@param forward boolean
----@return function
-local function goto_diagnostic(serverity, forward)
-    local f = forward and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
     local s = vim.diagnostic.severity[serverity]
+
     return function()
-        f({ serverity = s })
+        move({ serverity = s })
     end
 end
 
-local kmap = vim.keymap.set
+local options = {
+    signs = {
+        { name = "DiagnosticSignError", text = "‼" },
+        { name = "DiagnosticSignWarn", text = "ǃ" },
+        { name = "DiagnosticSignHint", text = "!" },
+        { name = "DiagnosticSignInfo", text = "!" },
+    },
+    config = {
+        virtual_text = false,
+        underline = true,
+        update_in_insert = true,
+        serverity_sort = true,
+        float = {
+            focusable = true,
+            source = "always",
+        },
+    },
+    keys = {
+        { "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" } },
+        { "[d", vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" } },
+        { "]e", jump("next", "E"),        { desc = "Next Error" } },
+        { "[e", jump("prev", "E"),        { desc = "Prev Error" } },
+        { "]w", jump("next", "W"),        { desc = "Next Warning" } },
+        { "[w", jump("prev", "W"),        { desc = "Prev Warning" } },
+    }
+}
 
-kmap("n", "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" })
-kmap("n", "[d", vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" })
-kmap("n", "]e", goto_diagnostic("E", true), { desc = "Next Error" })
-kmap("n", "[e", goto_diagnostic("E", false), { desc = "Prev Error" })
-kmap("n", "]w", goto_diagnostic("W", true), { desc = "Next Warning" })
-kmap("n", "[w", goto_diagnostic("W", false), { desc = "Prev Warning" })
+local function setup_diagnostic(opts)
+    -- set diagnostic signs
+    for _, sign in ipairs(opts.signs) do
+        vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+    end
 
-vim.keymap.set("n", "<leader>dk", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+    vim.diagnostic.config(opts.config)
+
+    for _, binding in ipairs(opts.keys) do
+        local key, cmd, opt = binding[1], binding[2], binding[3]
+        vim.keymap.set("n", key, cmd, opt)
+    end
+
+    vim.keymap.set("n", "<leader>dk", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+end
+
+-- initial diagnostic config here.
+setup_diagnostic(options)
+
+local TroublePlugin = {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = { "Trouble", "TroubleToggle", },
+    opts = {},
+    keys = {
+        { "<leader>da", "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Open buffer diagnostics list in trouble" },
+        { "<leader>dl", "<cmd>TroubleToggle loclist<cr>",               desc = "Open location list in trouble" },
+        { "<leader>wd", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Open workspace diagnostics list in trouble" },
+        { "<leader>wq", "<cmd>TroubleToggle quickfix<cr>",              desc = "Open quickfix list in trouble" },
+    },
+    config = function()
+        require("trouble").setup {
+            mode = "document_diagnostics",
+            action_keys = {
+                open_split = { "<c-s>" },
+            },
+            auto_preview = false,
+        }
+    end
+}
+
+return { TroublePlugin }

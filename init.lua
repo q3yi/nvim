@@ -1,7 +1,6 @@
 -- My basic neovim configuration
 
 require("q3yi.neovim")
-require("q3yi.diagnostic")
 require("q3yi.jump-out-surround")
 
 -- Install package manager
@@ -29,7 +28,7 @@ require("lazy").setup({
     require("q3yi.git"),
     require("q3yi.nvim-tree"),
     require("q3yi.illuminate"),
-    require("q3yi.trouble"),
+    require("q3yi.diagnostic"),
     require("q3yi.comment"),
     require("q3yi.mini-pairs"),
     require("q3yi.nvim-surround"),
