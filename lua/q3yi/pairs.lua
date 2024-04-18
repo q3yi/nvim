@@ -1,8 +1,9 @@
--- Quick jump out right surrounds.
+-- function and plugins to deal with pairs.
 
-local right_surrounds = "\"')]}>"
+local right_parts = "\"')]}>"
 
-local function jump_out_surrounds()
+---Move cursor out the pairs
+local function move_out()
     local unpack = unpack or table.unpack;
     local line, col = unpack(vim.api.nvim_win_get_cursor(0));
     local text = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
@@ -13,7 +14,7 @@ local function jump_out_surrounds()
     local found = false
     local idx = 1
     for char in string.gmatch(text:sub(col + 1), ".") do
-        local pos = right_surrounds:find(char, 1, true)
+        local pos = right_parts:find(char, 1, true)
         if pos then
             found = true
             break
@@ -28,4 +29,14 @@ local function jump_out_surrounds()
     end
 end
 
-vim.keymap.set("i", "<C-e>", function() jump_out_surrounds() end, { silent = true })
+local M = {
+    "echasnovski/mini.pairs",
+    version = false,
+    event = "InsertEnter",
+    config = function()
+        require("mini.pairs").setup({})
+        vim.keymap.set("i", "<C-e>", move_out, { silent = true })
+    end
+}
+
+return M
