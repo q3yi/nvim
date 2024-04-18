@@ -23,13 +23,12 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Install and config packages
 require("lazy").setup({
-    require("q3yi.git"),
-    require("q3yi.lsp"),
-    require("q3yi.none-lsp"),
     require("q3yi.theme"),
+    require("q3yi.nvim-cmp"),
     require("q3yi.telescope"),
     require("q3yi.treesitter"),
-    require("q3yi.nvim-cmp"),
+    require("q3yi.lsp"),
+    require("q3yi.git"),
     require("q3yi.nvim-tree"),
     require("q3yi.illuminate"),
     require("q3yi.trouble"),

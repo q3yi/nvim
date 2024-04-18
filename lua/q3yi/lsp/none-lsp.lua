@@ -19,12 +19,22 @@ function M.config()
             none_ls.builtins.formatting.prettier,
         },
         on_attach = function(client, _)
-            if client.supports_method("textDocument/formatting") then
-                vim.keymap.set("n", "<leader>lf", function()
-                        vim.lsp.buf.format { async = true }
-                    end,
-                    { noremap = true, silent = true, desc = "Null-ls: Format current buffer" })
+            if not client.supports_method("textDocument/formatting") then
+                return
             end
+
+            vim.keymap.set(
+                { "n" },
+                "<leader>lf",
+                function()
+                    vim.lsp.buf.format { async = true }
+                end,
+                {
+                    noremap = true,
+                    silent = true,
+                    desc = "Null-ls: Format current buffer"
+                }
+            )
         end
     }
 end
