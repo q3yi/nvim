@@ -9,7 +9,7 @@ local M = {
             "j-hui/fidget.nvim",
             opts = {
                 notification = {
-                    window = { winblend = 0 },
+                    window = { winblend = 0, border = "single" },
                 }
             }
         },
@@ -64,8 +64,6 @@ function M.config()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-    require('lspconfig.ui.windows').default_options.border = "rounded"
-
     local function setup_lsp(server_name, settings)
         require("lspconfig")[server_name].setup {
             capabilities = capabilities,
@@ -74,7 +72,7 @@ function M.config()
         }
     end
 
-    require("mason").setup({ ui = { border = "rounded" } })
+    require("mason").setup({})
     local mason_lsp = require("mason-lspconfig")
     mason_lsp.setup({})
 

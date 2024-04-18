@@ -18,21 +18,24 @@ local config = {
     serverity_sort = true,
     float = {
         focusable = true,
-        border = "rounded",
         source = "always",
     },
 }
 
 vim.diagnostic.config(config)
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+-- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "solid" })
+-- vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "solid" })
 
+---Go to previous or next diagnostic
+---@param serverity string
+---@param forward boolean
+---@return function
 local function goto_diagnostic(serverity, forward)
-    local goto = forward and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
-    serverity = vim.diagnostic.severity[serverity]
-    return function ()
-        goto({ serverity = serverity })
+    local f = forward and vim.diagnostic.goto_next or vim.diagnostic.goto_prev
+    local s = vim.diagnostic.severity[serverity]
+    return function()
+        f({ serverity = s })
     end
 end
 
