@@ -18,8 +18,8 @@ local M = {
 
 -- register keys before telescope module loaded
 M.keys = {
-    { "<leader>x",  "<cmd>Telescope commands<cr>",   desc = "Execute command" },
-    { "<leader>X",  "<cmd>Telescope builtin<cr>",    desc = "List telescope buildin pickers" },
+    { "<M-x>",      "<cmd>Telescope commands<cr>",   desc = "Execute command" },
+    { "<leader>x",  "<cmd>Telescope builtin<cr>",    desc = "List telescope buildin pickers" },
     { "<leader>bb", "<cmd>Telescope buffers<cr>",    desc = "List all buffer" },
     { "<leader>f",  "<cmd>Telescope find_files<cr>", desc = "Find files" },
     { "<leader>F",  "<cmd>Telescope oldfiles<cr>",   desc = "Recent opened files" },
@@ -36,31 +36,25 @@ M.keys = {
     { "<leader>wr", "<cmd>Telescope live_grep<cr>",   desc = "Search in workspace files" },
     { "<leader>dw", "<cmd>Telescope diagnostics<cr>", desc = "Search diagnostics in workspace" },
     { "<leader>h",  "<cmd>Telescope help_tags<cr>",   desc = "Search help" },
+    { "<leader>i",  "<cmd>Telescope treesitter<cr>",  desc = "Imenu-like function base on treesitter" },
 }
-
-local borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" }
 
 function M.config()
     local telescope = require("telescope")
-    local themes = require("telescope.themes")
-
-    local dropdown_no_preview = themes.get_dropdown({ previewer = false, borderchars = borderchars })
-    local ivy_no_preview = themes.get_ivy({ previewer = false, borderchars = borderchars })
 
     telescope.setup({
         defaults = {
-            borderchars = borderchars,
-        },
-        pickers = {
-            buffers = dropdown_no_preview,
-            commands = ivy_no_preview,
-            builtin = dropdown_no_preview,
-            keymaps = ivy_no_preview,
-            find_files = dropdown_no_preview,
-            git_files = dropdown_no_preview,
-            oldfiles = dropdown_no_preview,
-            help_tags = dropdown_no_preview,
-            diagnostics = themes.get_dropdown(),
+            borderchars = { "─", "│", "─", "│", "┌", "┐", "┘", "└" },
+            sorting_strategy = "ascending",
+            layout_strategy = "horizontal",
+            layout_config = {
+                horizontal = {
+                    prompt_position = "top",
+                },
+            },
+            -- preview = {
+            --     filesize_limit = 2,  -- only preview file less than 2MB.
+            -- }
         },
     })
 
