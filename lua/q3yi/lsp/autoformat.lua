@@ -2,7 +2,7 @@
 
 local M = {}
 
-function M.config()
+function M.setup()
     local format_enabled = true
     vim.api.nvim_create_user_command("ToggleAutoFormat", function()
         format_enabled = not format_enabled
