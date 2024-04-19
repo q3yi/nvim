@@ -83,7 +83,19 @@ local spec = {
     }
 }
 
-return {
-    palette = palette,
-    spec = spec,
-}
+local M = {}
+
+function M.apply(opts)
+    local overrides = {
+        palettes = {
+            dayfox = palette,
+        },
+        specs = {
+            dayfox = spec,
+        },
+    }
+
+    return vim.tbl_deep_extend("force", opts, overrides)
+end
+
+return M
