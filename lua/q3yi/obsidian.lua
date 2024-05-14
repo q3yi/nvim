@@ -10,10 +10,10 @@ local M = {
         "nvim-lua/plenary.nvim",
     },
     keys = {
-        { "<leader>rf", "<cmd>ObsidianQuickSwitch<cr>", "Find file in Roam" },
-        { "<leader>rs", "<cmd>ObsidianSearch<cr>",      "Search keywords in Roam" },
-        { "<leader>rn", "<cmd>ObsidianNew<cr>",         "Create new note in Roam" },
-        { "<leader>rt", "<cmd>ObsidianTemplate<cr>",    "Insert a template into note" },
+        { "<leader>rf", "<cmd>ObsidianQuickSwitch<cr>", desc = "Find file in Roam" },
+        { "<leader>rs", "<cmd>ObsidianSearch<cr>",      desc = "Search keywords in Roam" },
+        { "<leader>rn", "<cmd>ObsidianNew<cr>",         desc = "Create new note in Roam" },
+        { "<leader>rt", "<cmd>ObsidianTemplate<cr>",    desc = "Insert a template into note" },
     },
     config = function()
         require("obsidian").setup({
@@ -30,6 +30,9 @@ local M = {
                 subdir = "Templates",
                 date_format = "%Y-%m-%d",
                 time_format = "%H:%M:%S"
+            },
+            attachments = {
+                img_folder = "Attachments",
             },
             new_notes_location = "./",
             note_id_func = function(title)
