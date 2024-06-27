@@ -39,6 +39,10 @@ function M.setup()
                 return
             end
 
+            if client.name == "solidity_ls_nomicfoundation" then
+                return
+            end
+
             vim.api.nvim_create_autocmd('BufWritePre', {
                 group = get_augroup(client),
                 buffer = bufnr,
