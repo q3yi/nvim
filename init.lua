@@ -30,7 +30,7 @@ require("lazy").setup({
     require("q3yi.diagnostic"),
     require("q3yi.pairs"),
     require("q3yi.nvim-surround"),
-    require("q3yi.rest"),
+    -- require("q3yi.rest"),
     require("q3yi.obsidian"),
     require("q3yi.which-key"),
 }, {})
