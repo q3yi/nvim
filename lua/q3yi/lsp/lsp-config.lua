@@ -20,28 +20,59 @@ local M = {
     },
 }
 
-local function on_attach(_, buf)
+local lsp_servers = {
+    lua_ls = {
+        settings = {
+            Lua = {
+                workspace = { checkThirdParty = false },
+                telemetry = { enable = false },
+            },
+        },
+    },
+    html = { filetypes = { "html", "twig", "hbs" } },
+    gopls = {
+        settings = {
+            gopls = {
+                hints = {
+                    assignVariableTypes = true,
+                    compositeLiteralFields = true,
+                    compositeLiteralTypes = true,
+                    constantValues = true,
+                    functionTypeParameters = true,
+                    parameterNames = true,
+                    rangeVariableTypes = true,
+                },
+            },
+        },
+    },
+}
+
+local function on_attach(client, buf)
+    local builtin = require("telescope.builtin")
     local bindings = {
-        { "gd",          "<cmd>Telescope lsp_definitions<cr>",               "Goto definition" },
-        { "gr",          "<cmd>Telescope lsp_references<cr>",                "Goto references" },
-        { "gI",          "<cmd>Telescope lsp_implementations<cr>",           "Goto implementation" },
-        { "gD",          vim.lsp.buf.declaration,                            "Goto declaration" },
+        { "gd",         builtin.lsp_definitions,               "Goto definition" },
+        { "gr",         builtin.lsp_references,                "Goto references" },
+        { "gI",         builtin.lsp_implementations,           "Goto implementation" },
+        { "gD",         vim.lsp.buf.declaration,               "Goto declaration" },
 
-        { "<leader>lr",  vim.lsp.buf.rename,                                 "Rename" },
-        { "<leader>la",  vim.lsp.buf.code_action,                            "Code action" },
-
-        { "<leader>lD",  "<cmd>Telescope lsp_type_definitions<cr>",          "Type definition" },
-        { "<leader>ls",  "<cmd>Telescope lsp_document_symbols<cr>",          "Buffer symbols" },
-        { "<leader>lS",  "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", "Workspace symbols" },
-        { "<leader>lf",  function() vim.lsp.buf.format { async = true } end, "Format current buffer" },
+        { "<leader>lr", vim.lsp.buf.rename,                    "Rename" },
+        { "<leader>la", vim.lsp.buf.code_action,               "Code action" },
+        { "<leader>lD", builtin.lsp_type_definitions,          "Type definition" },
+        { "<leader>ls", builtin.lsp_document_symbols,          "Buffer symbols" },
+        { "<leader>lS", builtin.lsp_dynamic_workspace_symbols, "Workspace symbols" },
+        {
+            "<leader>lf",
+            function() vim.lsp.buf.format { async = true } end,
+            "Format current buffer"
+        },
 
         -- See `:help K` for why this keymap
-        { "K",           vim.lsp.buf.hover,                                  "Hover documentation" },
-        { "<m-k>",       vim.lsp.buf.signature_help,                         "Signature documentation" },
+        { "K",           vim.lsp.buf.hover,                   "Hover documentation" },
+        { "<m-k>",       vim.lsp.buf.signature_help,          "Signature documentation" },
 
         -- Lesser used LSP functionality
-        { "<leader>wfa", vim.lsp.buf.add_workspace_folder,                   "Add folder to workspace" },
-        { "<leader>wfr", vim.lsp.buf.remove_workspace_folder,                "Remove folder from workspace" },
+        { "<leader>wfa", vim.lsp.buf.add_workspace_folder,    "Add folder to workspace" },
+        { "<leader>wfr", vim.lsp.buf.remove_workspace_folder, "Remove folder from workspace" },
         {
             "<leader>wfl",
             function()
@@ -52,6 +83,17 @@ local function on_attach(_, buf)
 
         { "<leader>li", "<cmd>LspInfo<cr>",    "Show attached lsp server info" },
         { "<leader>lu", "<cmd>LspRestart<cr>", "Restart lsp server" },
+        {
+            "<leader>lh",
+            function()
+                if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
+                    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
+                else
+                    print("LSP Server not support inlayHint.")
+                end
+            end,
+            "Toggle inlay hints"
+        },
     }
 
     for _, binding in ipairs(bindings) do
@@ -71,14 +113,6 @@ function M.config()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-    local function setup_lsp(server_name, settings)
-        require("lspconfig")[server_name].setup {
-            capabilities = capabilities,
-            on_attach = on_attach,
-            settings = settings,
-        }
-    end
-
     require("mason").setup({})
     local mason_lsp = require("mason-lspconfig")
     mason_lsp.setup({})
@@ -87,23 +121,13 @@ function M.config()
     mason_lsp.setup_handlers {
         -- default setting for server doesn't have a dedicated handler
         function(server_name)
-            setup_lsp(server_name, {})
+            local cfg = lsp_servers[server_name] or {}
+            require("lspconfig")[server_name].setup({
+                capabilities = vim.tbl_extend("force", {}, capabilities, cfg.capabilities or {}),
+                on_attach = on_attach,
+                settings = cfg.settings or {},
+            })
         end,
-
-        -- override lsp server settings with a dedicated handler
-        ["lua_ls"] = function()
-            local opt = {
-                Lua = {
-                    workspace = { checkThirdParty = false },
-                    telemetry = { enable = false },
-                },
-            }
-            setup_lsp("lua_ls", opt)
-        end,
-        ["html"] = function()
-            local opt = { filetypes = { "html", "twig", "hbs" } }
-            setup_lsp("html", opt)
-        end
     }
 end
 
