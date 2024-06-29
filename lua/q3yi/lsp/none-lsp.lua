@@ -8,35 +8,26 @@ local M = {
 function M.config()
     local none_ls = require("null-ls")
 
-    none_ls.setup {
+    none_ls.setup({
         sources = {
             -- diagnostics
             none_ls.builtins.diagnostics.fish,
             none_ls.builtins.diagnostics.markdownlint_cli2,
-            -- formattor
-            none_ls.builtins.formatting.fish_indent,
-            none_ls.builtins.formatting.forge_fmt,
-            none_ls.builtins.formatting.prettier,
         },
         on_attach = function(client, _)
             if not client.supports_method("textDocument/formatting") then
                 return
             end
 
-            vim.keymap.set(
-                { "n" },
-                "<leader>lf",
-                function()
-                    vim.lsp.buf.format { async = true }
-                end,
-                {
-                    noremap = true,
-                    silent = true,
-                    desc = "Null-ls: Format current buffer"
-                }
-            )
-        end
-    }
+            vim.keymap.set({ "n" }, "<leader>lf", function()
+                vim.lsp.buf.format({ async = true })
+            end, {
+                noremap = true,
+                silent = true,
+                desc = "Null-ls: Format current buffer",
+            })
+        end,
+    })
 end
 
 return M

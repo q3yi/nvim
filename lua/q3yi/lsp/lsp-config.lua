@@ -1,7 +1,7 @@
 -- Configurate language server
 
 local M = {
-    'neovim/nvim-lspconfig',
+    "neovim/nvim-lspconfig",
     event = { "VeryLazy" },
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
@@ -9,11 +9,14 @@ local M = {
             "j-hui/fidget.nvim",
             opts = {
                 notification = {
-                    window = { winblend = 0, border = "single" },
-                }
-            }
+                    window = {
+                        winblend = 0,
+                        -- border = "single",
+                    },
+                },
+            },
         },
-        'folke/neodev.nvim',
+        "folke/neodev.nvim",
 
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
@@ -29,6 +32,9 @@ local lsp_servers = {
         },
     },
     lua_ls = {
+        server_capabilities = {
+            semanticTokensProvider = vim.NIL,
+        },
         settings = {
             Lua = {
                 workspace = { checkThirdParty = false },
@@ -58,7 +64,7 @@ local lsp_servers = {
     solidity_ls_nomicfoundation = {
         server_capabilities = {
             documentFormattingProvider = false,
-        }
+        },
     },
     tsserver = {
         server_capabilities = {
@@ -70,38 +76,33 @@ local lsp_servers = {
 local function on_attach(client, buf)
     local builtin = require("telescope.builtin")
     local bindings = {
-        { "gd",         builtin.lsp_definitions,               "Goto definition" },
-        { "gr",         builtin.lsp_references,                "Goto references" },
-        { "gI",         builtin.lsp_implementations,           "Goto implementation" },
-        { "gD",         vim.lsp.buf.declaration,               "Goto declaration" },
+        { "gd", builtin.lsp_definitions, "Goto definition" },
+        { "gr", builtin.lsp_references, "Goto references" },
+        { "gI", builtin.lsp_implementations, "Goto implementation" },
+        { "gD", vim.lsp.buf.declaration, "Goto declaration" },
 
-        { "<leader>lr", vim.lsp.buf.rename,                    "Rename" },
-        { "<leader>la", vim.lsp.buf.code_action,               "Code action" },
-        { "<leader>lD", builtin.lsp_type_definitions,          "Type definition" },
-        { "<leader>ls", builtin.lsp_document_symbols,          "Buffer symbols" },
+        { "<leader>lr", vim.lsp.buf.rename, "Rename" },
+        { "<leader>la", vim.lsp.buf.code_action, "Code action" },
+        { "<leader>lD", builtin.lsp_type_definitions, "Type definition" },
+        { "<leader>ls", builtin.lsp_document_symbols, "Buffer symbols" },
         { "<leader>lS", builtin.lsp_dynamic_workspace_symbols, "Workspace symbols" },
-        {
-            "<leader>lf",
-            function() vim.lsp.buf.format { async = true } end,
-            "Format current buffer"
-        },
 
         -- See `:help K` for why this keymap
-        { "K",           vim.lsp.buf.hover,                   "Hover documentation" },
-        { "<m-k>",       vim.lsp.buf.signature_help,          "Signature documentation" },
+        { "K", vim.lsp.buf.hover, "Hover documentation" },
+        { "<m-k>", vim.lsp.buf.signature_help, "Signature documentation" },
 
         -- Lesser used LSP functionality
-        { "<leader>wfa", vim.lsp.buf.add_workspace_folder,    "Add folder to workspace" },
+        { "<leader>wfa", vim.lsp.buf.add_workspace_folder, "Add folder to workspace" },
         { "<leader>wfr", vim.lsp.buf.remove_workspace_folder, "Remove folder from workspace" },
         {
             "<leader>wfl",
             function()
                 print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
             end,
-            "List workspace folders"
+            "List workspace folders",
         },
 
-        { "<leader>li", "<cmd>LspInfo<cr>",    "Show attached lsp server info" },
+        { "<leader>li", "<cmd>LspInfo<cr>", "Show attached lsp server info" },
         { "<leader>lu", "<cmd>LspRestart<cr>", "Restart lsp server" },
         {
             "<leader>lh",
@@ -117,7 +118,7 @@ local function on_attach(client, buf)
                     vim.notify("server not support inlayHint.", vim.log.levels.ERROR)
                 end
             end,
-            "Toggle inlay hints"
+            "Toggle inlay hints",
         },
     }
 
@@ -164,7 +165,7 @@ function M.config()
     mason_lsp.setup({})
 
     -- Setup lspconfig automatically when install lsp server in mason
-    mason_lsp.setup_handlers {
+    mason_lsp.setup_handlers({
         -- default setting for server doesn't have a dedicated handler
         function(server_name)
             local cfg = lsp_servers[server_name] or {}
@@ -175,7 +176,7 @@ function M.config()
                 filetypes = cfg.filetypes,
             })
         end,
-    }
+    })
 end
 
 return M
