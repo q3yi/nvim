@@ -12,6 +12,8 @@ function WhichKey.config()
         ["<leader>w"] = { name = "Workspace", _ = "which_key_ignore" },
         ["<leader>l"] = { name = "LSP", _ = "which_key_ignore" },
         ["<leader>d"] = { name = "Diagnostic", _ = "which_key_ignore" },
+        ["<leader>s"] = { name = "Swap textobjects", _ = "which_key_ignore" },
+        ["<leader>u"] = { name = "Options", _ = "which_key_ignore" },
     })
 end
 

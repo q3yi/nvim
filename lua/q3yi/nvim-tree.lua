@@ -17,6 +17,6 @@ function M.config()
     })
 end
 
-vim.keymap.set("n", "<leader>t", "<cmd>NvimTreeToggle<cr>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>e", "<cmd>NvimTreeToggle<cr>", { desc = "Toggle file explorer" })
 
 return M

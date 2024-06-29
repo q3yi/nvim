@@ -33,6 +33,20 @@ local M = {
     "echasnovski/mini.pairs",
     version = false,
     event = "InsertEnter",
+    keys = {
+        {
+            "<leader>up",
+            function()
+                vim.g.minipairs_disable = not vim.g.minipairs_disable
+                if vim.g.minipairs_disable then
+                    vim.notify("auto pairs disabled", vim.log.levels.INFO)
+                else
+                    vim.notify("auto pairs enabled", vim.log.levels.INFO)
+                end
+            end,
+            desc = "Toggle Auto Pairs",
+        },
+    },
     config = function()
         require("mini.pairs").setup({})
         vim.keymap.set("i", "<C-e>", move_out, { silent = true })

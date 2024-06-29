@@ -21,7 +21,9 @@ local options = {
         { name = "DiagnosticSignInfo", text = "!" },
     },
     config = {
-        virtual_text = false,
+        virtual_text = function()
+            return vim.g.diagnostic_show_virtual_text or false
+        end,
         underline = true,
         update_in_insert = true,
         serverity_sort = true,
@@ -54,6 +56,14 @@ local function setup_diagnostic(opts)
     end
 
     vim.keymap.set("n", "<leader>dk", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
+    vim.keymap.set("n", "<leader>ud", function()
+        vim.g.diagnostic_show_virtual_text = not vim.g.diagnostic_show_virtual_text
+        if vim.g.diagnostic_show_virtual_text then
+            vim.notify("diagnostic virtual text enabled", vim.log.levels.INFO)
+        else
+            vim.notify("diagnostic virtual text disabled", vim.log.levels.INFO)
+        end
+    end, { desc = "Toggle diagnostic virtual text" })
 end
 
 -- initial diagnostic config here.

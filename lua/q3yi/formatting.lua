@@ -51,6 +51,8 @@ M.init = function()
         bang = true,
     })
 
+    vim.keymap.set({ "n", "v" }, "<leader>uf", "<cmd>ToggleAutoFormat<cr>", { desc = "Toggle auto format" })
+
     vim.keymap.set({ "n", "v" }, "<leader>bf", function()
         require("conform").format({
             timeout_ms = 500,

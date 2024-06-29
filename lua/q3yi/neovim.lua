@@ -44,10 +44,9 @@ kmap({ "i", "n", "v" }, "<f1>", "<Nop>", { silent = true })
 -- Remap for dealing with word wrap
 kmap("n", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
 kmap("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
-kmap({ "n", "v" }, "<f12>", "<cmd>set wrap!<cr>", { desc = "Toggle word wrap" })
 
 kmap("n", "<leader>q", "<cmd>qa<cr>", { desc = "Close all then exit" })
-kmap("n", "<leader>bs", "<cmd>w<cr>", { desc = "Save buffer" })
+kmap("n", "<leader>bw", "<cmd>w<cr>", { desc = "Save buffer" })
 kmap("n", "<leader>bq", "<cmd>wq<cr>", { desc = "Save buffer and exit" })
 kmap("n", "<leader>bd", "<cmd>bd!<cr>", { desc = "Discard buffer" })
 kmap("n", "<leader>bn", "<cmd>bNext<cr>", { silent = true, desc = "Next buffer" })
@@ -70,6 +69,9 @@ kmap({ "n", "v" }, "<c-k>", "<c-w>k", { noremap = true, desc = "Switch to upper 
 kmap({ "n", "v" }, "<c-h>", "<c-w>h", { noremap = true, desc = "Switch to left window" })
 kmap({ "n", "v" }, "<c-l>", "<c-w>l", { noremap = true, desc = "Switch to right window" })
 
+kmap({ "n", "v" }, "<leader>ur", "<cmd>set wrap!<cr>", { desc = "Toggle word wrap" })
+kmap({ "n", "v" }, "<leader>uw", "<cmd>ToggleWhitespace<cr>", { desc = "Toggle display of whitespace" })
+
 -- Create command to show whitespace, equal to `:set list`
 vim.api.nvim_create_user_command("ToggleWhitespace", function()
     if vim.opt.list:get() then
@@ -79,13 +81,32 @@ vim.api.nvim_create_user_command("ToggleWhitespace", function()
     end
 end, { desc = "Show or hidden whitespace charactors." })
 
--- Create command to change tab width
-vim.api.nvim_create_user_command("SetTabWidth", function(param)
+local function set_tab_width(param)
     local size = tonumber(param.args) or 4
     vim.opt.shiftwidth = size
     vim.opt.tabstop = size
     vim.opt.softtabstop = size
-end, { nargs = "?", desc = "Change tab width." })
+end
+
+-- Create command to change tab width
+vim.api.nvim_create_user_command("SetTabWidth", set_tab_width, { nargs = "?", desc = "Change tab width." })
+kmap("n", "<leader>u>", function()
+    local size = 2 ^ (math.log(vim.opt.tabstop:get() or 2, 2) + 1)
+    if size > 8 then
+        return
+    end
+    set_tab_width({ args = size })
+    vim.notify("tab width set to: " .. size, vim.log.levels.INFO)
+end, { desc = "Increase tab width" })
+
+kmap("n", "<leader>u<", function()
+    local size = 2 ^ (math.log(vim.opt.tabstop:get() or 2, 2) - 1)
+    if size < 2 then
+        return
+    end
+    set_tab_width({ args = size })
+    vim.notify("tab width set to: " .. size, vim.log.levels.INFO)
+end, { desc = "Increase tab width" })
 
 -- Highlight text copied when yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
