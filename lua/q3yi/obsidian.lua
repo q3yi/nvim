@@ -1,4 +1,5 @@
 -- obsidian plugin
+---@diagnostic disable: missing-fields
 
 local M = {
     "epwalsh/obsidian.nvim",
@@ -11,9 +12,9 @@ local M = {
     },
     keys = {
         { "<leader>rf", "<cmd>ObsidianQuickSwitch<cr>", desc = "Find file in Roam" },
-        { "<leader>rs", "<cmd>ObsidianSearch<cr>",      desc = "Search keywords in Roam" },
-        { "<leader>rn", "<cmd>ObsidianNew<cr>",         desc = "Create new note in Roam" },
-        { "<leader>rt", "<cmd>ObsidianTemplate<cr>",    desc = "Insert a template into note" },
+        { "<leader>rs", "<cmd>ObsidianSearch<cr>", desc = "Search keywords in Roam" },
+        { "<leader>rn", "<cmd>ObsidianNew<cr>", desc = "Create new note in Roam" },
+        { "<leader>rt", "<cmd>ObsidianTemplate<cr>", desc = "Insert a template into note" },
     },
     config = function()
         require("obsidian").setup({
@@ -29,7 +30,7 @@ local M = {
             templates = {
                 subdir = "Templates",
                 date_format = "%Y-%m-%d",
-                time_format = "%H:%M:%S"
+                time_format = "%H:%M:%S",
             },
             attachments = {
                 img_folder = "Attachments",

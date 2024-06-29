@@ -29,9 +29,9 @@ function NvimCmp.config()
     -- load personal snippets
     require("luasnip.loaders.from_lua").lazy_load({ paths = { "./lua-snippets/" } })
 
-    luasnip.config.setup {
-        update_events = { "TextChanged", "TextChangedI" }
-    }
+    luasnip.config.setup({
+        update_events = { "TextChanged", "TextChangedI" },
+    })
 
     vim.keymap.set({ "i", "s" }, "<M-]>", function()
         if luasnip.expand_or_locally_jumpable() then
@@ -43,7 +43,7 @@ function NvimCmp.config()
         luasnip.jump(-1)
     end, { noremap = true, silent = true })
 
-    cmp.setup {
+    cmp.setup({
         snippet = {
             expand = function(args)
                 luasnip.lsp_expand(args.body)
@@ -53,13 +53,13 @@ function NvimCmp.config()
             -- completion = cmp.config.window.bordered({ border = "single" }),
             -- documentation = cmp.config.window.bordered({ border = "single"}),
         },
-        mapping = cmp.mapping.preset.insert {
+        mapping = cmp.mapping.preset.insert({
             ["<C-n>"] = cmp.mapping.select_next_item(),
             ["<C-p>"] = cmp.mapping.select_prev_item(),
             ["<C-u>"] = cmp.mapping.scroll_docs(-4),
             ["<C-d>"] = cmp.mapping.scroll_docs(4),
             ["<C-e>"] = cmp.mapping.abort(),
-            ["<CR>"] = cmp.mapping.confirm { select = true },
+            ["<CR>"] = cmp.mapping.confirm({ select = true }),
             ["<Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     if #cmp.get_entries() == 1 then
@@ -80,7 +80,7 @@ function NvimCmp.config()
                     fallback()
                 end
             end, { "i", "s" }),
-        },
+        }),
         formatting = {
             expandable_indicator = true,
             fields = { "abbr", "kind", "menu" },
@@ -92,10 +92,10 @@ function NvimCmp.config()
         sources = {
             { name = "nvim_lsp" },
             { name = "luasnip" },
-            { name = "buffer",  keyword_length = 3 },
-            { name = "path" }
+            { name = "buffer", keyword_length = 3 },
+            { name = "path" },
         },
-    }
+    })
 end
 
 return NvimCmp

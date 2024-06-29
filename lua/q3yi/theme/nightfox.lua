@@ -10,7 +10,7 @@ local M = {
         local opts = {
             options = {
                 styles = {
-                    comments = "italic"
+                    comments = "italic",
                 },
             },
         }
@@ -20,8 +20,8 @@ local M = {
 
         require("nightfox").setup(opts)
 
-        vim.cmd.colorscheme "nightfox"
-    end
+        vim.cmd.colorscheme("nightfox")
+    end,
 }
 
 return M

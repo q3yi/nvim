@@ -4,8 +4,8 @@ local right_parts = "\"')]}>"
 
 ---Move cursor out the pairs
 local function move_out()
-    local unpack = unpack or table.unpack;
-    local line, col = unpack(vim.api.nvim_win_get_cursor(0));
+    local unpack = unpack or table.unpack
+    local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     local text = vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]
     if col == text:len() then
         return
@@ -36,7 +36,7 @@ local M = {
     config = function()
         require("mini.pairs").setup({})
         vim.keymap.set("i", "<C-e>", move_out, { silent = true })
-    end
+    end,
 }
 
 return M

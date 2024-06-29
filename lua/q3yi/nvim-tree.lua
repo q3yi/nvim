@@ -11,10 +11,10 @@ local M = {
 function M.config()
     local nvim_tree = require("nvim-tree")
 
-    nvim_tree.setup {
+    nvim_tree.setup({
         disable_netrw = true,
         hijack_netrw = false,
-    }
+    })
 end
 
 vim.keymap.set("n", "<leader>t", "<cmd>NvimTreeToggle<cr>", { noremap = true, silent = true })

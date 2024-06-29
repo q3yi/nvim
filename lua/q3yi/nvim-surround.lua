@@ -5,7 +5,7 @@ local M = {
     keys = { "ys", "cs", "ds", "gS", "yS" },
     config = function()
         require("nvim-surround").setup({})
-    end
+    end,
 }
 
 return M

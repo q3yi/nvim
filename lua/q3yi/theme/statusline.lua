@@ -5,7 +5,7 @@ local MiniStatus = {
     version = false,
     config = function()
         require("mini.statusline").setup({})
-    end
+    end,
 }
 
 return MiniStatus

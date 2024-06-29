@@ -20,7 +20,7 @@ local M = {
 }
 
 function M.config()
-    require("nvim-treesitter.configs").setup {
+    require("nvim-treesitter.configs").setup({
         ensure_installed = {
             "bash",
             "c",
@@ -46,6 +46,7 @@ function M.config()
             "lua",
             "markdown",
             "make",
+            "ocaml",
             "python",
             "rust",
             "sql",
@@ -54,7 +55,7 @@ function M.config()
             "toml",
             "vimdoc",
             "vim",
-            "yaml"
+            "yaml",
         },
 
         auto_install = false,
@@ -103,7 +104,7 @@ function M.config()
                 },
                 goto_previous_end = {
                     ["[F"] = "@function.outer",
-                    ["[C"] = "@class.outer"
+                    ["[C"] = "@class.outer",
                 },
                 goto_next = {
                     ["]o"] = {
@@ -119,7 +120,7 @@ function M.config()
                 },
             },
         },
-    }
+    })
 end
 
 return M

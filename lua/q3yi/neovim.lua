@@ -58,8 +58,8 @@ kmap("v", "<down>", ":m '>+1<cr>gv=gv", { desc = "Move selected lines down" })
 kmap({ "i", "n" }, "<up>", ":m .-2<cr>", { desc = "Move line up" })
 kmap({ "i", "n" }, "<down>", ":m .+1<cr>", { desc = "Move line down" })
 
-kmap("n", "<leader>p", '"+p', { desc = "Paste from system clipboard" })
-kmap({ "n", "v" }, "<leader>y", '"+y', { desc = "Yank to system clipboard" })
+kmap("n", "<leader>p", "\"+p", { desc = "Paste from system clipboard" })
+kmap({ "n", "v" }, "<leader>y", "\"+y", { desc = "Yank to system clipboard" })
 
 kmap("n", "<leader>o", "<c-^>", { noremap = true, desc = "Switch to alternative" })
 

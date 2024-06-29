@@ -27,59 +27,59 @@ local palette = {
 }
 
 local spec = {
-    bg0    = palette.revolver,  -- Dark bg (status line and float)
-    bg1    = palette.midnight,  -- Default bg
-    bg2    = palette.bossanova, -- Lighter bg (colorcolm folds)
-    bg3    = palette.bossanova, -- Lighter bg (cursor line)
-    bg4    = palette.comet,     -- Conceal, border fg
+    bg0 = palette.revolver, -- Dark bg (status line and float)
+    bg1 = palette.midnight, -- Default bg
+    bg2 = palette.bossanova, -- Lighter bg (colorcolm folds)
+    bg3 = palette.bossanova, -- Lighter bg (cursor line)
+    bg4 = palette.comet, -- Conceal, border fg
 
-    fg0    = palette.white,     -- Lighter fg
-    fg1    = palette.lavender,  -- Default fg
-    fg2    = palette.lilac,     -- Darker fg (status line)
-    fg3    = palette.comet,     -- Darker fg (line numbers, fold colums)
+    fg0 = palette.white, -- Lighter fg
+    fg1 = palette.lavender, -- Default fg
+    fg2 = palette.lilac, -- Darker fg (status line)
+    fg3 = palette.comet, -- Darker fg (line numbers, fold colums)
 
-    sel0   = palette.purple,    -- Popup bg, visual selection bg
-    sel1   = palette.amethyst,  -- Popup sel bg, search bg
+    sel0 = palette.purple, -- Popup bg, visual selection bg
+    sel1 = palette.amethyst, -- Popup sel bg, search bg
 
     syntax = {
-        bracket     = palette.lavender, -- Brackets and Punctuation
-        builtin0    = palette.apricot,  -- Builtin variable
-        builtin1    = palette.lilac,    -- Builtin type
-        builtin2    = palette.white,    -- Builtin const
-        builtin3    = palette.apricot,  -- Not used
-        comment     = palette.sirocco,  -- Comment
-        conditional = palette.almond,   -- Conditional and loop
-        const       = palette.white,    -- Constants, imports and booleans
-        dep         = palette.comet,    -- Deprecated
-        field       = palette.white,    -- Field
-        func        = palette.white,    -- Functions and Titles
-        ident       = palette.almond,   -- Identifiers
-        keyword     = palette.almond,   -- Keywords
-        number      = palette.chamois,  -- Numbers
-        operator    = palette.lilac,    -- Operators
-        preproc     = palette.apricot,  -- PreProc
-        regex       = palette.honey,    -- Regex
-        statement   = palette.almond,   -- Statements
-        string      = palette.silver,   -- Strings
-        type        = palette.lilac,    -- Types
-        variable    = palette.lavender, -- Variables
+        bracket = palette.lavender, -- Brackets and Punctuation
+        builtin0 = palette.apricot, -- Builtin variable
+        builtin1 = palette.lilac, -- Builtin type
+        builtin2 = palette.white, -- Builtin const
+        builtin3 = palette.apricot, -- Not used
+        comment = palette.sirocco, -- Comment
+        conditional = palette.almond, -- Conditional and loop
+        const = palette.white, -- Constants, imports and booleans
+        dep = palette.comet, -- Deprecated
+        field = palette.white, -- Field
+        func = palette.white, -- Functions and Titles
+        ident = palette.almond, -- Identifiers
+        keyword = palette.almond, -- Keywords
+        number = palette.chamois, -- Numbers
+        operator = palette.lilac, -- Operators
+        preproc = palette.apricot, -- PreProc
+        regex = palette.honey, -- Regex
+        statement = palette.almond, -- Statements
+        string = palette.silver, -- Strings
+        type = palette.lilac, -- Types
+        variable = palette.lavender, -- Variables
     },
 
-    diag   = {
+    diag = {
         error = palette.violet_red,
-        warn  = palette.lightning,
-        info  = palette.delta,
-        hint  = palette.shamrock,
-        ok    = palette.shamrock,
+        warn = palette.lightning,
+        info = palette.delta,
+        hint = palette.shamrock,
+        ok = palette.shamrock,
     },
 
-    git    = {
-        add      = palette.shamrock,
-        removed  = palette.violet_red,
-        changed  = palette.delta,
+    git = {
+        add = palette.shamrock,
+        removed = palette.violet_red,
+        changed = palette.delta,
         conflict = palette.lightning,
-        ignored  = palette.silver,
-    }
+        ignored = palette.silver,
+    },
 }
 
 local M = {}

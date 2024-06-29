@@ -1,10 +1,11 @@
 -- customized python snippets
+---@diagnostic disable: undefined-global
 local M = {}
 
 local leetcode = s(
     {
         trig = "leetcode",
-        dscr = "leetcode solution py file template with unittest."
+        dscr = "leetcode solution py file template with unittest.",
     },
 
     fmt(
@@ -39,7 +40,6 @@ local leetcode = s(
             func_rep_2 = rep(2),
         }
     )
-
 )
 table.insert(M, leetcode)
 

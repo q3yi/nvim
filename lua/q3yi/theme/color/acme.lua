@@ -28,59 +28,59 @@ local palette = {
 }
 
 local spec = {
-    bg0    = palette.dew,           -- Dark bg (status line and float)
-    bg1    = palette.apricot_white, -- Default bg
-    bg2    = palette.white_rock,    -- Lighter bg (colorcolm folds)
-    bg3    = palette.blue_bell,     -- Lighter bg (cursor line)
-    bg4    = palette.black,         -- Conceal, border fg
+    bg0 = palette.dew, -- Dark bg (status line and float)
+    bg1 = palette.apricot_white, -- Default bg
+    bg2 = palette.white_rock, -- Lighter bg (colorcolm folds)
+    bg3 = palette.blue_bell, -- Lighter bg (cursor line)
+    bg4 = palette.black, -- Conceal, border fg
 
-    fg0    = palette.tuatara,       -- Lighter fg
-    fg1    = palette.black,         -- Default fg
-    fg2    = palette.black,         -- Darker fg (status line)
-    fg3    = palette.silver,        -- Darker fg (line numbers, fold colums)
+    fg0 = palette.tuatara, -- Lighter fg
+    fg1 = palette.black, -- Default fg
+    fg2 = palette.black, -- Darker fg (status line)
+    fg3 = palette.silver, -- Darker fg (line numbers, fold colums)
 
-    sel0   = palette.primrose,      -- Popup bg, visual selection bg
-    sel1   = palette.amethyst,      -- Popup sel bg, search bg
+    sel0 = palette.primrose, -- Popup bg, visual selection bg
+    sel1 = palette.amethyst, -- Popup sel bg, search bg
 
     syntax = {
-        bracket     = palette.black,     -- Brackets and Punctuation
-        builtin0    = palette.black,     -- Builtin variable
-        builtin1    = palette.black,     -- Builtin type
-        builtin2    = palette.black,     -- Builtin const
-        builtin3    = palette.black,     -- Not used
-        comment     = palette.san_felix, -- Comment
-        conditional = palette.black,     -- Conditional and loop
-        const       = palette.black,     -- Constants, imports and booleans
-        dep         = palette.black,     -- Deprecated
-        field       = palette.black,     -- Field
-        func        = palette.black,     -- Functions and Titles
-        ident       = palette.black,     -- Identifiers
-        keyword     = palette.black,     -- Keywords
-        number      = palette.black,     -- Numbers
-        operator    = palette.black,     -- Operators
-        preproc     = palette.black,     -- PreProc
-        regex       = palette.black,     -- Regex
-        statement   = palette.black,     -- Statements
-        string      = palette.stiletto,  -- Strings
-        type        = palette.black,     -- Types
-        variable    = palette.black,     -- Variables
+        bracket = palette.black, -- Brackets and Punctuation
+        builtin0 = palette.black, -- Builtin variable
+        builtin1 = palette.black, -- Builtin type
+        builtin2 = palette.black, -- Builtin const
+        builtin3 = palette.black, -- Not used
+        comment = palette.san_felix, -- Comment
+        conditional = palette.black, -- Conditional and loop
+        const = palette.black, -- Constants, imports and booleans
+        dep = palette.black, -- Deprecated
+        field = palette.black, -- Field
+        func = palette.black, -- Functions and Titles
+        ident = palette.black, -- Identifiers
+        keyword = palette.black, -- Keywords
+        number = palette.black, -- Numbers
+        operator = palette.black, -- Operators
+        preproc = palette.black, -- PreProc
+        regex = palette.black, -- Regex
+        statement = palette.black, -- Statements
+        string = palette.stiletto, -- Strings
+        type = palette.black, -- Types
+        variable = palette.black, -- Variables
     },
 
-    diag   = {
+    diag = {
         error = palette.mexican_red,
-        warn  = palette.chelsea_gem,
-        info  = palette.governor_bay,
-        hint  = palette.killarney,
-        ok    = palette.killarney,
+        warn = palette.chelsea_gem,
+        info = palette.governor_bay,
+        hint = palette.killarney,
+        ok = palette.killarney,
     },
 
-    git    = {
-        add      = palette.killarney,
-        removed  = palette.mexican_red,
-        changed  = palette.chelsea_gem,
+    git = {
+        add = palette.killarney,
+        removed = palette.mexican_red,
+        changed = palette.chelsea_gem,
         conflict = palette.an_chico,
-        ignored  = palette.silver,
-    }
+        ignored = palette.silver,
+    },
 }
 
 local M = {}

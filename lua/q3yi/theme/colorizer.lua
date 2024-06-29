@@ -6,10 +6,10 @@ local Colorizer = {
     config = function()
         require("colorizer").setup({
             filetype = {
-                "*"
-            }
+                "*",
+            },
         })
-    end
+    end,
 }
 
 return Colorizer
