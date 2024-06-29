@@ -25,6 +25,7 @@ require("lazy").setup({
     require("q3yi.treesitter"),
     require("q3yi.lsp"),
     require("q3yi.formatting"),
+    require("q3yi.linting"),
     require("q3yi.git"),
     require("q3yi.nvim-tree"),
     require("q3yi.illuminate"),
