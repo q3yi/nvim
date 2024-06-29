@@ -56,6 +56,7 @@ function M.config()
             "vimdoc",
             "vim",
             "yaml",
+            "zig",
         },
 
         auto_install = false,
@@ -85,8 +86,12 @@ function M.config()
                     ["if"] = "@function.inner",
                     ["ac"] = "@class.outer",
                     ["ic"] = "@class.inner",
+                    ["io"] = "@loop.inner",
+                    ["ao"] = "@loop.outer",
+                    ["ii"] = "@conditional.inner",
+                    ["ai"] = "@conditional.outer",
                 },
-                include_surrounding_whitespace = true,
+                -- include_surrounding_whitespace = true,
             },
             move = {
                 enable = true,
@@ -107,16 +112,25 @@ function M.config()
                     ["[C"] = "@class.outer",
                 },
                 goto_next = {
-                    ["]o"] = {
-                        query = { "@loop.outer", "@conditional.outer" },
-                        desc = "Next `if` or `loop`",
-                    },
+                    ["]a"] = "@parameter.outer",
+                    ["]o"] = "@loop.inner",
+                    ["]i"] = "@conditional.inner",
                 },
                 goto_previous = {
-                    ["[o"] = {
-                        query = { "@loop.outer", "@conditional.outer" },
-                        desc = "Previous `if` or `loop`",
-                    },
+                    ["[a"] = "@parameter.outer",
+                    ["[o"] = "@loop.inner",
+                    ["[i"] = "@conditional.inner",
+                },
+            },
+            swap = {
+                enable = true,
+                swap_next = {
+                    ["<leader>sa"] = "@parameter.inner",
+                    ["<leader>sf"] = "@function.outer",
+                },
+                swap_previous = {
+                    ["<leader>sA"] = "@parameter.inner",
+                    ["<leader>sF"] = "@function.outer",
                 },
             },
         },
