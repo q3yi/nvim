@@ -33,11 +33,11 @@ local options = {
     keys = {
         { "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" } },
         { "[d", vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" } },
-        { "]e", jump("next", "E"),        { desc = "Next Error" } },
-        { "[e", jump("prev", "E"),        { desc = "Prev Error" } },
-        { "]w", jump("next", "W"),        { desc = "Next Warning" } },
-        { "[w", jump("prev", "W"),        { desc = "Prev Warning" } },
-    }
+        { "]e", jump("next", "E"), { desc = "Next Error" } },
+        { "[e", jump("prev", "E"), { desc = "Prev Error" } },
+        { "]w", jump("next", "W"), { desc = "Next Warning" } },
+        { "[w", jump("prev", "W"), { desc = "Prev Warning" } },
+    },
 }
 
 local function setup_diagnostic(opts)
@@ -62,23 +62,27 @@ setup_diagnostic(options)
 local TroublePlugin = {
     "folke/trouble.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    cmd = { "Trouble", "TroubleToggle", },
+    cmd = { "Trouble", "TroubleToggle" },
     opts = {},
     keys = {
-        { "<leader>da", "<cmd>TroubleToggle document_diagnostics<cr>",  desc = "Open buffer diagnostics list in trouble" },
-        { "<leader>dl", "<cmd>TroubleToggle loclist<cr>",               desc = "Open location list in trouble" },
-        { "<leader>wd", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Open workspace diagnostics list in trouble" },
-        { "<leader>wq", "<cmd>TroubleToggle quickfix<cr>",              desc = "Open quickfix list in trouble" },
+        {
+            "<leader>da",
+            "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+            desc = "Open buffer diagnostics list in trouble",
+        },
+        { "<leader>dl", "<cmd>Trouble loclist toggle<cr>", desc = "Open location list in trouble" },
+        { "<leader>wd", "<cmd>Trouble diagnostics toggle<cr>", desc = "Open workspace diagnostics list in trouble" },
+        { "<leader>wq", "<cmd>Trouble qflist toggle<cr>", desc = "Open quickfix list in trouble" },
     },
     config = function()
-        require("trouble").setup {
+        require("trouble").setup({
             mode = "document_diagnostics",
             action_keys = {
                 open_split = { "<c-s>" },
             },
             auto_preview = false,
-        }
-    end
+        })
+    end,
 }
 
 return { TroublePlugin }
