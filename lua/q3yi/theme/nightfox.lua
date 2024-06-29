@@ -20,7 +20,12 @@ local M = {
 
         require("nightfox").setup(opts)
 
-        vim.cmd.colorscheme("nightfox")
+        local theme = os.getenv("NVIM_THEME")
+        if not theme then
+            theme = "nightfox"
+        end
+
+        vim.cmd.colorscheme(theme)
     end,
 }
 
