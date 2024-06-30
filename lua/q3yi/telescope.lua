@@ -5,13 +5,16 @@ local M = {
     branch = "0.1.x",
     cmd = "Telescope",
     dependencies = {
-        "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons",
         {
-            "nvim-telescope/telescope-fzf-native.nvim",
-            build = "make",
-            cond = function()
-                return vim.fn.executable("make") == 1
-            end,
+            "nvim-lua/plenary.nvim",
+            {
+                "nvim-telescope/telescope-fzf-native.nvim",
+                build = "make",
+                cond = function()
+                    return vim.fn.executable("make") == 1
+                end,
+            },
         },
     },
 }

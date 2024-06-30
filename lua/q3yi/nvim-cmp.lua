@@ -1,7 +1,10 @@
 -- Configurate auto completion framework
 ---@diagnostic disable: missing-fields
 
-local NvimCmp = {
+vim.opt.completeopt = { "menu", "menuone", "noselect" }
+vim.opt.shortmess:append("c")
+
+local M = {
     "hrsh7th/nvim-cmp",
     event = { "InsertEnter" },
     dependencies = {
@@ -14,14 +17,7 @@ local NvimCmp = {
     },
 }
 
-local cmp_sources = {
-    nvim_lsp = "[LSP]",
-    luasnip = "[Snip]",
-    buffer = "[Buf]",
-    path = "[Path]",
-}
-
-function NvimCmp.config()
+function M.config()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     -- load friendly snippets
@@ -49,46 +45,13 @@ function NvimCmp.config()
                 luasnip.lsp_expand(args.body)
             end,
         },
-        window = {
-            -- completion = cmp.config.window.bordered({ border = "single" }),
-            -- documentation = cmp.config.window.bordered({ border = "single"}),
-        },
         mapping = cmp.mapping.preset.insert({
-            ["<C-n>"] = cmp.mapping.select_next_item(),
-            ["<C-p>"] = cmp.mapping.select_prev_item(),
+            ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
+            ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+            ["<C-y>"] = cmp.mapping.confirm({ behavior = cmp.SelectBehavior.Insert, select = true }),
             ["<C-u>"] = cmp.mapping.scroll_docs(-4),
             ["<C-d>"] = cmp.mapping.scroll_docs(4),
-            ["<C-e>"] = cmp.mapping.abort(),
-            ["<CR>"] = cmp.mapping.confirm({ select = true }),
-            ["<Tab>"] = cmp.mapping(function(fallback)
-                if cmp.visible() then
-                    if #cmp.get_entries() == 1 then
-                        cmp.confirm({ select = true })
-                    else
-                        cmp.select_next_item()
-                    end
-                elseif luasnip.expandable() then
-                    luasnip.expand()
-                else
-                    fallback()
-                end
-            end, { "i", "s" }),
-            ["<S-Tab>"] = cmp.mapping(function(fallback)
-                if cmp.visible() then
-                    cmp.select_prev_item()
-                else
-                    fallback()
-                end
-            end, { "i", "s" }),
         }),
-        formatting = {
-            expandable_indicator = true,
-            fields = { "abbr", "kind", "menu" },
-            format = function(entry, vim_item)
-                vim_item.menu = cmp_sources[entry.source.name]
-                return vim_item
-            end,
-        },
         sources = {
             { name = "nvim_lsp" },
             { name = "luasnip" },
@@ -98,4 +61,4 @@ function NvimCmp.config()
     })
 end
 
-return NvimCmp
+return M

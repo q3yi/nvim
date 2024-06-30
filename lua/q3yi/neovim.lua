@@ -21,7 +21,6 @@ vim.opt.scrolloff = 8
 vim.opt.mouse = "a"
 vim.opt.breakindent = true
 vim.opt.undofile = true
-vim.opt.completeopt = "menuone,noselect"
 vim.opt.termguicolors = true
 vim.opt.guifont = "JetBrains_Mono:13"
 vim.opt.listchars = { eol = "⏎", space = "·", lead = "·", tab = ">-", trail = "·" }
