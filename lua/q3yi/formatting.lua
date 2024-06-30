@@ -3,7 +3,7 @@
 local M = {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
-    cmds = { "ToggleAutoFormat", "ConformInfo" },
+    cmd = { "ToggleAutoFormat", "ConformInfo" },
 }
 
 M.config = function()

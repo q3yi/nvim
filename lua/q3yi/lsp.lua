@@ -7,13 +7,7 @@ local M = {
         "hrsh7th/cmp-nvim-lsp",
         {
             "j-hui/fidget.nvim",
-            opts = {
-                notification = { window = { winblend = 0 } },
-                integration = {
-                    ["nvim-tree"] = { enable = false },
-                    ["xcodebuild-nvim"] = { enable = false },
-                },
-            },
+            opts = { notification = { window = { winblend = 0 } } },
         },
         "folke/neodev.nvim",
 
