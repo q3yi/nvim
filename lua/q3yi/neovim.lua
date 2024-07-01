@@ -51,15 +51,15 @@ kmap("n", "<leader>bd", "<cmd>bd!<cr>", { desc = "Discard buffer" })
 kmap("n", "<leader>bn", "<cmd>bNext<cr>", { silent = true, desc = "Next buffer" })
 kmap("n", "<leader>bp", "<cmd>bprevious<cr>", { silent = true, desc = "Previous buffer" })
 
-kmap("v", "<up>", ":m '<-2<cr>gv=gv", { desc = "Move selected lines up" })
-kmap("v", "<down>", ":m '>+1<cr>gv=gv", { desc = "Move selected lines down" })
-kmap({ "i", "n" }, "<up>", ":m .-2<cr>", { desc = "Move line up" })
-kmap({ "i", "n" }, "<down>", ":m .+1<cr>", { desc = "Move line down" })
+kmap("v", "<m-k>", ":m '<-2<cr>gv=gv", { desc = "Move selected lines up" })
+kmap("v", "<m-j>", ":m '>+1<cr>gv=gv", { desc = "Move selected lines down" })
+kmap({ "i", "n" }, "<m-k>", ":m .-2<cr>", { desc = "Move line up" })
+kmap({ "i", "n" }, "<m-j>", ":m .+1<cr>", { desc = "Move line down" })
 
 kmap("n", "<leader>p", "\"+p", { desc = "Paste from system clipboard" })
 kmap({ "n", "v" }, "<leader>y", "\"+y", { desc = "Yank to system clipboard" })
 
-kmap("n", "<leader>o", "<c-^>", { noremap = true, desc = "Switch to alternative" })
+kmap("n", "<leader>o", "<c-^>", { desc = "Switch to alternative" })
 
 kmap("n", "<c-\\>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
 
@@ -67,6 +67,11 @@ kmap({ "n", "v" }, "<c-j>", "<c-w>j", { noremap = true, desc = "Switch to lower 
 kmap({ "n", "v" }, "<c-k>", "<c-w>k", { noremap = true, desc = "Switch to upper window" })
 kmap({ "n", "v" }, "<c-h>", "<c-w>h", { noremap = true, desc = "Switch to left window" })
 kmap({ "n", "v" }, "<c-l>", "<c-w>l", { noremap = true, desc = "Switch to right window" })
+
+kmap({ "n", "v" }, "<m-down>", "<c-w>5-", { desc = "Decrease window height" })
+kmap({ "n", "v" }, "<m-up>", "<c-w>5+", { desc = "Increase window height" })
+kmap({ "n", "v" }, "<m-left>", "<c-w>5<", { desc = "Decrease window width" })
+kmap({ "n", "v" }, "<m-right>", "<c-w>5>", { desc = "Increase window width" })
 
 kmap({ "n", "v" }, "<leader>ur", "<cmd>set wrap!<cr>", { desc = "Toggle word wrap" })
 kmap({ "n", "v" }, "<leader>uw", "<cmd>ToggleWhitespace<cr>", { desc = "Toggle display of whitespace" })

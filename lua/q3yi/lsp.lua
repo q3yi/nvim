@@ -82,7 +82,7 @@ local function on_attach(client, buf)
 
         -- See `:help K` for why this keymap
         { "K", vim.lsp.buf.hover, "Hover documentation" },
-        { "<m-k>", vim.lsp.buf.signature_help, "Signature documentation" },
+        { "<leader>lk", vim.lsp.buf.signature_help, "Signature documentation" },
 
         -- Lesser used LSP functionality
         { "<leader>wfa", vim.lsp.buf.add_workspace_folder, "Add folder to workspace" },
