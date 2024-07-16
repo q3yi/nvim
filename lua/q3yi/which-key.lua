@@ -7,13 +7,17 @@ local WhichKey = {
 
 function WhichKey.config()
     local wk = require("which-key")
-    wk.register({
-        ["<leader>b"] = { name = "Buffers", _ = "which_key_ignore" },
-        ["<leader>w"] = { name = "Workspace", _ = "which_key_ignore" },
-        ["<leader>l"] = { name = "LSP", _ = "which_key_ignore" },
-        ["<leader>d"] = { name = "Diagnostic", _ = "which_key_ignore" },
-        ["<leader>s"] = { name = "Swap textobjects", _ = "which_key_ignore" },
-        ["<leader>u"] = { name = "Options", _ = "which_key_ignore" },
+    wk.setup({
+        icons = { rules = false },
+    })
+    wk.add({
+        { "<leader>b", group = "Buffers" },
+        { "<leader>w", group = "Workspace" },
+        { "<leader>l", group = "LSP" },
+        { "<leader>d", group = "Diagnostic" },
+        { "<leader>s", group = "Swap textobjects" },
+        { "<leader>u", group = "Options" },
+        { "<leader>r", group = "Obsidian" },
     })
 end
 
