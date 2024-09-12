@@ -110,7 +110,7 @@ kmap("n", "<leader>u<", function()
     end
     set_tab_width({ args = size })
     vim.notify("tab width set to: " .. size, vim.log.levels.INFO)
-end, { desc = "Increase tab width" })
+end, { desc = "Decrease tab width" })
 
 -- Highlight text copied when yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
