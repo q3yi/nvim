@@ -15,7 +15,7 @@ vim.opt.softtabstop = 4
 vim.opt.number = true
 vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes"
-vim.opt.colorcolumn = { 80 }
+-- vim.opt.colorcolumn = { 80 }
 vim.opt.wrap = false
 vim.opt.scrolloff = 8
 vim.opt.mouse = "a"
@@ -23,7 +23,7 @@ vim.opt.breakindent = true
 vim.opt.undofile = true
 vim.opt.termguicolors = true
 vim.opt.guifont = "JetBrains_Mono:13"
-vim.opt.listchars = { eol = "⏎", space = "·", lead = "·", tab = ">-", trail = "·" }
+vim.opt.listchars = { eol = "$", space = "·", lead = "·", tab = ">-", trail = "~", extends = ">", precedes = "<" }
 vim.opt.splitbelow = true
 vim.opt.splitright = true
 
@@ -111,6 +111,17 @@ kmap("n", "<leader>u<", function()
     set_tab_width({ args = size })
     vim.notify("tab width set to: " .. size, vim.log.levels.INFO)
 end, { desc = "Decrease tab width" })
+
+kmap("n", "<leader>uc", function()
+    local colorcolumn = vim.opt.colorcolumn:get()
+    if #colorcolumn > 0 then
+        vim.opt.colorcolumn = {}
+        vim.notify("colorcolumn disabled")
+    else
+        vim.opt.colorcolumn = { 80, 120 }
+        vim.notify("colorcolumn enabled")
+    end
+end, { desc = "Toggle colorcolumn" })
 
 -- Highlight text copied when yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
