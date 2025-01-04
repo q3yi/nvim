@@ -87,10 +87,10 @@ local M = {}
 function M.apply(opts)
     local overrides = {
         palettes = {
-            nightfox = palette,
+            carbonfox = palette,
         },
         specs = {
-            nightfox = spec,
+            carbonfox = spec,
         },
     }
 

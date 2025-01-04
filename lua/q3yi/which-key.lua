@@ -17,6 +17,7 @@ function WhichKey.config()
         { "<leader>d", group = "Diagnostic" },
         { "<leader>s", group = "Swap textobjects" },
         { "<leader>u", group = "Options" },
+        { "<leader>ut", group = "Fox themes" },
         { "<leader>r", group = "Obsidian" },
     })
 end
