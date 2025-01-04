@@ -28,33 +28,21 @@ local M = {
                 enable = false,
             },
             templates = {
-                subdir = "Templates",
+                subdir = "_templates",
                 date_format = "%Y-%m-%d",
                 time_format = "%H:%M:%S",
             },
             attachments = {
-                img_folder = "Attachments",
+                img_folder = "_static",
             },
             new_notes_location = "./",
             note_id_func = function(title)
-                local suffix = ""
-                if title ~= nil then
-                    suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-                else
-                    for _ = 1, 4 do
-                        suffix = suffix .. string.char(math.random(65, 90))
-                    end
-                end
-                return os.date("%Y%m%d%H%M", os.time()) .. "-" .. suffix
+                -- don't add any prefix of suffix to my title
+                return title
             end,
             note_frontmatter_func = function(note)
-                -- Add the title of the note as an alias.
-                if note.title then
-                    note:add_alias(note.title)
-                end
-
                 local out = {
-                    id = note.id,
+                    -- id = note.id,
                     aliases = note.aliases,
                     tags = note.tags,
                 }
@@ -65,10 +53,6 @@ local M = {
                     for k, v in pairs(note.metadata) do
                         out[k] = v
                     end
-                end
-
-                if out.categories == nil then
-                    out.categories = {}
                 end
 
                 if out.created_at == nil then
