@@ -1,26 +1,15 @@
 -- Set diagnostic shortcuts
 
-local function jump(direction, serverity)
-    local move = vim.diagnostic.goto_next
-    if direction == "prev" then
-        move = vim.diagnostic.goto_prev
-    end
-
-    local s = vim.diagnostic.severity[serverity]
-
-    return function()
-        move({ serverity = s })
-    end
-end
-
 local options = {
-    signs = {
-        { name = "DiagnosticSignError", text = "‼" },
-        { name = "DiagnosticSignWarn", text = "ǃ" },
-        { name = "DiagnosticSignHint", text = "!" },
-        { name = "DiagnosticSignInfo", text = "!" },
-    },
     config = {
+        signs = {
+            text = {
+                [vim.diagnostic.severity.ERROR] = "‼",
+                [vim.diagnostic.severity.WARN] = "!",
+                [vim.diagnostic.severity.HINT] = "!",
+                [vim.diagnostic.severity.INFO] = "!",
+            },
+        },
         virtual_text = function()
             return vim.g.diagnostic_show_virtual_text or false
         end,
@@ -32,28 +21,10 @@ local options = {
             source = "always",
         },
     },
-    keys = {
-        { "]d", vim.diagnostic.goto_next, { desc = "Next Diagnostic" } },
-        { "[d", vim.diagnostic.goto_prev, { desc = "Prev Diagnostic" } },
-        { "]e", jump("next", "E"), { desc = "Next Error" } },
-        { "[e", jump("prev", "E"), { desc = "Prev Error" } },
-        { "]w", jump("next", "W"), { desc = "Next Warning" } },
-        { "[w", jump("prev", "W"), { desc = "Prev Warning" } },
-    },
 }
 
 local function setup_diagnostic(opts)
-    -- set diagnostic signs
-    for _, sign in ipairs(opts.signs) do
-        vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
-    end
-
     vim.diagnostic.config(opts.config)
-
-    for _, binding in ipairs(opts.keys) do
-        local key, cmd, opt = binding[1], binding[2], binding[3]
-        vim.keymap.set("n", key, cmd, opt)
-    end
 
     vim.keymap.set("n", "<leader>dk", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
     vim.keymap.set("n", "<leader>ud", function()
