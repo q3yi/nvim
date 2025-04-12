@@ -27,7 +27,7 @@ require("lazy").setup({
     require("q3yi.formatting"),
     require("q3yi.linting"),
     require("q3yi.git"),
-    require("q3yi.oil"),
+    require("q3yi.yazi"),
     require("q3yi.illuminate"),
     require("q3yi.diagnostic"),
     require("q3yi.pairs"),
