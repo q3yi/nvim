@@ -1,16 +1,5 @@
 -- Config git extension
 
-local NeoGit = {
-    "NeogitOrg/neogit",
-    cmd = { "Neogit" },
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-    },
-    config = true,
-}
-
-vim.keymap.set("n", "<leader>v", "<cmd>Neogit<cr>")
-
 local GitSigns = {
     "lewis6991/gitsigns.nvim",
     opts = {
@@ -26,4 +15,4 @@ local GitSigns = {
     },
 }
 
-return { NeoGit, GitSigns }
+return { GitSigns }

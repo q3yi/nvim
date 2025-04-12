@@ -32,23 +32,24 @@ end
 local M = {
     "echasnovski/mini.pairs",
     version = false,
+    dependencies = { "folke/snacks.nvim" },
     event = "InsertEnter",
-    keys = {
-        {
-            "<leader>up",
-            function()
-                vim.g.minipairs_disable = not vim.g.minipairs_disable
-                if vim.g.minipairs_disable then
-                    vim.notify("auto pairs disabled", vim.log.levels.INFO)
-                else
-                    vim.notify("auto pairs enabled", vim.log.levels.INFO)
-                end
-            end,
-            desc = "Toggle Auto Pairs",
-        },
-    },
     config = function()
         require("mini.pairs").setup({})
+
+        require("snacks")
+            .toggle({
+                id = "minipairs",
+                name = "auto pair",
+                get = function()
+                    return not vim.g.minipairs_disable
+                end,
+                set = function(state)
+                    vim.g.minipairs_disable = not state
+                end,
+            }, nil)
+            :map("<leader>up")
+
         vim.keymap.set("i", "<C-e>", move_out, { silent = true })
     end,
 }

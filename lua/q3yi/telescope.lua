@@ -39,6 +39,7 @@ M.keys = {
     { "<leader>dw", "<cmd>Telescope diagnostics<cr>", desc = "Search diagnostics in workspace" },
     { "<leader>h", "<cmd>Telescope help_tags<cr>", desc = "Search help" },
     { "<leader>i", "<cmd>Telescope treesitter<cr>", desc = "Imenu-like function base on treesitter" },
+    { "<leader>m", "<cmd>Telescope marks<cr>", desc = "List all marks" },
 }
 
 function M.config()

@@ -19,6 +19,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Install and config packages
 require("lazy").setup({
+    require("q3yi.snacks"),
     require("q3yi.theme"),
     require("q3yi.cmp"),
     require("q3yi.telescope"),
@@ -27,6 +28,7 @@ require("lazy").setup({
     require("q3yi.formatting"),
     require("q3yi.linting"),
     require("q3yi.git"),
+    -- require("q3yi.oil"),
     require("q3yi.yazi"),
     require("q3yi.illuminate"),
     require("q3yi.diagnostic"),

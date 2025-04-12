@@ -4,10 +4,8 @@ local M = {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
     cmd = { "ToggleAutoFormat", "ConformInfo" },
-}
-
-M.config = function()
-    require("conform").setup({
+    dependencies = { "folke/snacks.nvim" },
+    opts = {
         formatters_by_ft = {
             lua = { "stylua" },
             javascript = { "prettier" },
@@ -30,7 +28,24 @@ M.config = function()
             end
             return { timeout_ms = 500, lsp_format = "fallback" }
         end,
-    })
+    },
+}
+
+M.config = function()
+    require("conform").setup(M.opts)
+    require("snacks")
+        .toggle({
+            id = "conform_auto_format",
+            name = "format on save",
+            get = function()
+                return not vim.g.disable_autoformat
+            end,
+            set = function(state)
+                vim.g.disable_autoformat = not state
+                vim.b.disable_autoformat = not state
+            end,
+        })
+        :map("<leader>uf")
 end
 
 M.init = function()
@@ -51,7 +66,7 @@ M.init = function()
         bang = true,
     })
 
-    vim.keymap.set({ "n", "v" }, "<leader>uf", "<cmd>ToggleAutoFormat<cr>", { desc = "Toggle auto format" })
+    -- vim.keymap.set({ "n", "v" }, "<leader>uf", "<cmd>ToggleAutoFormat<cr>", { desc = "Toggle auto format" })
 
     vim.keymap.set({ "n", "v" }, "<leader>bf", function()
         require("conform").format({

@@ -21,11 +21,6 @@ local M = {
         require("nightfox").setup(opts)
     end,
     init = function()
-        vim.keymap.set({ "n", "v" }, "<leader>utd", "<cmd>colorscheme dayfox<cr>", { desc = "dayfox" })
-        vim.keymap.set({ "n", "v" }, "<leader>utn", "<cmd>colorscheme nightfox<cr>", { desc = "nightfox" })
-        vim.keymap.set({ "n", "v" }, "<leader>utu", "<cmd>colorscheme duskfox<cr>", { desc = "duskfox" })
-        vim.keymap.set({ "n", "v" }, "<leader>utw", "<cmd>colorscheme dawnfox<cr>", { desc = "dawnfox" })
-
         vim.api.nvim_create_autocmd("OptionSet", {
             pattern = "background",
             callback = function()

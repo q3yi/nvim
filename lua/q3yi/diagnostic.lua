@@ -25,16 +25,7 @@ local options = {
 
 local function setup_diagnostic(opts)
     vim.diagnostic.config(opts.config)
-
     vim.keymap.set("n", "<leader>dk", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-    vim.keymap.set("n", "<leader>ud", function()
-        vim.g.diagnostic_show_virtual_text = not vim.g.diagnostic_show_virtual_text
-        if vim.g.diagnostic_show_virtual_text then
-            vim.notify("diagnostic virtual text enabled", vim.log.levels.INFO)
-        else
-            vim.notify("diagnostic virtual text disabled", vim.log.levels.INFO)
-        end
-    end, { desc = "Toggle diagnostic virtual text" })
 end
 
 -- initial diagnostic config here.
@@ -42,7 +33,9 @@ setup_diagnostic(options)
 
 local TroublePlugin = {
     "folke/trouble.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
+    dependencies = {
+        "nvim-tree/nvim-web-devicons",
+    },
     cmd = { "Trouble", "TroubleToggle" },
     opts = {},
     keys = {

@@ -3,21 +3,27 @@
 local WhichKey = {
     "folke/which-key.nvim",
     event = "VeryLazy",
+    dependencies = {
+        "nvim-tree/nvim-web-devicons",
+    },
 }
 
 function WhichKey.config()
     local wk = require("which-key")
     wk.setup({
-        icons = { rules = false },
+        preset = "helix",
+        -- delay = 500,
+        -- icons = { rules = false },
+        win = { border = "single" },
     })
     wk.add({
         { "<leader>b", group = "Buffers" },
         { "<leader>w", group = "Workspace" },
         { "<leader>l", group = "LSP" },
         { "<leader>d", group = "Diagnostic" },
+        { "<leader>g", group = "Git" },
         { "<leader>s", group = "Swap textobjects" },
         { "<leader>u", group = "Options" },
-        { "<leader>ut", group = "Fox themes" },
         { "<leader>r", group = "Obsidian" },
     })
 end

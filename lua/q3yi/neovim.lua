@@ -73,18 +73,6 @@ kmap({ "n", "v" }, "<m-+>", "<c-w>5+", { desc = "Increase window height" })
 kmap({ "n", "v" }, "<m-<>", "<c-w>5<", { desc = "Decrease window width" })
 kmap({ "n", "v" }, "<m->>", "<c-w>5>", { desc = "Increase window width" })
 
-kmap({ "n", "v" }, "<leader>ur", "<cmd>set wrap!<cr>", { desc = "Toggle word wrap" })
-kmap({ "n", "v" }, "<leader>uw", "<cmd>ToggleWhitespace<cr>", { desc = "Toggle display of whitespace" })
-
--- Create command to show whitespace, equal to `:set list`
-vim.api.nvim_create_user_command("ToggleWhitespace", function()
-    if vim.opt.list:get() then
-        vim.opt.list = false
-    else
-        vim.opt.list = true
-    end
-end, { desc = "Show or hidden whitespace charactors." })
-
 local function set_tab_width(param)
     local size = tonumber(param.args) or 4
     vim.opt.shiftwidth = size
@@ -111,17 +99,6 @@ kmap("n", "<leader>u<", function()
     set_tab_width({ args = size })
     vim.notify("tab width set to: " .. size, vim.log.levels.INFO)
 end, { desc = "Decrease tab width" })
-
-kmap("n", "<leader>uc", function()
-    local colorcolumn = vim.opt.colorcolumn:get()
-    if #colorcolumn > 0 then
-        vim.opt.colorcolumn = {}
-        vim.notify("colorcolumn disabled")
-    else
-        vim.opt.colorcolumn = { 80, 120 }
-        vim.notify("colorcolumn enabled")
-    end
-end, { desc = "Toggle colorcolumn" })
 
 -- Highlight text copied when yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })
