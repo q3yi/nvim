@@ -1,6 +1,7 @@
 -- My basic neovim configuration
 
 require("q3yi.neovim")
+require("q3yi.diagnostic")
 
 -- Install package manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -28,10 +29,8 @@ require("lazy").setup({
     require("q3yi.formatting"),
     require("q3yi.linting"),
     require("q3yi.git"),
-    -- require("q3yi.oil"),
     require("q3yi.yazi"),
     require("q3yi.illuminate"),
-    require("q3yi.diagnostic"),
     require("q3yi.pairs"),
     require("q3yi.mini-surround"),
     require("q3yi.obsidian"),

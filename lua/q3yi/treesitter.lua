@@ -88,8 +88,8 @@ function M.config()
                     ["ic"] = "@class.inner",
                     ["io"] = "@loop.inner",
                     ["ao"] = "@loop.outer",
-                    ["ii"] = "@conditional.inner",
-                    ["ai"] = "@conditional.outer",
+                    -- ["ii"] = "@conditional.inner",
+                    -- ["ai"] = "@conditional.outer",
                 },
                 -- include_surrounding_whitespace = true,
             },
@@ -114,12 +114,12 @@ function M.config()
                 goto_next = {
                     ["]a"] = "@parameter.outer",
                     ["]o"] = "@loop.inner",
-                    ["]i"] = "@conditional.inner",
+                    -- ["]i"] = "@conditional.inner",
                 },
                 goto_previous = {
                     ["[a"] = "@parameter.outer",
                     ["[o"] = "@loop.inner",
-                    ["[i"] = "@conditional.inner",
+                    -- ["[i"] = "@conditional.inner",
                 },
             },
             swap = {

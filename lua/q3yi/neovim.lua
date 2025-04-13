@@ -44,7 +44,6 @@ kmap({ "i", "n", "v" }, "<f1>", "<Nop>", { silent = true })
 kmap("n", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
 kmap("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
-kmap("n", "<leader>q", "<cmd>qa<cr>", { desc = "Close all then exit" })
 kmap("n", "<leader>bw", "<cmd>w<cr>", { desc = "Save buffer" })
 kmap("n", "<leader>bq", "<cmd>wq<cr>", { desc = "Save buffer and exit" })
 kmap("n", "<leader>bd", "<cmd>bd!<cr>", { desc = "Discard buffer" })
@@ -72,6 +71,9 @@ kmap({ "n", "v" }, "<m-->", "<c-w>5-", { desc = "Decrease window height" })
 kmap({ "n", "v" }, "<m-+>", "<c-w>5+", { desc = "Increase window height" })
 kmap({ "n", "v" }, "<m-<>", "<c-w>5<", { desc = "Decrease window width" })
 kmap({ "n", "v" }, "<m->>", "<c-w>5>", { desc = "Increase window width" })
+
+-- escape from terminal mode
+kmap({ "t" }, "<esc><esc>", "<c-\\><c-n>", { desc = "Escape from terminal mode" })
 
 local function set_tab_width(param)
     local size = tonumber(param.args) or 4

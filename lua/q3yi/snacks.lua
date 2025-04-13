@@ -7,6 +7,8 @@ local M = {
     opts = {
         notifier = { enabled = true },
         toggle = { icon = { enabled = "✓", disabled = "✗" } },
+        zen = {},
+        scope = { enabled = true },
         styles = {
             notification = { border = "single" },
             notification_history = { border = "single" },
@@ -18,6 +20,8 @@ local M = {
 local function register_toggles(toggle)
     toggle.indent():map("<leader>ug")
     toggle.diagnostics():map("<leader>ud")
+    toggle.zen():map("<leader>uz")
+    toggle.zoom():map("<leader>uZ")
 
     toggle.option("background", { off = "light", on = "dark", name = "dark background" }):map("<leader>ub")
     toggle.option("list", { name = "whitespace chars" }):map("<leader>uw")
@@ -64,12 +68,8 @@ M.config = function()
         snacks.lazygit.open()
     end, { desc = "Open lazygit" })
 
-    vim.keymap.set("n", "<leader>gL", function()
-        snacks.picker.git_log_line()
-    end, { desc = "Git Log Line" })
-
-    vim.keymap.set({ "n", "v" }, "<leader>t", function()
-        snacks.terminal.toggle()
+    vim.keymap.set({ "n", "v", "t" }, "<f12>", function()
+        snacks.terminal.toggle(nil, { win = { border = "single", position = "float" } })
     end, { desc = "Open terminal" })
 
     vim.keymap.set({ "n", "v" }, "<leader>br", function()
