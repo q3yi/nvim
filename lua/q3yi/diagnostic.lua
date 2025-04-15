@@ -11,7 +11,10 @@ local options = {
             },
         },
         virtual_text = function()
-            return vim.g.diagnostic_show_virtual_text or false
+            if vim.g.diagnostic_show_virtual_text == nil then
+                vim.g.diagnostic_show_virtual_text = true
+            end
+            return vim.g.diagnostic_show_virtual_text
         end,
         underline = true,
         update_in_insert = true,
