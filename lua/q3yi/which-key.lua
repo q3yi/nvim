@@ -11,10 +11,13 @@ local WhichKey = {
 function WhichKey.config()
     local wk = require("which-key")
     wk.setup({
-        preset = "helix",
+        -- preset = "helix",
         -- delay = 500,
         -- icons = { rules = false },
-        win = { border = "single" },
+        win = {
+            -- border = "single",
+            -- wo = { winhighlight = "Normal:WhichKeyNormal,Normal:WhichKey" }, -- FIXME: not work, why?
+        },
     })
     wk.add({
         { "<leader>b", group = "Buffers" },

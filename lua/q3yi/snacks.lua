@@ -69,7 +69,13 @@ M.config = function()
     end, { desc = "Open lazygit" })
 
     vim.keymap.set({ "n", "v", "t" }, "<f12>", function()
-        snacks.terminal.toggle(nil, { win = { border = "single", position = "float" } })
+        snacks.terminal.toggle(nil, {
+            win = {
+                border = "single",
+                position = "float",
+                wo = { winhighlight = "FloatBorder:NormalFloat" },
+            },
+        })
     end, { desc = "Open terminal" })
 
     vim.keymap.set({ "n", "v" }, "<leader>br", function()
