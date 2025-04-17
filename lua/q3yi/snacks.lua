@@ -14,6 +14,12 @@ local M = {
             notification_history = { border = "single" },
         },
     },
+    keys = {
+        { "<leader>gs", "<cmd>Snacks git<cr>", desc = "Open lazy git" },
+        { "<leader>gL", "<cmd>Snacks git_log<cr>", desc = "Open lazy git log" },
+        { "<f12>", "<cmd>Snacks terminal<cr>", desc = "Toggle floating terminal", mode = { "n", "v", "t" } },
+        { "<leader>br", "<cmd>Snacks rename_file<cr>", desc = "Rename buffer file" },
+    },
 }
 
 ---@param toggle snacks.toggle
@@ -64,30 +70,38 @@ M.config = function()
     local snacks = require("snacks")
     snacks.setup(M.opts)
 
-    vim.keymap.set("n", "<leader>gs", function()
-        snacks.lazygit.open()
-    end, { desc = "Open lazygit" })
+    register_toggles(snacks.toggle)
+end
 
-    vim.keymap.set({ "n", "v", "t" }, "<f12>", function()
-        snacks.terminal.toggle(nil, {
+local cmds = {
+    git = function()
+        require("snacks").lazygit.open()
+    end,
+    git_log = function()
+        require("snacks").lazygit.log()
+    end,
+    terminal = function()
+        require("snacks").terminal.toggle(nil, {
             win = {
                 border = "single",
                 position = "float",
                 wo = { winhighlight = "FloatBorder:NormalFloat" },
             },
         })
-    end, { desc = "Open terminal" })
-
-    vim.keymap.set({ "n", "v" }, "<leader>br", function()
-        snacks.rename.rename_file()
-    end, { desc = "Rename buffer file" })
-
-    register_toggles(snacks.toggle)
-
-    vim.api.nvim_create_user_command("NotifyHistory", function()
-        snacks.notifier.show_history()
-    end, { desc = "Show notification history" })
-end
+    end,
+    rename_file = function()
+        require("snacks").rename.rename_file()
+    end,
+    notify_history = function()
+        require("snacks").notifier.show_history()
+    end,
+    notify_hide = function()
+        require("snacks").notifier.hide()
+    end,
+    undo = function()
+        require("snacks").picker.undo()
+    end,
+}
 
 M.init = function()
     -- create lsp progress
@@ -103,6 +117,27 @@ M.init = function()
                         or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
                 end,
             })
+        end,
+    })
+
+    vim.api.nvim_create_user_command("Snacks", function(args)
+        if #args.fargs < 1 then
+            return
+        end
+
+        local f = cmds[args.fargs[1]]
+        if f ~= nil then
+            f()
+        end
+    end, {
+        nargs = "*",
+        complete = function(_, line)
+            local commands = vim.tbl_keys(cmds)
+            local l = vim.split(line, "%s+")
+            table.sort(commands)
+            return vim.tbl_filter(function(val)
+                return vim.startswith(val, l[2])
+            end, commands)
         end,
     })
 end
