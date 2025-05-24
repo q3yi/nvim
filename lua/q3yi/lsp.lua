@@ -5,60 +5,8 @@ local M = {
     event = { "VeryLazy" },
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
-        "folke/neodev.nvim",
-
-        "williamboman/mason.nvim",
-        "williamboman/mason-lspconfig.nvim",
-    },
-}
-
-local lsp_servers = {
-    ocamllsp = {
-        manual_install = true,
-        settings = {
-            -- codelens = { enable = true },
-            inlayHints = { enable = true },
-        },
-    },
-    lua_ls = {
-        server_capabilities = {
-            semanticTokensProvider = vim.NIL,
-        },
-        settings = {
-            Lua = {
-                workspace = { checkThirdParty = false },
-                telemetry = { enable = false },
-            },
-        },
-    },
-    html = { filetypes = { "html", "twig", "hbs" } },
-    gopls = {
-        settings = {
-            gopls = {
-                hints = {
-                    assignVariableTypes = true,
-                    compositeLiteralFields = true,
-                    compositeLiteralTypes = true,
-                    constantValues = true,
-                    functionTypeParameters = true,
-                    parameterNames = true,
-                    rangeVariableTypes = true,
-                },
-            },
-        },
-    },
-    rust_analyzer = {
-        manual_install = true,
-    },
-    solidity_ls_nomicfoundation = {
-        server_capabilities = {
-            documentFormattingProvider = false,
-        },
-    },
-    tsserver = {
-        server_capabilities = {
-            documentFormattingProvider = false,
-        },
+        "mason-org/mason.nvim",
+        "mason-org/mason-lspconfig.nvim",
     },
 }
 
@@ -119,52 +67,21 @@ local function on_attach(client, buf)
 
         vim.keymap.set("n", key, cmd, { buffer = buf, desc = desc })
     end
-
-    -- Override server capabilities
-    local setting = lsp_servers[client.name] or {}
-    for k, v in ipairs(setting.server_capabilities or {}) do
-        if v == vim.NIL then
-            client.server_capabilities[k] = nil
-        else
-            client.server_capabilities[k] = v
-        end
-    end
 end
 
 function M.config()
-    require("neodev").setup({})
-
-    -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = require("cmp_nvim_lsp").default_capabilities(capabilities)
 
-    for srv, cfg in pairs(lsp_servers) do
-        if cfg.manual_install then
-            require("lspconfig")[srv].setup({
-                capabilities = vim.tbl_extend("force", {}, capabilities, cfg.capabilities or {}),
-                on_attach = on_attach,
-                settings = cfg.settings or {},
-                filetypes = cfg.filetypes,
-            })
-        end
-    end
+    vim.lsp.config("*", {
+        capabilities = capabilities,
+        on_attach = on_attach,
+    })
 
-    require("mason").setup({})
-    local mason_lsp = require("mason-lspconfig")
-    mason_lsp.setup({})
-
-    -- Setup lspconfig automatically when install lsp server in mason
-    mason_lsp.setup_handlers({
-        -- default setting for server doesn't have a dedicated handler
-        function(server_name)
-            local cfg = lsp_servers[server_name] or {}
-            require("lspconfig")[server_name].setup({
-                capabilities = vim.tbl_extend("force", {}, capabilities, cfg.capabilities or {}),
-                on_attach = on_attach,
-                settings = cfg.settings or {},
-                filetypes = cfg.filetypes,
-            })
-        end,
+    require("mason").setup()
+    require("mason-lspconfig").setup({
+        automatic_enable = true,
+        ensure_installed = {},
     })
 end
 

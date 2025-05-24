@@ -26,6 +26,7 @@ require("lazy").setup({
     require("q3yi.telescope"),
     require("q3yi.treesitter"),
     require("q3yi.lsp"),
+    require("q3yi.lazydev"),
     require("q3yi.formatting"),
     require("q3yi.linting"),
     require("q3yi.git"),
