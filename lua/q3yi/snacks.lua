@@ -18,6 +18,7 @@ local M = {
         { "<leader>gs", "<cmd>Snacks git<cr>", desc = "Open lazy git" },
         { "<leader>gL", "<cmd>Snacks git_log<cr>", desc = "Open lazy git log" },
         { "<f12>", "<cmd>Snacks terminal<cr>", desc = "Toggle floating terminal", mode = { "n", "v", "t" } },
+        { "<c-`>", "<cmd>Snacks terminal<cr>", desc = "Toggle floating terminal", mode = { "n", "v", "t" } },
         { "<leader>br", "<cmd>Snacks rename_file<cr>", desc = "Rename buffer file" },
     },
 }
