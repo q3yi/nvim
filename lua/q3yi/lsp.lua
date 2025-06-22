@@ -44,15 +44,20 @@ local function on_attach(client, buf)
         {
             "<leader>lh",
             function()
-                if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-                    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
-                    if vim.lsp.inlay_hint.is_enabled({}) then
-                        vim.notify("inlay hint enabled.", vim.log.levels.INFO)
-                    else
-                        vim.notify("inlay hint disabled.", vim.log.levels.INFO)
-                    end
-                else
+                local supported = client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint
+
+                if not supported then
                     vim.notify("server not support inlayHint.", vim.log.levels.ERROR)
+                    return
+                end
+
+                local enabled = not vim.lsp.inlay_hint.is_enabled({})
+                vim.lsp.inlay_hint.enable(enabled)
+
+                if enabled then
+                    vim.notify("inlay hint enabled.", vim.log.levels.INFO)
+                else
+                    vim.notify("inlay hint disabled.", vim.log.levels.INFO)
                 end
             end,
             "Toggle inlay hints",
@@ -83,6 +88,10 @@ function M.config()
         automatic_enable = true,
         ensure_installed = {},
     })
+
+    -- Some lsp server should install with its own environment instead of install through Mason,
+    -- so we just enable it manually.
+    vim.lsp.enable({ "pylsp", "ocamllsp" })
 end
 
 return M
