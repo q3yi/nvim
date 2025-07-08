@@ -1,0 +1,20 @@
+{
+  "ltest": {
+    "prefix": "ltest",
+    "body": [
+      "import \"testing\"",
+      "",
+      "func Test${1:func}(t *testing.T) {",
+      "\ttestcases := []struct {",
+      "\t\t${2:case_struct}",
+      "\t}{",
+      "\t\t$0",
+      "\t}",
+      "",
+      "\tfor _, cs := range testcases {",
+      "\t}",
+      "}"
+    ],
+    "description": "leetcode solution unittest template."
+  }
+}

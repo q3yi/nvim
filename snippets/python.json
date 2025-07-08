@@ -1,0 +1,26 @@
+{
+  "ltest": {
+    "prefix": "ltest",
+    "body": [
+      "import unittest",
+      "",
+      "",
+      "class Solution:",
+      "",
+      "    def ${1:func}(self, ${2:args})$3:",
+      "        pass",
+      "",
+      "",
+      "class TestSolution(unittest.TestCase):",
+      "    def _run_test(self, test_f):",
+      "        test_cases = [",
+      "            $0",
+      "        ]",
+      "",
+      "    def test_$1(self):",
+      "        s = Solution()",
+      "        self._run_test(s.$1)"
+    ],
+    "description": "leetcode solution py file template with unittest."
+  }
+}
