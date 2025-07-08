@@ -5,60 +5,51 @@ vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.shortmess:append("c")
 
 local M = {
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
     event = { "InsertEnter" },
-    dependencies = {
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    version = "1.*",
 
-        "L3MON4D3/LuaSnip",
-        "saadparwaiz1/cmp_luasnip",
-        "rafamadriz/friendly-snippets",
-    },
-}
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
+    opts = {
+        keymap = {
+            preset = "none",
+            ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
+            ["<C-e>"] = { "hide" },
+            ["<C-y>"] = { "select_and_accept" },
 
-function M.config()
-    local cmp = require("cmp")
-    local luasnip = require("luasnip")
-    -- load friendly snippets
-    require("luasnip.loaders.from_vscode").lazy_load()
-    -- load personal snippets
-    require("luasnip.loaders.from_lua").lazy_load({ paths = { "./lua-snippets/" } })
+            ["<C-p>"] = { "select_prev", "fallback_to_mappings" },
+            ["<C-n>"] = { "select_next", "fallback_to_mappings" },
 
-    luasnip.config.setup({
-        update_events = { "TextChanged", "TextChangedI" },
-    })
+            ["<C-b>"] = { "scroll_documentation_up", "fallback" },
+            ["<C-f>"] = { "scroll_documentation_down", "fallback" },
 
-    vim.keymap.set({ "i", "s" }, "<M-]>", function()
-        if luasnip.expand_or_locally_jumpable() then
-            luasnip.expand_or_jump()
-        end
-    end, { noremap = true, silent = true })
+            ["<C-k>"] = { "show_signature", "hide_signature", "fallback" },
 
-    vim.keymap.set({ "i", "s" }, "<M-[>", function()
-        luasnip.jump(-1)
-    end, { noremap = true, silent = true })
-
-    cmp.setup({
-        snippet = {
-            expand = function(args)
-                luasnip.lsp_expand(args.body)
-            end,
+            ["<M-]>"] = { "snippet_forward" },
+            ["<M-[>"] = { "snippet_backward" },
         },
-        mapping = cmp.mapping.preset.insert({
-            ["<C-n>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-            ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
-            ["<C-y>"] = cmp.mapping.confirm({ behavior = cmp.SelectBehavior.Insert, select = true }),
-            ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-            ["<C-d>"] = cmp.mapping.scroll_docs(4),
-        }),
+        appearance = {
+            nerd_font_variant = "mono",
+        },
+
+        completion = { documentation = { auto_show = false } },
+
         sources = {
-            { name = "nvim_lsp" },
-            { name = "luasnip" },
-            { name = "buffer", keyword_length = 3 },
-            { name = "path" },
+            default = { "lsp", "path", "snippets", "buffer" },
         },
-    })
-end
+
+        fuzzy = { implementation = "prefer_rust_with_warning" },
+
+        signature = {
+            enabled = true,
+            window = {
+                show_documentation = false,
+            },
+        },
+    },
+    opts_extend = { "sources.default" },
+}
 
 return M
