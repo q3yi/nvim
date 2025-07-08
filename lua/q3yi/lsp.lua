@@ -4,13 +4,26 @@ local M = {
     "neovim/nvim-lspconfig",
     event = { "VeryLazy" },
     dependencies = {
-        "saghen/blink.cmp",
         "mason-org/mason.nvim",
         "mason-org/mason-lspconfig.nvim",
     },
+    config = function()
+        require("mason").setup()
+        require("mason-lspconfig").setup({
+            automatic_enable = true,
+            ensure_installed = {},
+        })
+
+        -- Some lsp server should install with its own environment instead of install through Mason,
+        -- so we just enable it manually.
+        vim.lsp.enable({ "pylsp", "ocamllsp" })
+    end,
 }
 
-local function on_attach(client, buf)
+local function bind_keys(event)
+    local client = assert(vim.lsp.get_client_by_id(event.data.client_id))
+    local buf = event.buf
+
     local builtin = require("telescope.builtin")
     local bindings = {
         { "gd", builtin.lsp_definitions, "Goto definition" },
@@ -74,23 +87,9 @@ local function on_attach(client, buf)
     end
 end
 
-function M.config()
-    local capabilities = require("blink.cmp").get_lsp_capabilities()
-
-    vim.lsp.config("*", {
-        capabilities = capabilities,
-        on_attach = on_attach,
-    })
-
-    require("mason").setup()
-    require("mason-lspconfig").setup({
-        automatic_enable = true,
-        ensure_installed = {},
-    })
-
-    -- Some lsp server should install with its own environment instead of install through Mason,
-    -- so we just enable it manually.
-    vim.lsp.enable({ "pylsp", "ocamllsp" })
-end
+vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("user.lsp", {}),
+    callback = bind_keys,
+})
 
 return M
