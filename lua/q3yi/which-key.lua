@@ -15,8 +15,7 @@ function WhichKey.config()
         -- delay = 500,
         -- icons = { rules = false },
         win = {
-            -- border = "single",
-            -- wo = { winhighlight = "Normal:WhichKeyNormal,Normal:WhichKey" }, -- FIXME: not work, why?
+            border = "single",
         },
     })
     wk.add({
