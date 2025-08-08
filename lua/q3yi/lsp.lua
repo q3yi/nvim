@@ -21,25 +21,24 @@ local M = {
 }
 
 local function bind_keys(event)
-    local client = assert(vim.lsp.get_client_by_id(event.data.client_id))
     local buf = event.buf
 
-    local builtin = require("telescope.builtin")
     local bindings = {
-        { "gd", builtin.lsp_definitions, "Goto definition" },
-        { "gr", builtin.lsp_references, "Goto references" },
-        { "gI", builtin.lsp_implementations, "Goto implementation" },
-        { "gD", vim.lsp.buf.declaration, "Goto declaration" },
+        { "gd", Snacks.picker.lsp_definitions, "Goto definition" },
+        { "gD", Snacks.picker.lsp_declarations, "Goto declaration" },
 
-        { "<leader>lr", vim.lsp.buf.rename, "Rename" },
-        { "<leader>la", vim.lsp.buf.code_action, "Code action" },
-        { "<leader>lD", builtin.lsp_type_definitions, "Type definition" },
-        { "<leader>ls", builtin.lsp_document_symbols, "Buffer symbols" },
-        { "<leader>lS", builtin.lsp_dynamic_workspace_symbols, "Workspace symbols" },
+        { "grr", Snacks.picker.lsp_references, "Goto references" },
+        { "gri", Snacks.picker.lsp_implementations, "Goto implementation" },
+        { "grn", vim.lsp.buf.rename, "Rename" },
+        { "gra", vim.lsp.buf.code_action, "Code action" },
+        { "grt", Snacks.picker.lsp_type_definitions, "Type definition" },
+
+        { "gO", Snacks.picker.lsp_symbols, "Buffer symbols" },
+        { "<leader>ws", Snacks.picker.lsp_workspace_symbols, "Workspace symbols" },
 
         -- See `:help K` for why this keymap
         { "K", vim.lsp.buf.hover, "Hover documentation" },
-        { "<leader>lk", vim.lsp.buf.signature_help, "Signature documentation" },
+        { "<M-K>", vim.lsp.buf.signature_help, "Signature documentation" },
 
         -- Lesser used LSP functionality
         { "<leader>wfa", vim.lsp.buf.add_workspace_folder, "Add folder to workspace" },
@@ -52,29 +51,7 @@ local function bind_keys(event)
             "List workspace folders",
         },
 
-        { "<leader>li", "<cmd>LspInfo<cr>", "Show attached lsp server info" },
-        { "<leader>lu", "<cmd>LspRestart<cr>", "Restart lsp server" },
-        {
-            "<leader>lh",
-            function()
-                local supported = client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint
-
-                if not supported then
-                    vim.notify("server not support inlayHint.", vim.log.levels.ERROR)
-                    return
-                end
-
-                local enabled = not vim.lsp.inlay_hint.is_enabled({})
-                vim.lsp.inlay_hint.enable(enabled)
-
-                if enabled then
-                    vim.notify("inlay hint enabled.", vim.log.levels.INFO)
-                else
-                    vim.notify("inlay hint disabled.", vim.log.levels.INFO)
-                end
-            end,
-            "Toggle inlay hints",
-        },
+        { "<leader>l", "<cmd>LspInfo<cr>", "Show attached server" },
     }
 
     for _, binding in ipairs(bindings) do

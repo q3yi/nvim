@@ -24,7 +24,6 @@ require("lazy").setup({
     require("q3yi.snacks"),
     require("q3yi.theme"),
     require("q3yi.cmp"),
-    require("q3yi.telescope"),
     require("q3yi.treesitter"),
     require("q3yi.lsp"),
     require("q3yi.lazydev"),

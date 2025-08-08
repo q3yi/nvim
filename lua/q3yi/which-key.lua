@@ -4,16 +4,17 @@ local WhichKey = {
     "folke/which-key.nvim",
     event = "VeryLazy",
     dependencies = {
-        "nvim-tree/nvim-web-devicons",
+        "echasnovski/mini.icons",
     },
 }
 
 function WhichKey.config()
     local wk = require("which-key")
     wk.setup({
-        -- preset = "helix",
+        preset = "helix",
         -- delay = 500,
         -- icons = { rules = false },
+        show_help = false,
         win = {
             border = "single",
         },
@@ -21,7 +22,6 @@ function WhichKey.config()
     wk.add({
         { "<leader>b", group = "Buffers" },
         { "<leader>w", group = "Workspace" },
-        { "<leader>l", group = "LSP" },
         { "<leader>d", group = "Diagnostic" },
         { "<leader>g", group = "Git" },
         { "<leader>s", group = "Swap textobjects" },

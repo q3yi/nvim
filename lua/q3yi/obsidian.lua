@@ -1,20 +1,16 @@
 -- obsidian plugin
----@diagnostic disable: missing-fields
 
 local M = {
-    "epwalsh/obsidian.nvim",
+    "obsidian-nvim/obsidian.nvim",
     version = "*",
     lazy = true,
     ft = "markdown",
-    cmd = { "ObsidianQuickSwitch", "ObsidianSearch" },
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-    },
+    cmd = { "Obsidian" },
     keys = {
-        { "<leader>rf", "<cmd>ObsidianQuickSwitch<cr>", desc = "Find file in Roam" },
-        { "<leader>rs", "<cmd>ObsidianSearch<cr>", desc = "Search keywords in Roam" },
-        { "<leader>rn", "<cmd>ObsidianNew<cr>", desc = "Create new note in Roam" },
-        { "<leader>rt", "<cmd>ObsidianTemplate<cr>", desc = "Insert a template into note" },
+        { "<leader>rf", "<cmd>Obsidian quick_switch<cr>", desc = "Find file in Roam" },
+        { "<leader>rs", "<cmd>Obsidian search<cr>", desc = "Search keywords in Roam" },
+        { "<leader>rn", "<cmd>Obsidian new_from_template<cr>", desc = "Create new note in Roam" },
+        { "<leader>rt", "<cmd>Obsidian template<cr>", desc = "Insert a template into note" },
     },
     config = function()
         require("obsidian").setup({
@@ -61,6 +57,10 @@ local M = {
 
                 return out
             end,
+            picker = {
+                name = "snacks.pick",
+            },
+            legacy_commands = false,
         })
     end,
 }

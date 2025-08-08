@@ -1,27 +1,8 @@
 -- config snacks
 
-local M = {
-    "folke/snacks.nvim",
-    priority = 1000,
-    lazy = false,
-    opts = {
-        notifier = { enabled = true },
-        toggle = { icon = { enabled = "✓", disabled = "✗" } },
-        zen = {},
-        scope = { enabled = true },
-        styles = {
-            notification = { border = "single" },
-            notification_history = { border = "single" },
-        },
-    },
-    keys = {
-        { "<leader>gs", "<cmd>Snacks git<cr>", desc = "Open lazy git" },
-        { "<leader>gL", "<cmd>Snacks git_log<cr>", desc = "Open lazy git log" },
-        { "<f12>", "<cmd>Snacks terminal<cr>", desc = "Toggle floating terminal", mode = { "n", "v", "t" } },
-        { "<c-`>", "<cmd>Snacks terminal<cr>", desc = "Toggle floating terminal", mode = { "n", "v", "t" } },
-        { "<leader>br", "<cmd>Snacks rename_file<cr>", desc = "Rename buffer file" },
-    },
-}
+local function stop_insert()
+    vim.cmd.stopinsert()
+end
 
 ---@param toggle snacks.toggle
 local function register_toggles(toggle)
@@ -29,6 +10,9 @@ local function register_toggles(toggle)
     toggle.diagnostics():map("<leader>ud")
     toggle.zen():map("<leader>uz")
     toggle.zoom():map("<leader>uZ")
+    toggle.inlay_hints():map("<leader>uh")
+    toggle.scroll():map("<leader>uS")
+    toggle.words():map("<leader>uW")
 
     toggle.option("background", { off = "light", on = "dark", name = "dark background" }):map("<leader>ub")
     toggle.option("list", { name = "whitespace chars" }):map("<leader>uw")
@@ -67,6 +51,308 @@ local function register_toggles(toggle)
     }):map("<leader>uD")
 end
 
+local M = {
+    "folke/snacks.nvim",
+    priority = 1000,
+    lazy = false,
+    opts = {
+        bigfile = { enabled = true },
+        explorer = { enabled = true },
+        notifier = { enabled = true },
+        toggle = { icon = { enabled = "✓", disabled = "✗" } },
+        zen = { enabled = true },
+        scope = { enabled = true },
+        styles = {
+            notification = { border = "single" },
+            notification_history = { border = "single" },
+        },
+        -- scroll = { enabled = true },
+        -- statuscolumn = {},
+        quickfile = { enabled = true },
+        picker = {
+            matcher = { frecency = true },
+            layouts = {
+                default = {
+                    layout = {
+                        box = "horizontal",
+                        width = 0.8,
+                        min_width = 120,
+                        height = 0.8,
+                        {
+                            box = "vertical",
+                            border = "single",
+                            title = "{title} {live} {flags}",
+                            { win = "input", height = 1, border = "bottom" },
+                            { win = "list", border = "none" },
+                        },
+                        { win = "preview", title = "{preview}", border = "single", width = 0.5 },
+                    },
+                },
+                dropdown = {
+                    layout = {
+                        backdrop = false,
+                        row = 1,
+                        width = 0.4,
+                        min_width = 80,
+                        height = 0.8,
+                        border = "none",
+                        box = "vertical",
+                        { win = "preview", title = "{preview}", height = 0.4, border = "single" },
+                        {
+                            box = "vertical",
+                            border = "rounded",
+                            title = "{title} {live} {flags}",
+                            title_pos = "center",
+                            { win = "input", height = 1, border = "bottom" },
+                            { win = "list", border = "none" },
+                        },
+                    },
+                },
+                sidebar = {
+                    preview = "main",
+                    layout = {
+                        backdrop = false,
+                        width = 40,
+                        min_width = 40,
+                        height = 0,
+                        position = "left",
+                        border = "none",
+                        box = "vertical",
+                        {
+                            win = "input",
+                            height = 1,
+                            border = "single",
+                            title = "{title} {live} {flags}",
+                            title_pos = "center",
+                        },
+                        { win = "list", border = "none" },
+                        { win = "preview", title = "{preview}", height = 0.4, border = "top" },
+                    },
+                },
+                select = {
+                    preview = false,
+                    layout = {
+                        backdrop = false,
+                        width = 0.5,
+                        min_width = 80,
+                        height = 0.4,
+                        min_height = 3,
+                        box = "vertical",
+                        border = "single",
+                        title = "{title}",
+                        title_pos = "center",
+                        { win = "input", height = 1, border = "bottom" },
+                        { win = "list", border = "none" },
+                        { win = "preview", title = "{preview}", height = 0.4, border = "top" },
+                    },
+                },
+                vertical = {
+                    layout = {
+                        backdrop = false,
+                        width = 0.5,
+                        min_width = 80,
+                        height = 0.8,
+                        min_height = 30,
+                        box = "vertical",
+                        border = "single",
+                        title = "{title} {live} {flags}",
+                        title_pos = "center",
+                        { win = "input", height = 1, border = "bottom" },
+                        { win = "list", border = "none" },
+                        { win = "preview", title = "{preview}", height = 0.4, border = "top" },
+                    },
+                },
+            },
+        },
+    },
+    keys = {
+        -- buffers
+        {
+            "<leader>bb",
+            function()
+                Snacks.picker.buffers({ layout = "select", on_show = stop_insert })
+            end,
+            desc = "List all buffers",
+        },
+        {
+            "<leader>bd",
+            function()
+                Snacks.bufdelete()
+            end,
+            desc = "Delete current buffer",
+        },
+        {
+            "<leader>br",
+            function()
+                Snacks.rename()
+            end,
+            desc = "Rename buffer file",
+        },
+        {
+            "<leader>bg",
+            function()
+                Snacks.picker.grep_buffers({ cmd = "rg" })
+            end,
+            desc = "Ripgrep in all open buffers",
+        },
+        {
+            "<leader>f",
+            function()
+                Snacks.picker.files()
+            end,
+            desc = "Find Files",
+        },
+
+        {
+            "<leader>h",
+            function()
+                Snacks.picker.help()
+            end,
+            desc = "Search help docs",
+        },
+        {
+            "<leader>x",
+            function()
+                Snacks.picker.pickers({ layout = "select" })
+            end,
+            desc = "List all pickers",
+        },
+        {
+            "<leader>m",
+            function()
+                Snacks.picker.marks({ on_show = stop_insert })
+            end,
+            desc = "List all marks",
+        },
+        {
+            "<leader>q",
+            function()
+                Snacks.picker.qflist({ layout = "select", on_show = stop_insert })
+            end,
+            desc = "List all quickfixes",
+        },
+        {
+            "<leader>dl",
+            function()
+                Snacks.picker.diagnostics_buffer({ layout = "select", on_show = stop_insert })
+            end,
+            desc = "List all diagnostics in buffer",
+        },
+
+        {
+            "<leader>wd",
+            function()
+                Snacks.picker.diagnostics({ on_show = stop_insert })
+            end,
+            desc = "List all diagnostics in workspace",
+        },
+        {
+            "<leader>wg",
+            function()
+                Snacks.picker.grep({ cmd = "rg" })
+            end,
+            desc = "Ripgrep in workspace",
+        },
+
+        {
+            "<m-x>",
+            function()
+                Snacks.picker.commands({ layout = "select" })
+            end,
+            desc = "Run command",
+        },
+
+        -- git keys
+        {
+            "<leader>gs",
+            function()
+                Snacks.lazygit.open()
+            end,
+            desc = "Open lazy git",
+        },
+        {
+            "<leader>gL",
+            function()
+                Snacks.lazygit.log()
+            end,
+            desc = "Open lazy git log",
+        },
+        {
+            "<leader>gb",
+            function()
+                Snacks.picker.git_branches()
+            end,
+            desc = "Git branches",
+        },
+
+        -- file explorer
+        {
+            "<leader>t",
+            function()
+                Snacks.explorer()
+            end,
+            desc = "File tree",
+        },
+
+        -- floating terminal
+        {
+            "<m-t>",
+            function()
+                Snacks.terminal.toggle(nil, {
+                    win = {
+                        border = "single",
+                        position = "float",
+                    },
+                })
+            end,
+            desc = "Toggle floating terminal",
+            mode = { "n", "v", "t" },
+        },
+
+        -- undo tree
+        {
+            "U",
+            function()
+                Snacks.picker.undo({ on_show = stop_insert })
+            end,
+            desc = "Snacks undo",
+            mode = { "n", "v" },
+        },
+
+        {
+            "<leader>R",
+            function()
+                Snacks.picker.resume()
+            end,
+            desc = "Resume last picker",
+        },
+
+        -- lsp word
+        {
+            "]w",
+            function()
+                if not Snacks.words.is_enabled() then
+                    vim.notify("Fail to jump: LSP words disabled.", vim.log.levels.ERROR)
+                    return
+                end
+                Snacks.words.jump(1, true)
+            end,
+            desc = "Next LSP word",
+        },
+        {
+            "[w",
+            function()
+                if not Snacks.words.is_enabled() then
+                    vim.notify("Fail to jump: LSP words disabled.", vim.log.levels.ERROR)
+                    return
+                end
+                Snacks.words.jump(-1, true)
+            end,
+            desc = "Next LSP word",
+        },
+    },
+}
+
 M.config = function()
     local snacks = require("snacks")
     snacks.setup(M.opts)
@@ -74,38 +360,8 @@ M.config = function()
     register_toggles(snacks.toggle)
 end
 
-local cmds = {
-    git = function()
-        require("snacks").lazygit.open()
-    end,
-    git_log = function()
-        require("snacks").lazygit.log()
-    end,
-    terminal = function()
-        require("snacks").terminal.toggle(nil, {
-            win = {
-                border = "single",
-                position = "float",
-                wo = { winhighlight = "FloatBorder:NormalFloat" },
-            },
-        })
-    end,
-    rename_file = function()
-        require("snacks").rename.rename_file()
-    end,
-    notify_history = function()
-        require("snacks").notifier.show_history()
-    end,
-    notify_hide = function()
-        require("snacks").notifier.hide()
-    end,
-    undo = function()
-        require("snacks").picker.undo()
-    end,
-}
-
 M.init = function()
-    -- create lsp progress
+    -- create lsp progress notification
     vim.api.nvim_create_autocmd("LspProgress", {
         ---@param ev {data: {client_id: integer, params: lsp.ProgressParams}}
         callback = function(ev)
@@ -118,27 +374,6 @@ M.init = function()
                         or spinner[math.floor(vim.uv.hrtime() / (1e6 * 80)) % #spinner + 1]
                 end,
             })
-        end,
-    })
-
-    vim.api.nvim_create_user_command("Snacks", function(args)
-        if #args.fargs < 1 then
-            return
-        end
-
-        local f = cmds[args.fargs[1]]
-        if f ~= nil then
-            f()
-        end
-    end, {
-        nargs = "*",
-        complete = function(_, line)
-            local commands = vim.tbl_keys(cmds)
-            local l = vim.split(line, "%s+")
-            table.sort(commands)
-            return vim.tbl_filter(function(val)
-                return vim.startswith(val, l[2])
-            end, commands)
         end,
     })
 end

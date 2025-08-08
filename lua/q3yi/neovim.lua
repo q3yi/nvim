@@ -1,6 +1,7 @@
 -- Update some default settings in neovim
 
 -- Options
+vim.opt.winborder = "single"
 vim.opt.backup = false
 vim.opt.fileencoding = "utf-8"
 -- vim.opt.showmode = false
@@ -13,7 +14,7 @@ vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 vim.opt.signcolumn = "yes"
 -- vim.opt.colorcolumn = { 80 }
 vim.opt.wrap = false
@@ -46,7 +47,6 @@ kmap("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silen
 
 kmap("n", "<leader>bw", "<cmd>w<cr>", { desc = "Save buffer" })
 kmap("n", "<leader>bq", "<cmd>wq<cr>", { desc = "Save buffer and exit" })
-kmap("n", "<leader>bd", "<cmd>bd!<cr>", { desc = "Discard buffer" })
 kmap("n", "<leader>bn", "<cmd>bNext<cr>", { silent = true, desc = "Next buffer" })
 kmap("n", "<leader>bp", "<cmd>bprevious<cr>", { silent = true, desc = "Previous buffer" })
 

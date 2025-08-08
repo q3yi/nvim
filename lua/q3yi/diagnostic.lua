@@ -30,7 +30,6 @@ local function setup_diagnostic(opts)
     vim.diagnostic.config(opts.config)
     vim.keymap.set("n", "<leader>dk", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
     vim.keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "Set diagnostic to quickfix" })
-    vim.keymap.set("n", "<leader>wd", "<cmd>Telescope diagnostics<cr>", { desc = "Search diagnostics" })
 end
 
 -- initial diagnostic config here.
