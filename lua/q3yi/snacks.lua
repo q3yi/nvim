@@ -49,6 +49,17 @@ local function register_toggles(toggle)
             vim.g.diagnostic_show_virtual_text = state
         end,
     }):map("<leader>uD")
+
+    toggle({
+        id = "auto_im",
+        name = "auto switch IM",
+        get = function()
+            return vim.g.auto_im_enabled
+        end,
+        set = function(state)
+            vim.g.auto_im_enabled = state
+        end,
+    }):map("<leader>uC")
 end
 
 local M = {

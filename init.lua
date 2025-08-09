@@ -2,7 +2,7 @@
 
 require("q3yi.neovim")
 require("q3yi.diagnostic")
-require("q3yi.input_method")
+require("q3yi.auto_im")
 
 -- Install package manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
