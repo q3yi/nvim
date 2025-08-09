@@ -16,7 +16,7 @@ function WhichKey.config()
         -- icons = { rules = false },
         show_help = false,
         win = {
-            border = "single",
+            -- border = "single",
         },
     })
     wk.add({

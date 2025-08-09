@@ -1,7 +1,7 @@
 -- Update some default settings in neovim
 
 -- Options
-vim.opt.winborder = "single"
+vim.opt.winborder = "rounded"
 vim.opt.backup = false
 vim.opt.fileencoding = "utf-8"
 -- vim.opt.showmode = false

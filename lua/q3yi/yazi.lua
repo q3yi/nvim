@@ -31,7 +31,7 @@ local M = {
         keymaps = {
             show_help = "<f1>",
         },
-        yazi_floating_window_border = "single",
+        yazi_floating_window_border = "rounded",
     },
 }
 
