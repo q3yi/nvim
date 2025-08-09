@@ -25,6 +25,7 @@ require("lazy").setup({
     require("q3yi.theme"),
     require("q3yi.cmp"),
     require("q3yi.treesitter"),
+    require("q3yi.mini-ai"),
     require("q3yi.lsp"),
     require("q3yi.lazydev"),
     require("q3yi.formatting"),
