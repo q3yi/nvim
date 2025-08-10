@@ -20,6 +20,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Install and config packages
+---@diagnostic disable-next-line: param-type-not-match
 require("lazy").setup({
     require("q3yi.snacks"),
     require("q3yi.theme"),
@@ -27,7 +28,6 @@ require("lazy").setup({
     require("q3yi.treesitter"),
     require("q3yi.mini-ai"),
     require("q3yi.lsp"),
-    require("q3yi.lazydev"),
     require("q3yi.formatting"),
     require("q3yi.linting"),
     require("q3yi.git"),
@@ -38,4 +38,4 @@ require("lazy").setup({
     require("q3yi.obsidian"),
     require("q3yi.which-key"),
     -- require("q3yi.rest"),
-}, {})
+}, { ui = { border = "rounded" } })
