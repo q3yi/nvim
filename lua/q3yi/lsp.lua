@@ -8,11 +8,8 @@ local M = {
         "mason-org/mason-lspconfig.nvim",
     },
     config = function()
-        require("mason").setup()
-        require("mason-lspconfig").setup({
-            automatic_enable = true,
-            ensure_installed = {},
-        })
+        require("mason").setup({ ui = { border = "rounded" } })
+        require("mason-lspconfig").setup()
 
         -- Some lsp server should install with its own environment instead of install through Mason,
         -- so we just enable it manually.
