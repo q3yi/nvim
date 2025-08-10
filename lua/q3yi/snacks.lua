@@ -57,7 +57,8 @@ local M = {
         { "<leader>R", function() Snacks.picker.resume() end, desc = "Resume last picker" },
 
         -- lsp word
-        { "]w",
+        {
+            "]w",
             function()
                 if not Snacks.words.is_enabled() then
                     vim.notify("Fail to jump: LSP words disabled.", vim.log.levels.ERROR)
