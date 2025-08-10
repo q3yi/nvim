@@ -33,6 +33,7 @@ require("lazy").setup({
     require("q3yi.git"),
     require("q3yi.yazi"),
     require("q3yi.pairs"),
+    require("q3yi.mini-jump2d"),
     require("q3yi.mini-surround"),
     require("q3yi.obsidian"),
     require("q3yi.which-key"),
