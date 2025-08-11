@@ -24,17 +24,18 @@ local M = {
     keys = {
         -- buffers
         { "<leader>bb", function() Snacks.picker.buffers({ layout = "select", on_show = stop_insert }) end, desc = "List all buffers" },
-        { "<leader>bd", function() Snacks.bufdelete() end, desc = "Delete current buffer" },
+        { "<leader>bx", function() Snacks.bufdelete() end, desc = "Delete current buffer" },
         { "<leader>br", function() Snacks.rename() end, desc = "Rename buffer file" },
         { "<leader>bg", function() Snacks.picker.grep_buffers({ cmd = "rg" }) end, desc = "Ripgrep in all open buffers" },
+        { "<leader>bd", function() Snacks.picker.diagnostics_buffer({ layout = "select", on_show = stop_insert }) end, desc = "List buffer diagnostics" },
 
+        { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Finder" },
         { "<leader>f", function() Snacks.picker.files() end, desc = "Find Files" },
         { "<leader>h", function() Snacks.picker.help() end, desc = "Search help docs" },
         { "<leader>x", function() Snacks.picker.pickers({ layout = "select" }) end, desc = "List all pickers" },
         { "<leader>m", function() Snacks.picker.marks({ on_show = stop_insert }) end, desc = "List all marks" },
-        { "<leader>q", function() Snacks.picker.qflist({ layout = "select", on_show = stop_insert }) end, desc = "List all quickfixes" },
-        { "<leader>dl", function() Snacks.picker.diagnostics_buffer({ layout = "select", on_show = stop_insert }) end, desc = "List all diagnostics in buffer" },
 
+        { "<leader>wq", function() Snacks.picker.qflist({ layout = "select", on_show = stop_insert }) end, desc = "List all quickfixes" },
         { "<leader>wd", function() Snacks.picker.diagnostics({ on_show = stop_insert }) end, desc = "List all diagnostics in workspace" },
         { "<leader>wg", function() Snacks.picker.grep({ cmd = "rg" }) end, desc = "Ripgrep in workspace" },
 
@@ -85,21 +86,21 @@ local M = {
 ---@param toggle snacks.toggle
 local function register_toggles(toggle)
     toggle.indent():map("<leader>ug")
-    toggle.diagnostics():map("<leader>ud")
+    toggle.diagnostics():map("<leader>udd")
     toggle.zen():map("<leader>uz")
     toggle.zoom():map("<leader>uZ")
     toggle.inlay_hints():map("<leader>uh")
     toggle.scroll():map("<leader>uS")
     toggle.words():map("<leader>uW")
 
-    toggle.option("background", { off = "light", on = "dark", name = "dark background" }):map("<leader>ub")
-    toggle.option("list", { name = "whitespace chars" }):map("<leader>uw")
-    toggle.option("wrap", { name = "line wrap" }):map("<leader>ur")
+    toggle.option("background", { off = "light", on = "dark", name = "Dark background" }):map("<leader>ub")
+    toggle.option("list", { name = "Whitespace chars" }):map("<leader>uw")
+    toggle.option("wrap", { name = "Line wrap" }):map("<leader>ur")
     toggle.option("relativenumber", { name = "Relative Number" }):map("<leader>uL")
     toggle.line_number():map("<leader>ul")
     toggle({
         id = "colorcolumn",
-        name = "color column",
+        name = "Color column",
         get = function()
             local col = vim.opt.colorcolumn:get()
             if #col > 0 then
@@ -115,22 +116,41 @@ local function register_toggles(toggle)
                 vim.opt.colorcolumn = {}
             end
         end,
-    }, nil):map("<leader>uc")
+    }):map("<leader>uc")
 
     toggle({
         id = "diagnostic_virtual_text",
-        name = "diagnostic virtual text",
+        name = "Diagnostic virtual text",
         get = function()
-            return vim.g.diagnostic_show_virtual_text
+            return vim.g.show_virtual_diagnostic == "text"
         end,
         set = function(state)
-            vim.g.diagnostic_show_virtual_text = state
+            if state then
+                vim.g.show_virtual_diagnostic = "text"
+            else
+                vim.g.show_virtual_diagnostic = "none"
+            end
         end,
-    }):map("<leader>uD")
+    }):map("<leader>udt")
+
+    toggle({
+        id = "diagnostic_virtual_line",
+        name = "Diagnostic virtual line",
+        get = function()
+            return vim.g.show_virtual_diagnostic == "line"
+        end,
+        set = function(state)
+            if state then
+                vim.g.show_virtual_diagnostic = "line"
+            else
+                vim.g.show_virtual_diagnostic = "none"
+            end
+        end,
+    }):map("<leader>udl")
 
     toggle({
         id = "auto_im",
-        name = "auto switch IM",
+        name = "Auto switch IM",
         get = function()
             return vim.g.auto_im_enabled
         end,

@@ -17,6 +17,7 @@ function AutoIM.leave_insert()
     end
 
     vim.system(AutoIM.current_im_cmd, { text = true }, function(obj)
+        ---@diagnostic disable-next-line: need-check-nil
         AutoIM.active = AutoIM.is_active(obj)
         if not AutoIM.active then
             return

@@ -84,23 +84,6 @@ end
 
 -- Create command to change tab width
 vim.api.nvim_create_user_command("SetTabWidth", set_tab_width, { nargs = "?", desc = "Change tab width." })
-kmap("n", "<leader>u>", function()
-    local size = 2 ^ (math.log(vim.opt.tabstop:get() or 2, 2) + 1)
-    if size > 8 then
-        return
-    end
-    set_tab_width({ args = size })
-    vim.notify("tab width set to: " .. size, vim.log.levels.INFO)
-end, { desc = "Increase tab width" })
-
-kmap("n", "<leader>u<", function()
-    local size = 2 ^ (math.log(vim.opt.tabstop:get() or 2, 2) - 1)
-    if size < 2 then
-        return
-    end
-    set_tab_width({ args = size })
-    vim.notify("tab width set to: " .. size, vim.log.levels.INFO)
-end, { desc = "Decrease tab width" })
 
 -- Highlight text copied when yank
 local highlight_group = vim.api.nvim_create_augroup("YankHighlight", { clear = true })

@@ -1,5 +1,7 @@
 -- Set diagnostic shortcuts
 
+vim.g.show_virtual_diagnostic = "text"
+
 local opts = {
     signs = {
         text = {
@@ -10,17 +12,14 @@ local opts = {
         },
     },
     virtual_text = function()
-        if vim.g.diagnostic_show_virtual_text == nil then
-            vim.g.diagnostic_show_virtual_text = true
-        end
-        return vim.g.diagnostic_show_virtual_text
+        return vim.g.show_virtual_diagnostic == "text"
     end,
     virtual_lines = function()
-        if vim.g.diagnostic_show_virtual_text then
-            return false
+        if vim.g.show_virtual_diagnostic == "line" then
+            return { current_line = true }
         end
 
-        return { current_line = true }
+        return false
     end,
     underline = true,
     update_in_insert = true,
@@ -32,5 +31,3 @@ local opts = {
 }
 
 vim.diagnostic.config(opts)
-vim.keymap.set("n", "<leader>dk", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
-vim.keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "Set diagnostic to quickfix" })

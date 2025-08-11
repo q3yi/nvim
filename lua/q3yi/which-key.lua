@@ -22,7 +22,7 @@ function WhichKey.config()
     wk.add({
         { "<leader>b", group = "Buffers" },
         { "<leader>w", group = "Workspace" },
-        { "<leader>d", group = "Diagnostic" },
+        { "<leader>ud", group = "Diagnostic" },
         { "<leader>g", group = "Git" },
         { "<leader>s", group = "Swap textobjects" },
         { "<leader>u", group = "Options" },
