@@ -3,22 +3,22 @@
 local M = {
     "stevearc/conform.nvim",
     event = { "BufWritePre" },
-    cmd = { "ToggleAutoFormat", "ConformInfo" },
-    dependencies = { "folke/snacks.nvim" },
+    cmd = { "ConformInfo" },
     opts = {
         formatters_by_ft = {
             lua = { "stylua" },
-            javascript = { "prettier" },
-            javascriptreact = { "prettier" },
-            typescript = { "prettier" },
-            typescriptreact = { "prettier" },
-            css = { "prettier" },
-            html = { "prettier" },
-            json = { "prettier" },
-            yaml = { "prettier" },
+            javascript = { "biome" },
+            javascriptreact = { "biome" },
+            typescript = { "biome" },
+            typescriptreact = { "biome" },
+            css = { "biome" },
+            html = { "biome" },
+            json = { "biome" },
+            jsonc = { "biome" },
+            yaml = { "yq" },
             fish = { "fish_indent" },
             ocaml = { "ocamlformat" },
-            toml = { "taplo" },
+            toml = { "tombi" },
             solidity = { "forge_fmt" },
             markdown = { "markdownlint-cli2" },
         },
@@ -31,43 +31,7 @@ local M = {
     },
 }
 
-M.config = function()
-    require("conform").setup(M.opts)
-    require("snacks")
-        .toggle({
-            id = "conform_auto_format",
-            name = "format on save",
-            get = function()
-                return not vim.g.disable_autoformat
-            end,
-            set = function(state)
-                vim.g.disable_autoformat = not state
-                vim.b.disable_autoformat = not state
-            end,
-        })
-        :map("<leader>uf")
-end
-
 M.init = function()
-    vim.api.nvim_create_user_command("ToggleAutoFormat", function(args)
-        if vim.g.disable_autoformat or vim.b.disable_autoformat then
-            vim.g.disable_autoformat = false
-            vim.b.disable_autoformat = false
-            vim.notify("auto format enabled.", vim.log.levels.INFO)
-        elseif args.bang then
-            vim.b.disable_autoformat = true
-            vim.notify("auto format disabled in this buffer.", vim.log.levels.INFO)
-        else
-            vim.g.disable_autoformat = true
-            vim.notify("auto format disabled globally.", vim.log.levels.INFO)
-        end
-    end, {
-        desc = "Toggle auto format on save.",
-        bang = true,
-    })
-
-    -- vim.keymap.set({ "n", "v" }, "<leader>uf", "<cmd>ToggleAutoFormat<cr>", { desc = "Toggle auto format" })
-
     vim.keymap.set({ "n", "v" }, "<leader>bf", function()
         require("conform").format({
             timeout_ms = 500,

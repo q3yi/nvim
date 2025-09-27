@@ -158,6 +158,18 @@ local function register_toggles(toggle)
             vim.g.auto_im_enabled = state
         end,
     }):map("<leader>uC")
+
+    toggle({
+        id = "conform_auto_format",
+        name = "format on save",
+        get = function()
+            return not vim.g.disable_autoformat
+        end,
+        set = function(state)
+            vim.g.disable_autoformat = not state
+            vim.b.disable_autoformat = not state
+        end,
+    }):map("<leader>uf")
 end
 
 M.config = function()
