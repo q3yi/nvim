@@ -21,5 +21,7 @@
     "typeCall": true,
     "arrayIndex": true
   },
-  "workspace": {}
+  "workspace": {
+    "library": ["$VIMRUNTIME", "$HOME/.local/share/nvim/lazy"]
+  }
 }

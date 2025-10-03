@@ -1,4 +1,4 @@
--- set local config for ocaml file
+-- set local config for json file
 local opt = vim.opt_local
 
 opt.shiftwidth = 2
