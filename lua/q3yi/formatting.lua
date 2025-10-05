@@ -21,6 +21,14 @@ local M = {
             toml = { "tombi" },
             solidity = { "forge_fmt" },
             markdown = { "markdownlint-cli2" },
+            xml = { "yq_xml" },
+        },
+        formatters = {
+            yq_xml = {
+                command = "yq",
+                args = { "-p=xml", "-o=xml" },
+                stdin = true,
+            },
         },
         format_on_save = function(buf)
             if vim.g.disable_autoformat or vim.b[buf].disable_autoformat then
