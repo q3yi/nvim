@@ -39,5 +39,5 @@ require("lazy").setup({
     require("q3yi.obsidian"),
     require("q3yi.which-key"),
     -- require("q3yi.rest"),
-    require("q3yi.dap"),
+    require("q3yi.debug"),
 }, { ui = { border = "rounded" } })
