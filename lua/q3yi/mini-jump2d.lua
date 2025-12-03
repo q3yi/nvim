@@ -9,7 +9,7 @@ local M = {
         require("mini.jump2d").setup({
             view = { dim = true },
             mappings = {
-                -- start_jumping = "gs",
+                start_jumping = "gs",
             },
         })
     end,

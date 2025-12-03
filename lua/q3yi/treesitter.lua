@@ -42,6 +42,7 @@ local filetypes = {
     "ocaml",
     "python",
     "rust",
+    "regex",
     "solidity",
     "sql",
     "tsx",

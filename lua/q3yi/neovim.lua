@@ -2,31 +2,39 @@
 
 -- Options
 vim.opt.winborder = "rounded"
+
 vim.opt.backup = false
+vim.opt.undofile = true
+vim.opt.swapfile = false
 vim.opt.fileencoding = "utf-8"
--- vim.opt.showmode = false
+
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.smartindent = true
-vim.opt.swapfile = false
+vim.opt.infercase = true
+
 vim.opt.expandtab = true
 vim.opt.shiftwidth = 4
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
+
 vim.opt.number = true
-vim.opt.relativenumber = false
 vim.opt.signcolumn = "yes"
--- vim.opt.colorcolumn = { 80 }
 vim.opt.wrap = false
-vim.opt.scrolloff = 8
-vim.opt.mouse = "a"
+vim.opt.linebreak = true
 vim.opt.breakindent = true
-vim.opt.undofile = true
-vim.opt.termguicolors = true
-vim.opt.guifont = "JetBrains_Mono:13"
+vim.opt.scrolloff = 8
+
+vim.opt.mouse = "a"
+
 vim.opt.listchars = { eol = "$", space = "·", lead = "·", tab = ">-", trail = "~", extends = ">", precedes = "<" }
+vim.opt.fillchars = "eob: "
 vim.opt.splitbelow = true
 vim.opt.splitright = true
+
+vim.opt.path:append("**")
+vim.opt.completeopt = "menuone,noselect"
+vim.opt.shortmess:append("cC")
 
 -- Mappings
 vim.g.mapleader = " "

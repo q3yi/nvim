@@ -6,28 +6,18 @@ local WhichKey = {
     dependencies = {
         "echasnovski/mini.icons",
     },
-}
-
-function WhichKey.config()
-    local wk = require("which-key")
-    wk.setup({
-        preset = "helix",
-        -- delay = 500,
-        -- icons = { rules = false },
-        show_help = false,
-        win = {
-            -- border = "single",
+    opts = {
+        -- preset = "helix",
+        delay = 500,
+        spec = {
+            { "<leader>b", group = "Buffers" },
+            { "<leader>d", group = "Debugger" },
+            { "<leader>w", group = "Workspace" },
+            { "<leader>g", group = "Git" },
+            { "<leader>u", group = "Options" },
+            { "<leader>r", group = "Obsidian" },
         },
-    })
-    wk.add({
-        { "<leader>b", group = "Buffers" },
-        { "<leader>w", group = "Workspace" },
-        { "<leader>ud", group = "Diagnostic" },
-        { "<leader>g", group = "Git" },
-        { "<leader>s", group = "Swap textobjects" },
-        { "<leader>u", group = "Options" },
-        { "<leader>r", group = "Obsidian" },
-    })
-end
+    },
+}
 
 return WhichKey

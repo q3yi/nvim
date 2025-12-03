@@ -1,9 +1,6 @@
 -- Configurate auto completion framework
 ---@diagnostic disable: missing-fields
 
-vim.opt.completeopt = { "menu", "menuone", "noselect" }
-vim.opt.shortmess:append("c")
-
 local M = {
     "saghen/blink.cmp",
     event = { "InsertEnter" },

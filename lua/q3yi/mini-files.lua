@@ -3,8 +3,6 @@
 local M = {
     "echasnovski/mini.files",
     version = false,
-    -- event = { "VeryLazy" },
-    cmd = { "OpenMiniFiles" },
     dependencies = {
         "echasnovski/mini.icons",
     },
