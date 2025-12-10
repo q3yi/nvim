@@ -24,39 +24,39 @@ local M = {
     -- stylua: ignore
     keys = {
         -- buffers
-        { "<leader>bb", function() Snacks.picker.buffers({ layout = "select", on_show = stop_insert }) end, desc = "List all buffers" },
-        { "<leader>bx", function() Snacks.bufdelete() end, desc = "Delete current buffer" },
-        { "<leader>br", function() Snacks.rename() end, desc = "Rename buffer file" },
-        { "<leader>bg", function() Snacks.picker.grep_buffers({ cmd = "rg" }) end, desc = "Ripgrep in all open buffers" },
-        { "<leader>bd", function() Snacks.picker.diagnostics_buffer({ layout = "select", on_show = stop_insert }) end, desc = "List buffer diagnostics" },
+        { "<leader>bb",      function() Snacks.picker.buffers({ layout = "select", on_show = stop_insert }) end,               desc = "List all buffers" },
+        { "<leader>bx",      function() Snacks.bufdelete() end,                                                                desc = "Delete current buffer" },
+        { "<leader>br",      function() Snacks.rename() end,                                                                   desc = "Rename buffer file" },
+        { "<leader>bg",      function() Snacks.picker.grep_buffers({ cmd = "rg" }) end,                                        desc = "Ripgrep in all open buffers" },
+        { "<leader>bd",      function() Snacks.picker.diagnostics_buffer({ layout = "select", on_show = stop_insert }) end,    desc = "List buffer diagnostics" },
 
-        { "<leader><space>", function() Snacks.picker.smart() end, desc = "Smart Finder" },
-        { "<leader>f", function() Snacks.picker.files() end, desc = "Find Files" },
-        { "<leader>h", function() Snacks.picker.help() end, desc = "Search help docs" },
-        { "<leader>x", function() Snacks.picker.pickers({ layout = "select" }) end, desc = "List all pickers" },
-        { "<leader>m", function() Snacks.picker.marks({ on_show = stop_insert }) end, desc = "List all marks" },
+        { "<leader><space>", function() Snacks.picker.smart() end,                                                             desc = "Smart Finder" },
+        { "<leader>f",       function() Snacks.picker.files() end,                                                             desc = "Find Files" },
+        { "<leader>h",       function() Snacks.picker.help() end,                                                              desc = "Search help docs" },
+        { "<leader>x",       function() Snacks.picker.pickers({ layout = "select" }) end,                                      desc = "List all pickers" },
+        { "<leader>m",       function() Snacks.picker.marks({ on_show = stop_insert }) end,                                    desc = "List all marks" },
 
-        { "<leader>wq", function() Snacks.picker.qflist({ layout = "select", on_show = stop_insert }) end, desc = "List all quickfixes" },
-        { "<leader>wd", function() Snacks.picker.diagnostics({ on_show = stop_insert }) end, desc = "List all diagnostics in workspace" },
-        { "<leader>wg", function() Snacks.picker.grep({ cmd = "rg" }) end, desc = "Ripgrep in workspace" },
+        { "<leader>wq",      function() Snacks.picker.qflist({ layout = "select", on_show = stop_insert }) end,                desc = "List all quickfixes" },
+        { "<leader>wd",      function() Snacks.picker.diagnostics({ on_show = stop_insert }) end,                              desc = "List all diagnostics in workspace" },
+        { "<leader>wg",      function() Snacks.picker.grep({ cmd = "rg" }) end,                                                desc = "Ripgrep in workspace" },
 
-        { "<m-x>", function() Snacks.picker.commands({ layout = "select" }) end, desc = "Run command" },
+        { "<m-x>",           function() Snacks.picker.commands({ layout = "select" }) end,                                     desc = "Run command" },
 
         -- git keys
-        { "<leader>gs", function() Snacks.lazygit.open() end, desc = "Open lazy git" },
-        { "<leader>gL", function() Snacks.lazygit.log() end, desc = "Open lazy git log" },
-        { "<leader>gb", function() Snacks.picker.git_branches() end, desc = "Git branches" },
+        { "<leader>gs",      function() Snacks.lazygit.open() end,                                                             desc = "Open lazy git" },
+        { "<leader>gL",      function() Snacks.lazygit.log() end,                                                              desc = "Open lazy git log" },
+        { "<leader>gb",      function() Snacks.picker.git_branches() end,                                                      desc = "Git branches" },
 
         -- file explorer
-        { "<leader>t", function() Snacks.explorer() end, desc = "File tree" },
+        { "<leader>t",       function() Snacks.explorer() end,                                                                 desc = "File tree" },
 
         -- floating terminal
-        { "<m-t>", function() Snacks.terminal.toggle(nil, { win = { border = "rounded", position = "float" } }) end, desc = "Toggle floating terminal", mode = { "n", "v", "t" } },
+        { "<m-t>",           function() Snacks.terminal.toggle(nil, { win = { border = "rounded", position = "float" } }) end, desc = "Toggle floating terminal",         mode = { "n", "v", "t" } },
 
         -- undo tree
-        { "U", function() Snacks.picker.undo({ on_show = stop_insert }) end, desc = "Snacks undo", mode = { "n", "v" } },
+        { "U",               function() Snacks.picker.undo({ on_show = stop_insert }) end,                                     desc = "Snacks undo",                      mode = { "n", "v" } },
 
-        { "<leader>R", function() Snacks.picker.resume() end, desc = "Resume last picker" },
+        { "<leader>R",       function() Snacks.picker.resume() end,                                                            desc = "Resume last picker" },
 
         -- lsp word
         {

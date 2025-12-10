@@ -8,12 +8,12 @@ local M = {
         "mason-org/mason-lspconfig.nvim",
     },
     config = function()
-        require("mason").setup({ ui = { border = "rounded" } })
+        require("mason").setup({ ui = { border = "single" } })
         require("mason-lspconfig").setup()
 
         -- Some lsp server should install with its own environment instead of install through Mason,
         -- so we just enable it manually.
-        vim.lsp.enable({ "pylsp", "ocamllsp" })
+        vim.lsp.enable({ "emmylua_ls", "pylsp", "ocamllsp", "gopls", "zls", "marksman" })
     end,
 }
 
@@ -21,24 +21,24 @@ local function bind_keys(event)
     local buf = event.buf
 
     local bindings = {
-        { "gd", Snacks.picker.lsp_definitions, "Goto definition" },
-        { "gD", Snacks.picker.lsp_declarations, "Goto declaration" },
+        { "gd",          Snacks.picker.lsp_definitions,       "Goto definition" },
+        { "gD",          Snacks.picker.lsp_declarations,      "Goto declaration" },
 
-        { "grr", Snacks.picker.lsp_references, "Goto references" },
-        { "gri", Snacks.picker.lsp_implementations, "Goto implementation" },
-        { "grn", vim.lsp.buf.rename, "Rename" },
-        { "gra", vim.lsp.buf.code_action, "Code action" },
-        { "grt", Snacks.picker.lsp_type_definitions, "Type definition" },
+        { "grr",         Snacks.picker.lsp_references,        "Goto references" },
+        { "gri",         Snacks.picker.lsp_implementations,   "Goto implementation" },
+        { "grn",         vim.lsp.buf.rename,                  "Rename" },
+        { "gra",         vim.lsp.buf.code_action,             "Code action" },
+        { "grt",         Snacks.picker.lsp_type_definitions,  "Type definition" },
 
-        { "gO", Snacks.picker.lsp_symbols, "Buffer symbols" },
-        { "<leader>ws", Snacks.picker.lsp_workspace_symbols, "Workspace symbols" },
+        { "gO",          Snacks.picker.lsp_symbols,           "Buffer symbols" },
+        { "<leader>ws",  Snacks.picker.lsp_workspace_symbols, "Workspace symbols" },
 
         -- See `:help K` for why this keymap
-        { "K", vim.lsp.buf.hover, "Hover documentation" },
-        { "<M-K>", vim.lsp.buf.signature_help, "Signature documentation" },
+        { "K",           vim.lsp.buf.hover,                   "Hover documentation" },
+        { "<M-K>",       vim.lsp.buf.signature_help,          "Signature documentation" },
 
         -- Lesser used LSP functionality
-        { "<leader>wfa", vim.lsp.buf.add_workspace_folder, "Add folder to workspace" },
+        { "<leader>wfa", vim.lsp.buf.add_workspace_folder,    "Add folder to workspace" },
         { "<leader>wfr", vim.lsp.buf.remove_workspace_folder, "Remove folder from workspace" },
         {
             "<leader>wfl",
@@ -47,8 +47,6 @@ local function bind_keys(event)
             end,
             "List workspace folders",
         },
-
-        { "<leader>l", "<cmd>LspInfo<cr>", "Show attached server" },
     }
 
     for _, binding in ipairs(bindings) do

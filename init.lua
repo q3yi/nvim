@@ -36,8 +36,8 @@ require("lazy").setup({
     require("q3yi.mini-jump2d"),
     require("q3yi.mini-surround"),
     require("q3yi.mini-files"),
-    require("q3yi.obsidian"),
+    -- require("q3yi.obsidian"),
     require("q3yi.which-key"),
     -- require("q3yi.rest"),
     require("q3yi.debug"),
-}, { ui = { border = "rounded" } })
+}, { ui = { border = "single" } })

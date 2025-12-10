@@ -1,7 +1,7 @@
 -- Update some default settings in neovim
 
 -- Options
-vim.opt.winborder = "rounded"
+vim.opt.winborder = "single"
 
 vim.opt.backup = false
 vim.opt.undofile = true
@@ -44,44 +44,44 @@ vim.g.maplocalleader = " "
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-local kmap = vim.keymap.set
+local map = vim.keymap.set
 
-kmap({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
-kmap({ "i", "n", "v" }, "<f1>", "<Nop>", { silent = true })
+map({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
+map({ "i", "n", "v" }, "<f1>", "<Nop>", { silent = true })
 
 -- Remap for dealing with word wrap
-kmap("n", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
-kmap("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
+map("n", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
+map("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
-kmap("n", "<leader>bw", "<cmd>w<cr>", { desc = "Save buffer" })
-kmap("n", "<leader>bq", "<cmd>wq<cr>", { desc = "Save buffer and exit" })
-kmap("n", "<leader>bn", "<cmd>bNext<cr>", { silent = true, desc = "Next buffer" })
-kmap("n", "<leader>bp", "<cmd>bprevious<cr>", { silent = true, desc = "Previous buffer" })
+map("n", "<leader>bw", "<cmd>w<cr>", { desc = "Save buffer" })
+map("n", "<leader>bq", "<cmd>wq<cr>", { desc = "Save buffer and exit" })
+map("n", "<leader>bn", "<cmd>bNext<cr>", { silent = true, desc = "Next buffer" })
+map("n", "<leader>bp", "<cmd>bprevious<cr>", { silent = true, desc = "Previous buffer" })
 
-kmap("v", "<m-k>", ":m '<-2<cr>gv=gv", { silent = true, desc = "Move selected lines up" })
-kmap("v", "<m-j>", ":m '>+1<cr>gv=gv", { silent = true, desc = "Move selected lines down" })
-kmap({ "i", "n" }, "<m-k>", ":m .-2<cr>", { silent = true, desc = "Move line up" })
-kmap({ "i", "n" }, "<m-j>", ":m .+1<cr>", { silent = true, desc = "Move line down" })
+map("v", "<m-k>", ":m '<-2<cr>gv=gv", { silent = true, desc = "Move selected lines up" })
+map("v", "<m-j>", ":m '>+1<cr>gv=gv", { silent = true, desc = "Move selected lines down" })
+map({ "i", "n" }, "<m-k>", ":m .-2<cr>", { silent = true, desc = "Move line up" })
+map({ "i", "n" }, "<m-j>", ":m .+1<cr>", { silent = true, desc = "Move line down" })
 
-kmap("n", "<leader>p", "\"+p", { silent = true, desc = "Paste from system clipboard" })
-kmap({ "n", "v" }, "<leader>y", "\"+y", { silent = true, desc = "Yank to system clipboard" })
+map("n", "<leader>p", "\"+p", { silent = true, desc = "Paste from system clipboard" })
+map({ "n", "v" }, "<leader>y", "\"+y", { silent = true, desc = "Yank to system clipboard" })
 
-kmap("n", "<leader>o", "<c-^>", { desc = "Switch to alternative" })
+map("n", "<leader>o", "<c-^>", { desc = "Switch to alternative" })
 
-kmap("n", "<c-\\>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
+map("n", "<c-\\>", "<cmd>nohlsearch<cr>", { desc = "Clear search highlight" })
 
-kmap({ "n", "v" }, "<c-j>", "<c-w>j", { noremap = true, desc = "Switch to lower window" })
-kmap({ "n", "v" }, "<c-k>", "<c-w>k", { noremap = true, desc = "Switch to upper window" })
-kmap({ "n", "v" }, "<c-h>", "<c-w>h", { noremap = true, desc = "Switch to left window" })
-kmap({ "n", "v" }, "<c-l>", "<c-w>l", { noremap = true, desc = "Switch to right window" })
+map({ "n", "v" }, "<c-j>", "<c-w>j", { noremap = true, desc = "Switch to lower window" })
+map({ "n", "v" }, "<c-k>", "<c-w>k", { noremap = true, desc = "Switch to upper window" })
+map({ "n", "v" }, "<c-h>", "<c-w>h", { noremap = true, desc = "Switch to left window" })
+map({ "n", "v" }, "<c-l>", "<c-w>l", { noremap = true, desc = "Switch to right window" })
 
-kmap({ "n", "v" }, "<m-->", "<c-w>5-", { desc = "Decrease window height" })
-kmap({ "n", "v" }, "<m-+>", "<c-w>5+", { desc = "Increase window height" })
-kmap({ "n", "v" }, "<m-<>", "<c-w>5<", { desc = "Decrease window width" })
-kmap({ "n", "v" }, "<m->>", "<c-w>5>", { desc = "Increase window width" })
+map({ "n", "v" }, "<m-->", "<c-w>5-", { desc = "Decrease window height" })
+map({ "n", "v" }, "<m-+>", "<c-w>5+", { desc = "Increase window height" })
+map({ "n", "v" }, "<m-<>", "<c-w>5<", { desc = "Decrease window width" })
+map({ "n", "v" }, "<m->>", "<c-w>5>", { desc = "Increase window width" })
 
 -- escape from terminal mode
-kmap({ "t" }, "<esc><esc>", "<c-\\><c-n>", { desc = "Escape from terminal mode" })
+map({ "t" }, "<esc><esc>", "<c-\\><c-n>", { desc = "Escape from terminal mode" })
 
 local function set_tab_width(param)
     local size = tonumber(param.args) or 4

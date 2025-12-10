@@ -6,7 +6,7 @@ local M = {
     cmd = { "ConformInfo" },
     opts = {
         formatters_by_ft = {
-            lua = { "stylua" },
+            -- lua = { "stylua" },
             javascript = { "biome" },
             javascriptreact = { "biome" },
             typescript = { "biome" },
@@ -20,7 +20,7 @@ local M = {
             ocaml = { "ocamlformat" },
             toml = { "taplo" },
             solidity = { "forge_fmt" },
-            markdown = { "markdownlint-cli2" },
+            markdown = { "marksman" },
             xml = { "yq_xml" },
         },
         formatters = {

@@ -8,7 +8,7 @@ local M = {
 M.config = function()
     require("lint").linters_by_ft = {
         fish = { "fish" },
-        markdown = { "markdownlint-cli2" },
+        -- markdown = { "markdownlint-cli2" },
     }
 end
 
