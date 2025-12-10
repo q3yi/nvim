@@ -3,6 +3,10 @@
 
 local M = {
     "nvim-treesitter/nvim-treesitter",
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter-textobjects",
+        branch = "main",
+    },
     branch = "main",
     lazy = false,
     build = ":TSUpdate",
@@ -57,7 +61,6 @@ local filetypes = {
 
 function M.config()
     local treesitter = require("nvim-treesitter")
-    -- treesitter.setup({})
     treesitter.install(filetypes)
 end
 
@@ -69,6 +72,20 @@ function M.init()
             vim.treesitter.start()
         end,
     })
+
+    vim.keymap.set({ "n", "x", "o" }, "]f", function()
+        require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects")
+    end, { desc = "Next function" })
+    vim.keymap.set({ "n", "x", "o" }, "[f", function()
+        require("nvim-treesitter-textobjects.move").goto_previous_start("@function.outer", "textobjects")
+    end, { desc = "Previous function" })
+
+    vim.keymap.set({ "n", "x", "o" }, "]c", function()
+        require("nvim-treesitter-textobjects.move").goto_next_start("@class.outer", "textobjects")
+    end, { desc = "Next class" })
+    vim.keymap.set({ "n", "x", "o" }, "[c", function()
+        require("nvim-treesitter-textobjects.move").goto_previous_start("@class.outer", "textobjects")
+    end, { desc = "Previous class" })
 end
 
 return M
