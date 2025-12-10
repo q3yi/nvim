@@ -53,10 +53,16 @@ map({ "i", "n", "v" }, "<f1>", "<Nop>", { silent = true })
 map("n", "k", "v:count == 0 ? 'gk' : 'k'", { noremap = true, expr = true, silent = true })
 map("n", "j", "v:count == 0 ? 'gj' : 'j'", { noremap = true, expr = true, silent = true })
 
-map("n", "<leader>bw", "<cmd>w<cr>", { desc = "Save buffer" })
-map("n", "<leader>bq", "<cmd>wq<cr>", { desc = "Save buffer and exit" })
-map("n", "<leader>bn", "<cmd>bNext<cr>", { silent = true, desc = "Next buffer" })
-map("n", "<leader>bp", "<cmd>bprevious<cr>", { silent = true, desc = "Previous buffer" })
+-- Helix like binding
+map({ "n", "v" }, "gh", "0", { silent = true, desc = "Goto column 0" })
+map({ "n", "v" }, "gl", "$", { silent = true, desc = "Goto line end" })
+map({ "n", "v" }, "gs", "^", { silent = true, desc = "Goto first char column" })
+map({ "n", "v" }, "ge", "G", { silent = true, desc = "Goto buffer bottom" })
+
+-- map("n", "<leader>bw", "<cmd>w<cr>", { desc = "Save buffer" })
+-- map("n", "<leader>bq", "<cmd>wq<cr>", { desc = "Save buffer and exit" })
+-- map("n", "<leader>bn", "<cmd>bNext<cr>", { silent = true, desc = "Next buffer" })
+-- map("n", "<leader>bp", "<cmd>bprevious<cr>", { silent = true, desc = "Previous buffer" })
 
 map("v", "<m-k>", ":m '<-2<cr>gv=gv", { silent = true, desc = "Move selected lines up" })
 map("v", "<m-j>", ":m '>+1<cr>gv=gv", { silent = true, desc = "Move selected lines down" })

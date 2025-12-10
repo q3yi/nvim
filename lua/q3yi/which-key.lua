@@ -3,9 +3,6 @@
 local WhichKey = {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    dependencies = {
-        "echasnovski/mini.icons",
-    },
     opts = {
         -- preset = "helix",
         delay = 500,

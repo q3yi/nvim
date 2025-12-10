@@ -2,6 +2,7 @@
 
 local M = {
     "mfussenegger/nvim-dap",
+    lazy = true,
     dependencies = {
         "rcarriga/nvim-dap-ui",
         "nvim-neotest/nvim-nio",
