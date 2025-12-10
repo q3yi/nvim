@@ -1,7 +1,6 @@
 -- Set diagnostic shortcuts
 
-vim.g.show_virtual_diagnostic = "text"
-
+---@type vim.diagnostic.Opts
 local opts = {
     signs = {
         text = {
@@ -11,23 +10,31 @@ local opts = {
             [vim.diagnostic.severity.INFO] = "!",
         },
     },
-    virtual_text = function()
-        return vim.g.show_virtual_diagnostic == "text"
-    end,
-    virtual_lines = function()
-        if vim.g.show_virtual_diagnostic == "line" then
-            return { current_line = true }
-        end
-
-        return false
-    end,
+    virtual_text = true,
+    virtual_lines = false,
     underline = true,
     update_in_insert = true,
     serverity_sort = true,
-    float = {
-        focusable = true,
-        source = "always",
-    },
 }
 
 vim.diagnostic.config(opts)
+
+vim.api.nvim_create_user_command("ToggleDiagnostic", function()
+    vim.ui.select({ "Enable", "Disable", "Virtual Text", "Virtual Line" }, { prompt = "Choose diagnostic status" },
+        function(choice)
+            if choice == "Virtual Text" then
+                vim.diagnostic.config({ virtual_text = true, virtual_lines = false })
+                vim.diagnostic.enable(true)
+            elseif choice == "Virtual Line" then
+                vim.diagnostic.config({ virtual_lines = { current_line = true }, virtual_text = false })
+                vim.diagnostic.enable(true)
+            elseif choice == "Disable" then
+                vim.diagnostic.enable(false)
+            elseif choice == "Enable" then
+                vim.diagnostic.config({ virtual_lines = false, virtual_text = false })
+                vim.diagnostic.enable(true)
+            end
+        end)
+end, { desc = "Choice diagnostic display format" })
+
+vim.keymap.set({ "n", "v", "x" }, "<leader>ud", "<cmd>ToggleDiagnostic<cr>", { desc = "Diagnostic settings" })
