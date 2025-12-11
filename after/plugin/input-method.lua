@@ -5,10 +5,10 @@ local AutoIM = {
     active = false,
     notify = false,
 
-    current_im_cmd = nil,
-    enable_im_cmd = nil,
-    disable_im_cmd = nil,
-    is_active = nil,
+    current_im_cmd = {},
+    enable_im_cmd = {},
+    disable_im_cmd = {},
+    is_active = function(_output) return false end,
 }
 
 function AutoIM.leave_insert()
@@ -16,14 +16,14 @@ function AutoIM.leave_insert()
         return
     end
 
-    vim.system(AutoIM.current_im_cmd, { text = true }, function(obj)
+    vim.system(AutoIM.current_im_cmd, function(output)
         ---@diagnostic disable-next-line: need-check-nil
-        AutoIM.active = AutoIM.is_active(obj)
+        AutoIM.active = AutoIM.is_active(output)
         if not AutoIM.active then
             return
         end
 
-        vim.system(AutoIM.disable_im_cmd, { text = true }, function()
+        vim.system(AutoIM.disable_im_cmd, function()
             if not AutoIM.notify then
                 return
             end
