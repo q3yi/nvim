@@ -1,17 +1,12 @@
 -- Config debugger
 
 local M = {
-    "mfussenegger/nvim-dap",
-    lazy = true,
-    dependencies = {
-        "rcarriga/nvim-dap-ui",
-        "nvim-neotest/nvim-nio",
-    },
+    ui_opened = false,
+    already_setup = false,
 }
 
-function M.config()
+function M.setup()
     local dap = require("dap")
-
     dap.adapters = require("q3yi.debug.adapters")
     dap.configurations = require("q3yi.debug.configurations")
 
@@ -23,13 +18,12 @@ function M.config()
     sign_define("DapStopped", { text = "⭔", texthl = "DapStop", numhl = "DapStop" })
 
     require("dapui").setup()
+
+    M.already_setup = true
 end
 
-local function enableDebugger()
-    vim.g.debug_ui_enabled = true
-
+function M.open_debugger_ui()
     local dap = require("dap")
-    local dapui = require("dapui")
 
     vim.keymap.set("n", "<F3>", dap.continue, { desc = "Debugger: Start/Continue" })
     vim.keymap.set("n", "<F4>", dap.run_to_cursor, { desc = "Debugger: Run to cursor" })
@@ -38,11 +32,13 @@ local function enableDebugger()
     vim.keymap.set("n", "<F7>", dap.step_out, { desc = "Debugger: Step out" })
     vim.keymap.set("n", "<F11>", dap.restart, { desc = "Debugger: Restart" })
 
-    dapui.open()
+    require("dapui").open()
+
+    M.ui_opened = true
 end
 
-local function disableDebugger()
-    vim.g.debug_ui_enabled = false
+function M.close_debugger_ui()
+    M.ui_opened = false
 
     vim.keymap.del("n", "<F3>")
     vim.keymap.del("n", "<F4>")
@@ -54,10 +50,14 @@ local function disableDebugger()
     require("dapui").close()
 end
 
-local function toggleDebugger()
-    if vim.g.debug_ui_enabled then
-        disableDebugger()
+function M.toggle_debugger()
+    if M.ui_opened then
+        M.close_debugger_ui()
         return
+    end
+
+    if not M.already_setup then
+        M.setup()
     end
 
     local dap = require("dap")
@@ -67,10 +67,10 @@ local function toggleDebugger()
         return
     end
 
-    enableDebugger()
+    M.open_debugger_ui()
 end
 
-local function addDebugConfiguration()
+function M.add_debug_profile()
     local filetype = vim.bo.filetype
     local providers = require("q3yi.debug.providers")
 
@@ -96,12 +96,14 @@ local function addDebugConfiguration()
 end
 
 function M.init()
-    vim.keymap.set("n", "<Leader>dd", toggleDebugger, { desc = "Toggle debugger " })
-    vim.keymap.set("n", "<Leader>db", "<cmd>DapToggleBreakpoint<cr>", { desc = "Toggle breakpoint" })
+    vim.api.nvim_create_user_command("Debugger", function() M.toggle_debugger() end, { desc = "Toggle debugger" })
+
+    vim.keymap.set("n", "<Leader>dd", M.toggle_debugger, { desc = "Toggle debugger " })
+    vim.keymap.set("n", "<Leader>db", function() require("dap").toggle_breakpoint() end, { desc = "Toggle breakpoint" })
     vim.keymap.set("n", "<Leader>dB", function()
         require("dap").toggle_breakpoint(vim.fn.input("Breakpoint condition: "))
     end, { desc = "Toggle condtional breakpoint" })
-    vim.keymap.set("n", "<Leader>dp", addDebugConfiguration, { desc = "Add debug profile" })
+    vim.keymap.set("n", "<Leader>dp", M.add_debug_profile, { desc = "Add debug profile" })
 end
 
 return M

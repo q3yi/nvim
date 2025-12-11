@@ -1,21 +1,15 @@
--- Configurate language server
+-- Config language server
 
-local M = {
-    "neovim/nvim-lspconfig",
-    event = { "VeryLazy" },
-    config = function()
-        vim.lsp.enable({
-            "denojs",
-            "emmylua_ls",
-            "gopls",
-            "marksman",
-            "ocamllsp",
-            "pylsp",
-            "rust_analyzer",
-            "zls",
-        })
-    end,
-}
+vim.lsp.enable({
+    "denojs",
+    "emmylua_ls",
+    "gopls",
+    "marksman",
+    "ocamllsp",
+    "pylsp",
+    "rust_analyzer",
+    "zls",
+})
 
 local function bind_keys(event)
     local buf = event.buf
@@ -29,7 +23,6 @@ local function bind_keys(event)
         { "grn",         vim.lsp.buf.rename,                                         "Rename" },
         { "gra",         vim.lsp.buf.code_action,                                    "Code action" },
         { "grt",         function() pickers.lsp({ scope = "type_definition" }) end,  "Type definition" },
-        --
         { "gO",          function() pickers.lsp({ scope = "document_symbol" }) end,  "Buffer symbols" },
         { "<leader>ws",  function() pickers.lsp({ scope = "workspace_symbol" }) end, "Workspace symbols" },
 
@@ -59,5 +52,3 @@ vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("user.lsp", {}),
     callback = bind_keys,
 })
-
-return M

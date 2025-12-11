@@ -8,33 +8,17 @@ vim.g.maplocalleader = " "
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
--- Install package manager
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.uv.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "https://github.com/folke/lazy.nvim.git",
-        "--branch=stable", -- latest stable release
-        lazypath,
-    })
-end
-
-vim.opt.rtp:prepend(lazypath)
-
--- Install and config packages
----@diagnostic disable-next-line: param-type-not-match
-require("lazy").setup({
-    -- require("q3yi.snacks"),
-    require("q3yi.theme"),
-    require("q3yi.cmp"),
-    require("q3yi.treesitter"),
-    require("q3yi.lsp"),
-    require("q3yi.formatting"),
-    require("q3yi.linting"),
-    require("q3yi.git"),
-    require("q3yi.mini"),
-    -- require("q3yi.which-key"),
-    require("q3yi.debug"),
-}, { ui = { border = "single" } })
+vim.pack.add({
+    { src = "https://github.com/nvim-mini/mini.nvim",                         version = "main" },
+    { src = "https://github.com/rose-pine/neovim",                            name = "rose-pine" },
+    { src = "https://github.com/saghen/blink.cmp",                            version = vim.version.range("1.*") },
+    { src = "https://github.com/rafamadriz/friendly-snippets" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter",             version = "main" },
+    { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
+    { src = "https://github.com/neovim/nvim-lspconfig" },
+    { src = "https://github.com/stevearc/conform.nvim" },
+    -- { src = "https://github.com/mfussenegger/nvim-lint" },
+    { src = "https://github.com/mfussenegger/nvim-dap" },
+    { src = "https://github.com/rcarriga/nvim-dap-ui" },
+    { src = "https://github.com/nvim-neotest/nvim-nio" },
+})

@@ -16,18 +16,16 @@ local function open_float_with_command(command)
 
     local float_opts = {
         relative = "editor",
-        width = width - 4,
+        width = width,
         height = height - 2,
-        col = 2,
+        col = 0,
         row = 0,
         style = "minimal",
         border = "none",
     }
 
     local buf = vim.api.nvim_create_buf(false, true)
-
     vim.bo[buf].buflisted = false
-    vim.bo[buf].filetype = 'terminal'
 
     local win = vim.api.nvim_open_win(buf, true, float_opts)
 
@@ -60,7 +58,7 @@ local function open_float_with_command(command)
     end
 
     vim.api.nvim_set_current_win(win)
-    vim.cmd('startinsert')
+    vim.cmd("startinsert")
 end
 
 vim.api.nvim_create_user_command("Lazygit", function(args)

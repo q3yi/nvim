@@ -1,15 +1,8 @@
 -- Configurate auto completion framework
 ---@diagnostic disable: missing-fields
 
-local M = {
-    "saghen/blink.cmp",
-    event = { "InsertEnter" },
-    dependencies = { "rafamadriz/friendly-snippets" },
-    version = "1.*",
-
-    ---@module 'blink.cmp'
-    ---@type blink.cmp.Config
-    opts = {
+function init()
+    require("blink.cmp").setup {
         keymap = {
             preset = "none",
             ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
@@ -45,8 +38,12 @@ local M = {
                 show_documentation = false,
             },
         },
-    },
-    opts_extend = { "sources.default" },
-}
+    } ---@as blink.cmp.Config
+end
 
-return M
+local cmp_init_augroup = vim.api.nvim_create_augroup("init.cmp", {})
+vim.api.nvim_create_autocmd("InsertEnter", {
+    group = cmp_init_augroup,
+    once = true,
+    callback = init
+})
