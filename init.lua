@@ -1,8 +1,12 @@
 -- My basic neovim configuration
 
-require("q3yi.neovim")
-require("q3yi.diagnostic")
-require("q3yi.auto_im")
+-- Mappings
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+-- disable netrw
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- Install package manager
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"

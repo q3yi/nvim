@@ -1,7 +1,7 @@
 -- mini.nvim plugins
 
 local M = {
-    'nvim-mini/mini.nvim',
+    "nvim-mini/mini.nvim",
     version = false,
     event = "VeryLazy",
     dependencies = {
@@ -23,17 +23,8 @@ local M = {
         { "<leader>wq", "<cmd>Pick list scope='quickfix'",                 desc = "List all quickfixes" },
         { "<leader>wd", "<cmd>Pick diagnostic<cr>",                        desc = "List all diagnostics in workspace" },
         { "<leader>wg", "<cmd>Pick grep_live<cr>",                         desc = "Ripgrep in workspace" },
-
         { "<m-x>",      "<cmd>Pick commands<cr>",                          desc = "Run command" },
-
-        -- git keys
-        -- { "<leader>gs", function() Snacks.lazygit.open() end,                                                             desc = "Open lazy git" },
-        -- { "<leader>gL", function() Snacks.lazygit.log() end,                                                              desc = "Open lazy git log" },
         { "<leader>gb", "<cmd>Pick git_branches<cr>",                      desc = "Git branches" },
-
-        -- floating terminal
-        -- { "<m-t>",      function() Snacks.terminal.toggle(nil, { win = { border = "rounded", position = "float" } }) end, desc = "Toggle floating terminal",            mode = { "n", "v", "t" } },
-
         { "<leader>.",  "<cmd>Pick resume<cr>",                            desc = "Resume last picker" },
     },
 }
@@ -50,45 +41,45 @@ function M.setup_mini_ai()
                 a = { "@statement.outer", "@conditional.outer", "@loop.outer", "@block.outer" },
                 i = { "@conditional.inner", "@loop.inner", "@block.inner" },
             }),
-            ['/'] = gen({ a = "@comment.outer", i = "@comment.inner" }),
+            ["/"] = gen({ a = "@comment.outer", i = "@comment.inner" }),
         },
         n_lines = 200,
     })
 end
 
 function M.setup_mini_clue()
-    local miniclue = require('mini.clue')
+    local miniclue = require("mini.clue")
     miniclue.setup({
         triggers = {
             -- Leader triggers
-            { mode = 'n', keys = '<Leader>' },
-            { mode = 'x', keys = '<Leader>' },
+            { mode = "n", keys = "<Leader>" },
+            { mode = "x", keys = "<Leader>" },
 
             -- Built-in completion
-            { mode = 'i', keys = '<C-x>' },
+            { mode = "i", keys = "<C-x>" },
 
             -- `g` key
-            { mode = 'n', keys = 'g' },
-            { mode = 'x', keys = 'g' },
+            { mode = "n", keys = "g" },
+            { mode = "x", keys = "g" },
 
             -- Marks
-            { mode = 'n', keys = "'" },
-            { mode = 'n', keys = '`' },
-            { mode = 'x', keys = "'" },
-            { mode = 'x', keys = '`' },
+            { mode = "n", keys = "'" },
+            { mode = "n", keys = "`" },
+            { mode = "x", keys = "'" },
+            { mode = "x", keys = "`" },
 
             -- Registers
-            { mode = 'n', keys = '"' },
-            { mode = 'x', keys = '"' },
-            { mode = 'i', keys = '<C-r>' },
-            { mode = 'c', keys = '<C-r>' },
+            { mode = "n", keys = '"' },
+            { mode = "x", keys = '"' },
+            { mode = "i", keys = "<C-r>" },
+            { mode = "c", keys = "<C-r>" },
 
             -- Window commands
-            { mode = 'n', keys = '<C-w>' },
+            { mode = "n", keys = "<C-w>" },
 
             -- `z` key
-            { mode = 'n', keys = 'z' },
-            { mode = 'x', keys = 'z' },
+            { mode = "n", keys = "z" },
+            { mode = "x", keys = "z" },
         },
 
         clues = {
@@ -117,7 +108,7 @@ function M.config()
     M.setup_mini_ai()
     M.setup_mini_clue()
 
-    require('mini.notify').setup({ window = { winblend = 0 } })
+    require("mini.notify").setup({ window = { winblend = 0 } })
     require("mini.icons").setup()
     require("mini.jump2d").setup({
         view = { dim = true },
