@@ -6,27 +6,30 @@ local state = {
 }
 
 local function conform()
+    local pkg = require("conform")
+
     if state.initialized then
-        return require("conform")
+        return pkg
     end
 
-    require("conform").setup({
+    pkg.setup {
         formatters_by_ft = {
-            javascript = { "biome" },
-            javascriptreact = { "biome" },
-            typescript = { "biome" },
-            typescriptreact = { "biome" },
-            css = { "biome" },
-            html = { "biome" },
-            json = { "biome" },
-            jsonc = { "biome" },
-            yaml = { "yq" },
+            css = { "dprint" },
             fish = { "fish_indent" },
+            html = { "dprint" },
+            javascript = { "dprint" },
+            javascriptreact = { "dprint" },
+            jsonc = { "dprint" },
+            json = { "dprint" },
+            markdown = { "dprint" },
             ocaml = { "ocamlformat" },
-            toml = { "taplo" },
+            python = { "dprint" },
             solidity = { "forge_fmt" },
-            -- markdown = { "marksman" },
+            toml = { "dprint" },
+            typescript = { "dprint" },
+            typescriptreact = { "dprint" },
             xml = { "yq_xml" },
+            yaml = { "dprint" },
         },
         formatters = {
             yq_xml = {
@@ -41,15 +44,15 @@ local function conform()
             end
             return { timeout_ms = 500, lsp_format = "fallback" }
         end,
-    })
+    } ---@as conform.setupOpts
 
     state.initialized = true
-    return require("conform")
+    return pkg
 end
 
 local conform_init_augroup = vim.api.nvim_create_augroup("init.conform", {})
 
-vim.api.nvim_create_autocmd("BufWritePre", {
+vim.api.nvim_create_autocmd("InsertEnter", {
     group = conform_init_augroup,
     once = true,
     callback = function() _ = conform() end,

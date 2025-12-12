@@ -24,7 +24,13 @@ function init()
             nerd_font_variant = "mono",
         },
 
-        completion = { documentation = { auto_show = false } },
+        completion = {
+            menu = { border = "none" },
+            documentation = {
+                window = { border = "none" },
+                auto_show = false,
+            },
+        },
 
         sources = {
             default = { "lsp", "path", "snippets", "buffer" },
@@ -35,6 +41,7 @@ function init()
         signature = {
             enabled = true,
             window = {
+                border = "none",
                 show_documentation = false,
             },
         },

@@ -1,6 +1,7 @@
 --- Toggle floating terminal
 
 ---@param buf integer
+---@return table
 local function create_floating_win(buf)
     local width = vim.o.columns
     local height = vim.o.lines
@@ -28,6 +29,7 @@ local function create_floating_win(buf)
         buf = vim.api.nvim_create_buf(false, true)
     end
 
+    ---@diagnostic disable-next-line: param-type-mismatch
     local win = vim.api.nvim_open_win(buf, true, win_opts)
 
     vim.api.nvim_set_current_win(win)

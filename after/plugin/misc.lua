@@ -27,3 +27,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
     group = highlight_group,
     pattern = "*",
 })
+
+-- Update packages with command
+vim.api.nvim_create_user_command("PackUpdate", function(param)
+    if #param.fargs ~= 0 then
+        vim.pack.update(param.fargs)
+        return
+    end
+    vim.pack.update()
+end, { nargs = "*", desc = "Update plugins" })

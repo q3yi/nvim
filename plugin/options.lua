@@ -1,7 +1,7 @@
 -- Better defaults options
 local opt = vim.opt
 
-opt.winborder = "bold"
+opt.winborder = "solid"
 
 opt.backup = false
 opt.undofile = true
