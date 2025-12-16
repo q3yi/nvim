@@ -35,3 +35,6 @@ opt.splitright = true
 opt.path:append("**")
 opt.completeopt = "menuone,noselect"
 opt.shortmess:append("cC")
+
+opt.cursorline = true
+opt.cursorlineopt = "number"
