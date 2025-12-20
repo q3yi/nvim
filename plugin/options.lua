@@ -3,6 +3,10 @@ local opt = vim.opt
 
 opt.winborder = "solid"
 
+opt.showmode = false
+opt.showcmd = false
+opt.ruler = false
+
 opt.backup = false
 opt.undofile = true
 opt.swapfile = false
