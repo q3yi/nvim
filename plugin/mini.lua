@@ -19,7 +19,7 @@ local keys = {
     { "<leader>h",  "<cmd>Pick help<cr>",                              "Search help docs" },
     { "<leader>m",  "<cmd>Pick marks<cr>",                             "List all marks" },
 
-    { "<leader>wq", "<cmd>Pick list scope='quickfix'",                 "List all quickfixes" },
+    { "<leader>wq", "<cmd>Pick list scope='quickfix'<cr>",             "List all quickfixes" },
     { "<leader>wd", "<cmd>Pick diagnostic<cr>",                        "List all diagnostics in workspace" },
     { "<leader>wg", "<cmd>Pick grep_live<cr>",                         "Ripgrep in workspace" },
     { "<m-x>",      "<cmd>Pick commands<cr>",                          "Run command" },
