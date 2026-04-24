@@ -17,6 +17,10 @@ require("rose-pine").setup({
     },
 })
 
+require("vague").setup({
+    transparent = false
+})
+
 
 vim.api.nvim_create_autocmd("ColorScheme", {
     group = vim.api.nvim_create_augroup("colorscheme.loaded", { clear = true }),
@@ -24,9 +28,13 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         if vim.g.colors_name == "rose-pine" then
             return
         end
+        if vim.g.colors_name == "vague" then
+            return
+        end
         require("q3yi.patch_theme").patch();
     end
 })
 
 -- vim.cmd.colorscheme("rose-pine")
-vim.cmd.colorscheme("default")
+vim.cmd.colorscheme("vague")
+-- vim.cmd.colorscheme("default")
