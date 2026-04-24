@@ -125,28 +125,3 @@ vim.api.nvim_create_autocmd("BufReadPost", {
         })
     end
 })
-
-local minifiles = nil
-vim.api.nvim_create_user_command("ToggleMiniFiles", function(args)
-    if minifiles == nil then
-        minifiles = require("mini.files")
-        minifiles.setup()
-    end
-
-    if minifiles.get_explorer_state() ~= nil then
-        minifiles.close()
-        return
-    end
-
-    if args.args == "%" then
-        minifiles.open(vim.api.nvim_buf_get_name(0))
-        return
-    end
-
-    if args.args == "-" then
-        minifiles.open(minifiles.get_latest_path())
-        return
-    end
-
-    minifiles.open()
-end, { nargs = "?", desc = "Open file explorer" })

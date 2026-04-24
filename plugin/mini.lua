@@ -7,9 +7,6 @@ require("mini.pick").setup()
 require("mini.extra").setup()
 
 local keys = {
-    { "-",          "<cmd>ToggleMiniFiles -<cr>",                      "Open mini files" },
-    { "<leader>-",  "<cmd>ToggleMiniFiles %<cr>",                      "Open mini files in current directory" },
-
     -- buffers
     { "<leader>bb", "<cmd>Pick buffers<cr>",                           "List all buffers" },
     { "<leader>bx", function() require("mini.bufremove").delete() end, "Delete current buffer" },

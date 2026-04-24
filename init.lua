@@ -18,7 +18,9 @@ vim.pack.add({
     { src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects", version = "main" },
     { src = "https://github.com/neovim/nvim-lspconfig" },
     { src = "https://github.com/stevearc/conform.nvim" },
-    { src = "https://github.com/mfussenegger/nvim-dap" },
-    { src = "https://github.com/rcarriga/nvim-dap-ui" },
-    { src = "https://github.com/nvim-neotest/nvim-nio" },
+    { src = "https://github.com/nvim-lua/plenary.nvim" },
+    { src = "https://github.com/mikavilpas/yazi.nvim" },
+    -- { src = "https://github.com/mfussenegger/nvim-dap" },
+    -- { src = "https://github.com/rcarriga/nvim-dap-ui" },
+    -- { src = "https://github.com/nvim-neotest/nvim-nio" },
 })
