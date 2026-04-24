@@ -24,7 +24,6 @@ local filetypes = {
     "java",
     "javascript",
     "json",
-    "jsonc",
     "latex",
     "lua",
     "mermaid",
