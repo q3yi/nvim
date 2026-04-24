@@ -56,6 +56,12 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+vim.keymap.set({ "n", "x", "o" }, "]a", function()
+    require("nvim-treesitter-textobjects.move").goto_next_start("@parameter.inner", "textobjects")
+end, { desc = "Next argument" })
+vim.keymap.set({ "n", "x", "o" }, "[a", function()
+    require("nvim-treesitter-textobjects.move").goto_previous_start("@parameter.inner", "textobjects")
+end, { desc = "Next argument" })
 vim.keymap.set({ "n", "x", "o" }, "]f", function()
     require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects")
 end, { desc = "Next function" })
