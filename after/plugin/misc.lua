@@ -73,3 +73,6 @@ vim.api.nvim_create_user_command("Make", function(_param)
         end
     })
 end, { desc = "Async make" })
+
+-- Toggle jump between treesitter node start and end (like % but for AST nodes)
+vim.keymap.set("n", "ss", require("q3yi.toggle_node_jump").node_jump, { desc = "Toggle jump between node start and end" })
