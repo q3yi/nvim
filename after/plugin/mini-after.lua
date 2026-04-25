@@ -12,6 +12,23 @@ mini_ai.setup({
             i = { "@conditional.inner", "@loop.inner", "@block.inner" },
         }),
         ["/"] = gen({ a = "@comment.outer", i = "@comment.inner" }),
+        e = function()
+            local node = vim.treesitter.get_node()
+            if not node then return end
+
+            local from_line, from_col, to_line, to_col = node:range()
+            -- mini.ai uses 1-based line and 1-based from_col, but to_col is exclusive (same as TSNode:range end_col)
+            local region = {
+                from = { line = from_line + 1, col = from_col + 1 },
+                to = { line = to_line + 1, col = to_col }
+            }
+            -- Handle "row-exclusive, col-0" range (node ends at start of line)
+            if region.to.col == 0 then
+                region.to.line = region.to.line - 1
+                region.to.col = vim.fn.col({ region.to.line, '$' })
+            end
+            return region
+        end
     },
     n_lines = 200,
 })
