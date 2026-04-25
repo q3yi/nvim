@@ -19,6 +19,7 @@ vim.api.nvim_create_user_command("ToggleYazi", function(opts)
             floating_window_scaling_factor = 1,
             yazi_floating_window_border = "none",
         }
+        initialized = true
     end
 
     if #opts.fargs == 0 then
