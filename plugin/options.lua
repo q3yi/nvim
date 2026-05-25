@@ -4,7 +4,8 @@ local opt = vim.opt
 opt.winborder = "solid"
 
 opt.showmode = false
-opt.showcmd = false
+opt.showcmd = true
+opt.showcmdloc = "statusline"
 opt.ruler = false
 
 opt.backup = false

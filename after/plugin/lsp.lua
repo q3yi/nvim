@@ -1,20 +1,22 @@
 -- Config language server
 
 vim.lsp.enable({
-    "denojs",
+    "denols",
     "emmylua_ls",
     "gopls",
-    "marksman",
     "ocamllsp",
     "pylsp",
     "rust_analyzer",
     "zls",
 })
 
+-- bind_keys bind lsp keymaps
+---@param event vim.api.keyset.create_autocmd.callback_args
 local function bind_keys(event)
     local buf = event.buf
     local pickers = require("mini.extra").pickers
 
+    -- stylua: ignore
     local bindings = {
         { "gd",          vim.lsp.buf.definition,                                     "Goto definition" },
         { "gD",          vim.lsp.buf.declaration,                                    "Goto declaration" },

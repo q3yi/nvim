@@ -37,6 +37,19 @@ vim.api.nvim_create_user_command("PackUpdate", function(param)
     vim.pack.update()
 end, { nargs = "*", desc = "Update plugins" })
 
+vim.api.nvim_create_user_command("PackClean", function()
+    local inactive = {}
+    for _, p in ipairs(vim.pack.get()) do
+        if not p.active then table.insert(inactive, p.spec.name) end
+    end
+    if #inactive > 0 then
+        vim.pack.del(inactive)
+        print("Deleted: " .. table.concat(inactive, ", "))
+    else
+        print("No inactive plugins")
+    end
+end, {})
+
 -- Async make
 vim.api.nvim_create_user_command("Make", function(_param)
     local lines = {}

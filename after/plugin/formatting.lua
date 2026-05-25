@@ -5,6 +5,8 @@ local state = {
     initialized = false,
 }
 
+-- conform setup conform plugin
+---@return table
 local function conform()
     local pkg = require("conform")
 
@@ -12,39 +14,45 @@ local function conform()
         return pkg
     end
 
-    pkg.setup {
-        formatters_by_ft = {
-            css = { "dprint" },
-            fish = { "fish_indent" },
-            html = { "dprint" },
-            javascript = { "dprint" },
-            javascriptreact = { "dprint" },
-            jsonc = { "dprint" },
-            json = { "dprint" },
-            markdown = { "dprint" },
-            ocaml = { "ocamlformat" },
-            python = { "dprint" },
-            solidity = { "forge_fmt" },
-            toml = { "dprint" },
-            typescript = { "dprint" },
-            typescriptreact = { "dprint" },
-            xml = { "yq_xml" },
-            yaml = { "dprint" },
-        },
-        formatters = {
-            yq_xml = {
-                command = "yq",
-                args = { "-p=xml", "-o=xml" },
-                stdin = true,
+    pkg.setup(
+        {
+            formatters_by_ft = {
+                css = { "dprint" },
+                fish = { "fish_indent" },
+                html = { "dprint" },
+                javascript = { "dprint" },
+                javascriptreact = { "dprint" },
+                jsonc = { "dprint" },
+                json = { "dprint" },
+                markdown = { "dprint" },
+                ocaml = { "ocamlformat" },
+                python = { "dprint" },
+                solidity = { "forge_fmt" },
+                lua = { "stylua" },
+                toml = { "dprint" },
+                typescript = { "dprint" },
+                typescriptreact = { "dprint" },
+                xml = { "yq_xml" },
+                yaml = { "dprint" },
             },
-        },
-        format_on_save = function(_buf)
-            if not state.format_on_save then
-                return
-            end
-            return { timeout_ms = 500, lsp_format = "fallback" }
-        end,
-    } ---@as conform.setupOpts
+            formatters = {
+                yq_xml = {
+                    command = "yq",
+                    args = { "-p=xml", "-o=xml" },
+                    stdin = true,
+                },
+            },
+            -- default_format_opts = {
+            --     timeout_ms = 1500,
+            -- },
+            format_on_save = function(_buf)
+                if not state.format_on_save then
+                    return
+                end
+                return { timeout_ms = 1000, lsp_format = "fallback" } ---@as conform.FormatOpts
+            end,
+        } ---@as conform.setupOpts
+    )
 
     state.initialized = true
     return pkg
@@ -55,7 +63,9 @@ local conform_init_augroup = vim.api.nvim_create_augroup("init.conform", {})
 vim.api.nvim_create_autocmd("InsertEnter", {
     group = conform_init_augroup,
     once = true,
-    callback = function() _ = conform() end,
+    callback = function()
+        _ = conform()
+    end,
 })
 
 vim.api.nvim_create_user_command("AutoFormat", function(param)

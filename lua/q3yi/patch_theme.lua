@@ -39,6 +39,7 @@ local syntax_groups = {
     "Typedef",
 }
 
+-- remove syntax highlight group colors
 local function remove_syntax_highlights()
     local normal = vim.api.nvim_get_hl(0, { name = "Normal", link = false })
     for _, group in ipairs(syntax_groups) do
@@ -50,35 +51,42 @@ local function remove_syntax_highlights()
     end
 end
 
+-- stylua: ignore
 local patches = {
-    Comment                  = { "PATCH", { italic = true } },
-    Normal                   = { "PATCH", { bg = "NONE" } },
-    FloatBorder              = { "REPLACE", { link = "NormalFloat" } },
+    Comment                  = { "PATCH",       { italic = true } },
+    Normal                   = { "PATCH",       { bg = "NONE" } },
+    FloatBorder              = { "REPLACE",     { link = "NormalFloat" } },
     FloatTitle               = { "NormalFloat", { bold = true } },
-    CursorLineNr             = { "PATCH", { bg = "NONE", bold = true } },
+    CursorLineNr             = { "PATCH",       { bg = "NONE", bold = true } },
 
-    DiagnosticUnderlineError = { "PATCH", { undercurl = true } },
-    DiagnosticUnderlineHint  = { "PATCH", { undercurl = true } },
-    DiagnosticUnderlineInfo  = { "PATCH", { undercurl = true } },
-    DiagnosticUnderlineOk    = { "PATCH", { undercurl = true } },
-    DiagnosticUnderlineWarn  = { "PATCH", { undercurl = true } },
+    DiagnosticUnderlineError = { "PATCH",       { undercurl = true } },
+    DiagnosticUnderlineHint  = { "PATCH",       { undercurl = true } },
+    DiagnosticUnderlineInfo  = { "PATCH",       { undercurl = true } },
+    DiagnosticUnderlineOk    = { "PATCH",       { undercurl = true } },
+    DiagnosticUnderlineWarn  = { "PATCH",       { undercurl = true } },
 
     MiniPickPrompt           = { "NormalFloat", { bold = true } },
 }
 
+-- patch theme
 function M.patch()
     if vim.g.colors_name == "default" then
-        remove_syntax_highlights()
+        -- remove_syntax_highlights()
+        -- stylua: ignore
         if vim.o.background == "light" then
-            hi("NormalFloat", { bg = "#EAFFFF" })
-            hi("String", { fg = "#A5222F" })
-            hi("StatusLine", { fg = "#14161b", bg = "#8888CC" })
-            hi("StatusLineNC", { fg = "#2C2E33", bg = "#EAFFFF" })
-            hi("Visual", { bg = "#eeee9e" })
+            hi("NormalFloat",     { bg = "#EAFFFF" })
+            -- hi("String",          { fg = "#A5222F" })
+            -- hi("StatusLine",   { fg = "#14161b", bg = "#8888CC" })
+            -- hi("StatusLineNC", { fg = "#2C2E33", bg = "#EAFFFF" })
+            hi("StatusLine",      { fg = "#14161b", bg = "NONE", bold = true })
+            hi("StatusLineNC",    { fg = "#2C2E33", bg = "NONE" })
+            hi("Visual",          { bg = "#eeee9e" })
         else
-            hi("String", { fg = "#f6c177" })
-            hi("StatusLine", { fg = "#E0E2EA", bg = "#3A0F2F" })
-            hi("StatusLineNC", { fg = "#C4C6CD", bg = "#1A141D" })
+            -- hi("String",          { fg = "#f6c177" })
+            -- hi("StatusLine",   { fg = "#E0E2EA", bg = "#3A0F2F" })
+            -- hi("StatusLineNC", { fg = "#C4C6CD", bg = "#1A141D" })
+            hi("StatusLine",      { fg = "#E0E2EA", bg = "NONE", bold = true })
+            hi("StatusLineNC",    { fg = "#C4C6CD", bg = "NONE" })
         end
     end
 

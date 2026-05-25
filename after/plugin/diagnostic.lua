@@ -10,17 +10,19 @@ local opts = {
             [vim.diagnostic.severity.INFO] = "!",
         },
     },
-    virtual_text = true,
-    virtual_lines = false,
+    virtual_text = false,
+    virtual_lines = true,
     underline = true,
     update_in_insert = true,
-    serverity_sort = true,
+    severity_sort = true,
 }
 
 vim.diagnostic.config(opts)
 
 vim.api.nvim_create_user_command("ToggleDiagnostic", function()
-    vim.ui.select({ "Enable", "Disable", "Virtual Text", "Virtual Line" }, { prompt = "Choose diagnostic status" },
+    vim.ui.select(
+        { "Enable", "Disable", "Virtual Text", "Virtual Line" },
+        { prompt = "Choose diagnostic status" },
         function(choice)
             if choice == "Virtual Text" then
                 vim.diagnostic.config({ virtual_text = true, virtual_lines = false })
@@ -34,7 +36,8 @@ vim.api.nvim_create_user_command("ToggleDiagnostic", function()
                 vim.diagnostic.config({ virtual_lines = false, virtual_text = false })
                 vim.diagnostic.enable(true)
             end
-        end)
+        end
+    )
 end, { desc = "Choice diagnostic display format" })
 
 vim.keymap.set({ "n", "v", "x" }, "<leader>ud", "<cmd>ToggleDiagnostic<cr>", { desc = "Diagnostic settings" })

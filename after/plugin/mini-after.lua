@@ -20,15 +20,15 @@ mini_ai.setup({
             -- mini.ai uses 1-based line and 1-based from_col, but to_col is exclusive (same as TSNode:range end_col)
             local region = {
                 from = { line = from_line + 1, col = from_col + 1 },
-                to = { line = to_line + 1, col = to_col }
+                to = { line = to_line + 1, col = to_col },
             }
             -- Handle "row-exclusive, col-0" range (node ends at start of line)
             if region.to.col == 0 then
                 region.to.line = region.to.line - 1
-                region.to.col = vim.fn.col({ region.to.line, '$' })
+                region.to.col = vim.fn.col({ region.to.line, "$" })
             end
             return region
-        end
+        end,
     },
     n_lines = 200,
 })
@@ -63,8 +63,8 @@ miniclue.setup({
         { mode = "x", keys = "`" },
 
         -- Registers
-        { mode = "n", keys = '"' },
-        { mode = "x", keys = '"' },
+        { mode = "n", keys = "\"" },
+        { mode = "x", keys = "\"" },
         { mode = "i", keys = "<C-r>" },
         { mode = "c", keys = "<C-r>" },
 
@@ -88,18 +88,21 @@ miniclue.setup({
         miniclue.gen_clues.windows(),
         miniclue.gen_clues.z(),
         miniclue.gen_clues.square_brackets(),
+        
+        -- stylua: ignore start
         { mode = "n", keys = "<leader>b",  desc = "+Buffers" },
         { mode = "n", keys = "<leader>d",  desc = "+Debugger" },
         { mode = "n", keys = "<leader>w",  desc = "+Workspace" },
         { mode = "n", keys = "<leader>wf", desc = "+Workspace Folders" },
         { mode = "n", keys = "<leader>g",  desc = "+Git" },
         { mode = "n", keys = "<leader>u",  desc = "+Options" },
+        -- stylua: ignore end
     },
     window = {
         config = {
             width = "auto",
-        }
-    }
+        },
+    },
 })
 
 require("mini.jump2d").setup({
@@ -115,14 +118,12 @@ require("mini.surround").setup({
 })
 
 require("mini.splitjoin").setup()
+require("mini.align").setup()
 
 vim.api.nvim_create_autocmd("InsertEnter", {
     group = vim.api.nvim_create_augroup("init.minipairs", {}),
     once = true,
-    callback = function()
-        require("mini.pairs").setup()
-    end
-
+    callback = function() require("mini.pairs").setup() end,
 })
 
 vim.api.nvim_create_autocmd("BufReadPost", {
@@ -137,8 +138,8 @@ vim.api.nvim_create_autocmd("BufReadPost", {
             mappings = {
                 apply = "",
                 reset = "<leader>gx",
-                textobject = "ah"
-            }
+                textobject = "ah",
+            },
         })
-    end
+    end,
 })

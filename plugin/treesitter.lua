@@ -1,77 +1,56 @@
 -- Config treesitter
 
-local filetypes = {
+local languages = {
     "bash",
     "c",
     "c_sharp",
     "cpp",
     "css",
-    "dart",
     "dockerfile",
-    "ecma",
-    "elm",
-    "dart",
     "fish",
     "gitignore",
     "go",
     "gomod",
     "gosum",
-    "graphql",
-    "haskell",
-    "haskell_persistent",
     "html",
-    "http",
-    "java",
     "javascript",
     "json",
-    "latex",
     "lua",
     "mermaid",
     "make",
     "markdown",
     "markdown_inline",
-    "ocaml",
     "python",
     "rust",
-    "regex",
-    "solidity",
-    "sql",
     "tsx",
     "typescript",
     "typst",
     "toml",
-    "vimdoc",
-    "vim",
     "yaml",
     "zig",
 }
 
-require("nvim-treesitter").install(filetypes)
-
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = filetypes,
-    callback = function()
-        vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-        vim.treesitter.start()
-    end,
+require("tree-sitter-manager").setup({
+    ensure_installed = languages,
+    auto_install = true,
+    border = "single",
 })
 
-vim.keymap.set({ "n", "x", "o" }, "]a", function()
-    require("nvim-treesitter-textobjects.move").goto_next_start("@parameter.inner", "textobjects")
-end, { desc = "Next argument" })
-vim.keymap.set({ "n", "x", "o" }, "[a", function()
-    require("nvim-treesitter-textobjects.move").goto_previous_start("@parameter.inner", "textobjects")
-end, { desc = "Next argument" })
-vim.keymap.set({ "n", "x", "o" }, "]f", function()
-    require("nvim-treesitter-textobjects.move").goto_next_start("@function.outer", "textobjects")
-end, { desc = "Next function" })
-vim.keymap.set({ "n", "x", "o" }, "[f", function()
-    require("nvim-treesitter-textobjects.move").goto_previous_start("@function.outer", "textobjects")
-end, { desc = "Previous function" })
+-- ts_move move by treesiiter object
+--
+---@param query_string string|string[]
+---@param forward boolean
+local function ts_move(query_string, forward)
+    local ts = require("nvim-treesitter-textobjects.move")
+    local fn = forward and ts.goto_next_start or ts.goto_previous_start
+    fn(query_string, "textobjects")
+end
 
-vim.keymap.set({ "n", "x", "o" }, "]c", function()
-    require("nvim-treesitter-textobjects.move").goto_next_start("@class.outer", "textobjects")
-end, { desc = "Next class" })
-vim.keymap.set({ "n", "x", "o" }, "[c", function()
-    require("nvim-treesitter-textobjects.move").goto_previous_start("@class.outer", "textobjects")
-end, { desc = "Previous class" })
+local mode = { "n", "x", "o" }
+
+vim.keymap.set(mode, "]a", function() ts_move("@parameter.inner", true) end, { desc = "Next argument" })
+vim.keymap.set(mode, "[a", function() ts_move("@parameter.inner", false) end, { desc = "Next argument" })
+vim.keymap.set(mode, "]f", function() ts_move("@function.outer", true) end, { desc = "Next function" })
+vim.keymap.set(mode, "[f", function() ts_move("@function.outer", false) end, { desc = "Previous function" })
+vim.keymap.set(mode, "]c", function() ts_move("@class.outer", true) end, { desc = "Next class" })
+vim.keymap.set(mode, "[c", function() ts_move("@class.outer", false) end, { desc = "Previous class" })
