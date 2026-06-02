@@ -102,7 +102,7 @@ function M.init()
     vim.keymap.set("n", "<Leader>db", function() require("dap").toggle_breakpoint() end, { desc = "Toggle breakpoint" })
     vim.keymap.set("n", "<Leader>dB", function()
         require("dap").toggle_breakpoint(vim.fn.input("Breakpoint condition: "))
-    end, { desc = "Toggle condtional breakpoint" })
+    end, { desc = "Toggle conditional breakpoint" })
     vim.keymap.set("n", "<Leader>dp", M.add_debug_profile, { desc = "Add debug profile" })
 end
 
