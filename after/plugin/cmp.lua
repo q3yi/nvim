@@ -2,7 +2,7 @@
 ---@diagnostic disable: missing-fields
 
 function init()
-    require("blink.cmp").setup {
+    require("blink.cmp").setup({
         keymap = {
             preset = "none",
             ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
@@ -45,12 +45,12 @@ function init()
                 show_documentation = false,
             },
         },
-    } ---@as blink.cmp.Config
+    }) ---@as blink.cmp.Config
 end
 
 local cmp_init_augroup = vim.api.nvim_create_augroup("init.cmp", {})
 vim.api.nvim_create_autocmd("InsertEnter", {
     group = cmp_init_augroup,
     once = true,
-    callback = init
+    callback = init,
 })
