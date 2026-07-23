@@ -12,35 +12,25 @@ local AutoIM = {
 }
 
 function AutoIM.leave_insert()
-    if not vim.g.auto_im_enabled then
-        return
-    end
+    if not vim.g.auto_im_enabled then return end
 
     vim.system(AutoIM.current_im_cmd, function(output)
         ---@diagnostic disable-next-line: need-check-nil
         AutoIM.active = AutoIM.is_active(output)
-        if not AutoIM.active then
-            return
-        end
+        if not AutoIM.active then return end
 
         vim.system(AutoIM.disable_im_cmd, function()
-            if not AutoIM.notify then
-                return
-            end
+            if not AutoIM.notify then return end
             vim.notify("Disable Chinese input method.")
         end)
     end)
 end
 
 function AutoIM.enter_insert()
-    if not vim.g.auto_im_enabled or not AutoIM.active then
-        return
-    end
+    if not vim.g.auto_im_enabled or not AutoIM.active then return end
 
     vim.system(AutoIM.enable_im_cmd, { text = true }, function()
-        if not AutoIM.notify then
-            return
-        end
+        if not AutoIM.notify then return end
         vim.notify("Enable Chinese input method.")
     end)
 end
@@ -80,4 +70,13 @@ if sysname == "Linux" then
         end,
     }
     AutoIM.setup(opts)
+elseif sysname == "Darwin" then
+    -- macism command: https://github.com/laishulu/macism
+    AutoIM.setup({
+        enable_notify = false,
+        current_im_cmd = { "macism" },
+        enable_im_cmd = { "macism", "im.rime.inputmethod.Squirrel.Hans", "0" },
+        disable_im_cmd = { "macism", "com.apple.keylayout.US", "0" },
+        is_active = function(obj) return vim.trim(tostring(obj.stdout)) == "im.rime.inputmethod.Squirrel.Hans" end,
+    })
 end
